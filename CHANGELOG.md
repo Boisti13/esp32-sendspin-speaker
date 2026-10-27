@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## v0.4.0 — 2026-10-27
+
+### Changed
+
+- New button layout: 1 play/pause, 3 previous track, 4 next track,
+  5 volume down, 6 volume up. The entities are renamed to match
+  (*Button 1 Play/Pause* …), so their entity IDs change again.
+
 ## v0.3.0 — 2026-10-27
 
 ### Changed

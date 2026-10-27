@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.3.0-orange)
+![Version](https://img.shields.io/badge/version-0.4.0-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S
@@ -26,8 +26,8 @@ tracks. Built with ESPHome.
 - **1.47" screen** (320 × 172 landscape, ST7789V): play/pause icon, volume,
   IP address, title and artist. Long names end in "...", accented letters
   (ä, ö, ü, ß, é) are in the font. Redrawn only when something changes.
-- **Six buttons that work without Home Assistant**: previous, next, volume
-  down/up, play/pause go straight to the player and on to Music Assistant
+- **Five buttons that work without Home Assistant**: play/pause, previous,
+  next, volume down/up go straight to the player and on to Music Assistant
   through Sendspin. Headphone jack detection.
 
 ## Hardware
@@ -44,12 +44,12 @@ tracks. Built with ESPHome.
 
 | Button | Pin | Does | Entity in Home Assistant |
 |---|---|---|---|
-| 1 | GPIO36 | previous track | *Button 1 Previous Track* |
+| 1 | GPIO36 | play / pause (toggle) | *Button 1 Play/Pause* |
 | 2 | — | its pin (GPIO13) is the screen's MOSI | — |
-| 3 | GPIO19 | next track | *Button 3 Next Track* |
-| 4 | GPIO23 | volume down | *Button 4 Volume Down* |
-| 5 | GPIO18 | volume up | *Button 5 Volume Up* |
-| 6 | GPIO5 | play / pause (toggle) | *Button 6 Play/Pause* |
+| 3 | GPIO19 | previous track | *Button 3 Previous Track* |
+| 4 | GPIO23 | next track | *Button 4 Next Track* |
+| 5 | GPIO18 | volume down | *Button 5 Volume Down* |
+| 6 | GPIO5 | volume up | *Button 6 Volume Up* |
 
 The numbers are the ones printed on the board (KEY1–KEY6).
 
@@ -72,9 +72,9 @@ Start an album in Music Assistant on *Sendspin Media Player*. The board
 switches to *playing*, waits 150 ms, turns the amplifier on and two seconds
 later draws the screen once: pause icon, `VOL 65%`, the title in large type
 and the artist below (*Die Ärzte* shows with its umlaut; a long title ends
-in "..."). Press button 5 and the volume goes up a step; the screen redraws
-with the new value. Press button 3 and Music Assistant skips to the next track.
-Press button 6 to pause: the icon changes to play and the amplifier turns off
+in "..."). Press button 6 and the volume goes up a step; the screen redraws
+with the new value. Press button 4 and Music Assistant skips to the next track.
+Press button 1 to pause: the icon changes to play and the amplifier turns off
 300 ms later.
 
 ## Layout
