@@ -1,30 +1,36 @@
+# ESP32 Sendspin Speaker
+# Sendspin player for Music Assistant on an ESP32-A1S audio kit (ES8388
+# codec) with a Waveshare 1.47" ST7789V screen and six keys.
+# Needs ESPHome 2026.10 or later (Sendspin built in).
+
 esphome:
   name: speaker-1
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.1.0"
+    version: "0.2.0"
   on_boot:
-    priority: 600
+    # After the ES8388 is set up: send the DAC to both outputs (speaker
+    # and headphone). Set on the device, so it doesn't wait for Home
+    # Assistant.
+    priority: -100
     then:
-      - switch.turn_off: amp_power
-      - delay: 1s
-      - homeassistant.service:
-          service: select.select_option
-          data:
-            entity_id: select.speaker_1_es8388_dac_output
-            option: "BOTH"
-            
+      - select.set:
+          id: dac_output
+          option: "BOTH"
+
 esp32:
   board: esp-wrover-kit
   framework:
     type: esp-idf
 
-# Enable Home Assistant API
+psram:
+  mode: quad
+  speed: 80MHz
+
 api:
   encryption:
     key: !secret speaker_1_key
-
 
 ota:
   - platform: esphome
@@ -33,102 +39,91 @@ ota:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  # No power saving: it causes dropouts while streaming
   power_save_mode: none
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Speaker-1 Fallback Hotspot"
     password: !secret ap_password
 
+captive_portal:
+
+logger:
+  level: INFO
+
 globals:
+  # Last volume drawn on the screen, in %
   - id: last_vol
     type: int
-    initial_value: '999'
+    initial_value: '-1'
 
+  # True while the audio pipeline starts: the screen isn't redrawn then
   - id: playback_starting
     type: bool
     initial_value: 'false'
 
-  - id: title_scroll_px
-    type: int
-    restore_value: no
-    initial_value: '0'
+  # Whether the player was playing at the last state change; on_state also
+  # fires on volume changes, so this tells real starts and stops apart
+  - id: was_playing
+    type: bool
+    initial_value: 'false'
 
-  - id: title_scroll_hold
-    type: int
-    restore_value: no
-    initial_value: '0'
+script:
+  # Playback started: amplifier on once the codec has settled, one redraw
+  # after the pipeline is up
+  - id: playback_started
+    mode: restart
+    then:
+      - lambda: 'id(playback_starting) = true;'
+      - delay: 150ms
+      - switch.turn_on: amp_power
+      - delay: 1850ms
+      - lambda: 'id(playback_starting) = false;'
+      - component.update: tft_display
 
-  - id: title_scroll_max
-    type: int
-    initial_value: '0'
+  # Playback stopped or paused: let the last audio play out before the
+  # amplifier goes off (avoids the click)
+  - id: playback_stopped
+    mode: restart
+    then:
+      - script.stop: playback_started
+      - lambda: 'id(playback_starting) = false;'
+      - component.update: tft_display
+      - delay: 300ms
+      - if:
+          condition:
+            not:
+              media_player.is_playing: speaker_1_player
+          then:
+            - switch.turn_off: amp_power
 
-# Logging
-logger:
-  level: DEBUG
-  
-captive_portal:
+# --- Audio ---
 
-spi:
-  id: spi_tft
-  clk_pin: GPIO14
-  mosi_pin: GPIO13
-
-
-
-sensor:
-
-  - platform: wifi_signal
-    id: wifi_rssi
-    update_interval: 10s
-
-  - platform: template
-    id: vol_pct
-    update_interval: 2s
-    accuracy_decimals: 0
-    lambda: |-
-      return id(speaker_1_player).volume * 100.0f;
-    on_value:
-      then:
-        - lambda: |-
-            int v = (int) (x + 0.5f);
-            if (abs(v - id(last_vol)) >= 1) {
-              id(last_vol) = v;
-              if (!id(playback_starting)) {
-                id(tft_display).update();
-              }
-            }
-            
 i2c:
+  id: bus_a
   sda: GPIO33
   scl: GPIO32
   frequency: 200kHz
   scan: true
-  id: bus_a
 
 audio_dac:
   - platform: es8388
     id: es8388_dac
     i2c_id: bus_a
-    # These settings manage the hardware chip itself
-    # mic_gain: 18dB
-    # dac_volume: 75%
 
 select:
   - platform: es8388
     es8388_id: es8388_dac
     dac_output:
+      id: dac_output
       name: "ES8388 DAC Output"
     adc_input_mic:
       name: "ES8388 ADC MIC Input"
-
 
 i2s_audio:
   - id: i2s_out
     i2s_lrclk_pin: GPIO25
     i2s_bclk_pin: GPIO27
-    i2s_mclk_pin: GPIO0    # MCLK is critical for the A1S
-
+    i2s_mclk_pin: GPIO0    # the ES8388 needs MCLK
 
 switch:
   - platform: gpio
@@ -149,111 +144,77 @@ speaker:
     bits_per_sample: 32bit
     buffer_duration: 100ms
 
-# --- SendSpin & Media Player Logic (Standard) ---
-
-external_components:
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: 0fe230114c80b6d3378f04c777baadee178e40ad   # PR 12253
-    components: [mixer]
-
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: 1ab4b990092ae063a16cb1511a188c536fdb336e   # PR 12254
-    components: [resampler]
-
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: 047ba60f01af84513f8d5aabaa2a53074facee8f   # PR 12256
-    components: [audio]
-
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: bff22983a390352360796f8e1363127e0cd1f898   # PR 12258
-    components: [media_player]
-
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: 9d2d2f6287a72af6397dfd93ee56fbab25c1d32f   # PR 12284
-    components: [mdns, sendspin]
-    refresh: 0s
-
-  - source:
-      type: git
-      url: https://github.com/esphome/esphome
-      ref: 72499eaed2ed54316aca90d368053aa2e1a54f5f   # PR 12429
-    refresh: 0s
-    components: [file, http_request, media_source, speaker_source]
-
-  - source: github://pr#10212
-    components: [runtime_image, online_image]
-    refresh: 1h
-  - source: github://pr#12258
-    components: [ media_player ]
-  - source: github://pr#12284
-    components: [generic_image, mdns, sendspin]
-    refresh: 0s
+# --- Sendspin ---
 
 sendspin:
   id: sendspin_hub
   task_stack_in_psram: true
-  kalman_process_error: 0.01
-
-psram:
-  mode: quad
-  speed: 80MHz
-
 
 media_source:
   - platform: sendspin
     id: sendspin_source
 
-media_player:  
-  # Required to play audio (part of #12429)
+media_player:
   - platform: speaker_source
     name: Sendspin Media Player
     id: speaker_1_player
     volume_min: 0.4
     volume_max: 0.90
-    media_speaker: spk
-    sources:
-      - sendspin_source
+    media_pipeline:
+      speaker: spk
+      sources:
+        - sendspin_source
+
+    on_volume:
+      - lambda: |-
+          int v = (int) (x * 100.0f + 0.5f);
+          if (v != id(last_vol)) {
+            id(last_vol) = v;
+            if (!id(playback_starting)) {
+              id(tft_display).update();
+            }
+          }
 
     on_state:
-      then:
-        # If we are entering PLAYING, mark "startup busy" for 2s
-        - if:
-            condition:
-              media_player.is_playing: speaker_1_player
-            then:
-              - lambda: |-
-                  id(playback_starting) = true;
+      - lambda: |-
+          bool playing = id(speaker_1_player).state ==
+              media_player::MediaPlayerState::MEDIA_PLAYER_STATE_PLAYING;
+          if (playing == id(was_playing)) return;
+          id(was_playing) = playing;
+          if (playing) {
+            id(playback_started).execute();
+          } else {
+            id(playback_stopped).execute();
+          }
 
-              # give I2S/codec a moment to settle before enabling the amp
-              - delay: 150ms
-              - switch.turn_on: amp_power
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      id: wifi_ip
 
-              # keep UI quiet during pipeline spin-up
-              - delay: 1850ms
-              - lambda: |-
-                  id(playback_starting) = false;
+  - platform: sendspin
+    id: ss_title
+    type: title
+    on_value:
+      - if:
+          condition:
+            lambda: 'return !id(playback_starting);'
+          then:
+            - component.update: tft_display
 
-              # single display refresh after startup
-              - component.update: tft_display
+  - platform: sendspin
+    id: ss_artist
+    type: artist
+    on_value:
+      - if:
+          condition:
+            lambda: 'return !id(playback_starting);'
+          then:
+            - component.update: tft_display
 
-            else:
-              - switch.turn_off: amp_power
-
-              # allow UI immediately when not playing
-              - lambda: |-
-                  id(playback_starting) = false;
-              - component.update: tft_display
-
+# --- Keys ---
+# GPIO36/39 have pull-ups on the board (the ESP32 has none there).
+# Key 2 (GPIO13) is used by the screen's SPI bus.
 
 binary_sensor:
   - platform: gpio
@@ -264,7 +225,6 @@ binary_sensor:
         input: true
     name: "Jack Status"
 
-  # Key 1 = Previous track (Music Assistant)
   - platform: gpio
     pin:
       number: GPIO36
@@ -273,28 +233,24 @@ binary_sensor:
     filters:
       - delayed_off: 10ms
     on_press:
-      - homeassistant.service:
-          service: media_player.media_previous_track
-          data:
-            entity_id: media_player.speaker_1
+      - media_player.previous: speaker_1_player
 
-  # Key 3 = Next track (Music Assistant)
   - platform: gpio
     pin:
       number: GPIO19
       inverted: true
+      mode:
+        input: true
+        pullup: true
     name: "Key 3"
     filters:
       - delayed_off: 10ms
     on_press:
-      - homeassistant.service:
-          service: media_player.media_next_track
-          data:
-            entity_id: media_player.speaker_1
+      - media_player.next: speaker_1_player
 
   - platform: gpio
     pin:
-      number: GPIO023
+      number: GPIO23
       inverted: true
       mode:
         input: true
@@ -307,7 +263,7 @@ binary_sensor:
 
   - platform: gpio
     pin:
-      number: GPIO018
+      number: GPIO18
       inverted: true
       mode:
         input: true
@@ -329,22 +285,25 @@ binary_sensor:
     filters:
       - delayed_off: 10ms
     on_press:
-      - if:
-          condition:
-            media_player.is_playing: speaker_1_player
-          then:
-            - media_player.pause: speaker_1_player
-          else:
-            - media_player.play: speaker_1_player
+      - media_player.toggle: speaker_1_player
+
+# --- Screen ---
+
+spi:
+  id: spi_tft
+  clk_pin: GPIO14
+  mosi_pin: GPIO13
 
 font:
+  # GF_Latin_Core: accented letters (ä, ö, ü, ß, é …) for titles and artists
   - file: "fonts/Ubuntu-Medium.ttf"
     id: font_big
     size: 26
+    glyphsets: [GF_Latin_Core]
   - file: "fonts/Ubuntu-Medium.ttf"
     id: font_small
     size: 16
-
+    glyphsets: [GF_Latin_Core]
   - file: "fonts/MaterialDesignIconsDesktop.ttf"
     id: mdi_icons
     size: 28
@@ -359,70 +318,45 @@ display:
     model: Waveshare 1.47in 172X320
     width: 172
     height: 320
-
-    cs_pin: GPIO15          # keep whatever you actually wired for CS
-    dc_pin: GPIO22          # <-- use freed GPIO22 for DC
-    reset_pin: GPIO12       # keep whatever you wired for RESET (or omit if not connected)
-
+    cs_pin: GPIO15
+    dc_pin: GPIO22
+    reset_pin: GPIO12      # strapping pin: high at power-on stops the boot
     rotation: 90
+    # Redrawn only when something changes (see the triggers above)
     update_interval: never
-    
     lambda: |-
-      it.fill(Color(0,0,0));
+      it.fill(Color(0, 0, 0));
 
-      // Playback state
-      const bool playing =
-        id(speaker_1_player).state ==
-        media_player::MediaPlayerState::MEDIA_PLAYER_STATE_PLAYING;
-
-      const int vol = (int)(id(vol_pct).state + 0.5f);
-
-      // Wi-Fi
+      const bool playing = id(speaker_1_player).state ==
+          media_player::MediaPlayerState::MEDIA_PLAYER_STATE_PLAYING;
+      const int vol = (int) (id(speaker_1_player).volume * 100.0f + 0.5f);
       std::string ip = id(wifi_ip).has_state() ? id(wifi_ip).state : "";
-
-      // Metadata
-      std::string title  = id(ss_title).has_state()  ? id(ss_title).state  : "";
+      std::string title = id(ss_title).has_state() ? id(ss_title).state : "";
       std::string artist = id(ss_artist).has_state() ? id(ss_artist).state : "";
 
-      // Header: play/pause icon + volume
-      it.printf(8, 8, id(mdi_icons), "%s", playing ? "\U000F03E4" : "\U000F040A");
-      it.printf(172-8, 6, id(font_small), TextAlign::TOP_RIGHT, "VOL %d%%", vol);
+      const int w = it.get_width();
 
-      // Wi-Fi / IP
+      // Shortens text to fit the screen width, ending in "..."
+      auto fit = [&](std::string s, esphome::display::BaseFont *font) {
+        int x1, y1, tw, th;
+        it.get_text_bounds(0, 0, s.c_str(), font, TextAlign::TOP_LEFT, &x1, &y1, &tw, &th);
+        if (tw <= w - 16) return s;
+        while (!s.empty()) {
+          // drop one whole UTF-8 character
+          do { s.pop_back(); } while (!s.empty() && (s.back() & 0xC0) == 0x80);
+          std::string t = s + "...";
+          it.get_text_bounds(0, 0, t.c_str(), font, TextAlign::TOP_LEFT, &x1, &y1, &tw, &th);
+          if (tw <= w - 16) return t;
+        }
+        return s;
+      };
+
+      // Header: play/pause icon and volume
+      it.printf(8, 8, id(mdi_icons), "%s", playing ? "\U000F03E4" : "\U000F040A");
+      it.printf(w - 8, 6, id(font_small), TextAlign::TOP_RIGHT, "VOL %d%%", vol);
+
       it.printf(8, 32, id(font_small), "%s", ip.c_str());
 
-      // Now playing (static)
-      // If too long, it will clip—no scrolling, no extra load.
-      it.printf(8, 95, id(font_big), "%s", title.c_str());
-      it.printf(8, 140, id(font_small), "%s", artist.c_str());
-
-
-text_sensor:
-
-  - platform: wifi_info
-    ip_address:
-      id: wifi_ip
-    ssid:
-      id: wifi_ssid
-
-  - platform: sendspin
-    id: ss_title
-    type: title
-    on_value:
-      then:
-        - if:
-            condition:
-              lambda: 'return !id(playback_starting);'
-            then:
-              - component.update: tft_display
-
-  - platform: sendspin
-    id: ss_artist
-    type: artist
-    on_value:
-      then:
-        - if:
-            condition:
-              lambda: 'return !id(playback_starting);'
-            then:
-              - component.update: tft_display
+      // Now playing
+      it.printf(8, 95, id(font_big), "%s", fit(title, id(font_big)).c_str());
+      it.printf(8, 140, id(font_small), "%s", fit(artist, id(font_small)).c_str());

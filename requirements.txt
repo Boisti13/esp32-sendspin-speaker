@@ -1,0 +1,2 @@
+# Tested with ESPHome 2026.10.0 (the version in Home Assistant's ESPHome app).
+esphome==2026.10.0

@@ -34,8 +34,8 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
 `speaker-1`), with the fonts from `/homeassistant/esphome/fonts/`. As of
-v0.1.0 that file still has the OTA password inline and the unused
-`ha_token` substitution; the repo has `speaker_1_ota_password`, which must
+v0.2.0 that file is still v0.1.0 (OTA password inline, pull-request
+components that ESPHome 2026.10 rejects); the repo has `speaker_1_ota_password`, which must
 be added to the shared `secrets.yaml` before the repo version is copied
 there. Copy a new version only when the owner asks, after backing up the
 old file to `/config/project-backups/esphome/esp32-sendspin-speaker/`.
@@ -58,3 +58,8 @@ old file to `/config/project-backups/esphome/esp32-sendspin-speaker/`.
   shows calls `component.update: tft_display` (and respects
   `playback_starting`, which keeps it quiet while the audio pipeline
   starts).
+- The player's `on_state` also fires on volume changes: start/stop logic
+  goes through `was_playing` and the `playback_started` /
+  `playback_stopped` scripts, never straight into `on_state`.
+- Keys call the device's own player (`media_player.next` etc.), not Home
+  Assistant: the speaker must keep working without HA.
