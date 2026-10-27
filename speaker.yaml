@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.2.0"
+    version: "0.3.0"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -214,7 +214,8 @@ text_sensor:
 
 # --- Keys ---
 # GPIO36/39 have pull-ups on the board (the ESP32 has none there).
-# Key 2 (GPIO13) is used by the screen's SPI bus.
+# Button 2 (GPIO13) is used by the screen's SPI bus.
+# Names start with the number printed on the board.
 
 binary_sensor:
   - platform: gpio
@@ -229,7 +230,7 @@ binary_sensor:
     pin:
       number: GPIO36
       inverted: true
-    name: "Key 1"
+    name: "Button 1 Previous Track"
     filters:
       - delayed_off: 10ms
     on_press:
@@ -242,7 +243,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Key 3"
+    name: "Button 3 Next Track"
     filters:
       - delayed_off: 10ms
     on_press:
@@ -255,7 +256,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Key 4"
+    name: "Button 4 Volume Down"
     filters:
       - delayed_off: 10ms
     on_press:
@@ -268,7 +269,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Key 5"
+    name: "Button 5 Volume Up"
     filters:
       - delayed_off: 10ms
     on_press:
@@ -281,7 +282,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    name: "Key 6"
+    name: "Button 6 Play/Pause"
     filters:
       - delayed_off: 10ms
     on_press:

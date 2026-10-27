@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## v0.3.0 — 2026-10-27
+
+### Changed
+
+- The buttons are named after what they do: *Button 1 Previous Track*,
+  *Button 3 Next Track*, *Button 4 Volume Down*, *Button 5 Volume Up*,
+  *Button 6 Play/Pause* (were *Key 1* … *Key 6*). **New entity IDs**
+  (`binary_sensor.speaker_1_button_1_previous_track` …): the old
+  `binary_sensor.speaker_1_key_*` entities stay behind unavailable and can
+  be removed.
+
 ### Under the hood
 
 - `CLAUDE.md`: Home Assistant now has the v0.2.0 copy and the OTA secret.

@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.2.0-orange)
+![Version](https://img.shields.io/badge/version-0.3.0-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S
@@ -42,14 +42,16 @@ tracks. Built with ESPHome.
 
 ### Buttons
 
-| Key | Pin | Does |
-|---|---|---|
-| Key 1 | GPIO36 | previous track |
-| Key 2 | — | its pin (GPIO13) is the screen's MOSI |
-| Key 3 | GPIO19 | next track |
-| Key 4 | GPIO23 | volume down |
-| Key 5 | GPIO18 | volume up |
-| Key 6 | GPIO5 | play / pause (toggle) |
+| Button | Pin | Does | Entity in Home Assistant |
+|---|---|---|---|
+| 1 | GPIO36 | previous track | *Button 1 Previous Track* |
+| 2 | — | its pin (GPIO13) is the screen's MOSI | — |
+| 3 | GPIO19 | next track | *Button 3 Next Track* |
+| 4 | GPIO23 | volume down | *Button 4 Volume Down* |
+| 5 | GPIO18 | volume up | *Button 5 Volume Up* |
+| 6 | GPIO5 | play / pause (toggle) | *Button 6 Play/Pause* |
+
+The numbers are the ones printed on the board (KEY1–KEY6).
 
 GPIO12 (screen reset) is a strapping pin: if it is high at power-on the
 ESP32 picks 1.8 V flash and doesn't boot. Worth moving if boot is flaky.
@@ -70,9 +72,9 @@ Start an album in Music Assistant on *Sendspin Media Player*. The board
 switches to *playing*, waits 150 ms, turns the amplifier on and two seconds
 later draws the screen once: pause icon, `VOL 65%`, the title in large type
 and the artist below (*Die Ärzte* shows with its umlaut; a long title ends
-in "..."). Press Key 5 and the volume goes up a step; the screen redraws
-with the new value. Press Key 3 and Music Assistant skips to the next track.
-Press Key 6 to pause: the icon changes to play and the amplifier turns off
+in "..."). Press button 5 and the volume goes up a step; the screen redraws
+with the new value. Press button 3 and Music Assistant skips to the next track.
+Press button 6 to pause: the icon changes to play and the amplifier turns off
 300 ms later.
 
 ## Layout
