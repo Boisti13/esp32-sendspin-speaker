@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.4.0"
+    version: "0.5.0"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -153,6 +153,9 @@ sendspin:
 media_source:
   - platform: sendspin
     id: sendspin_source
+    # Audio buffered ahead, in bytes (default 1 MB, a few seconds). 2.5 MB
+    # in PSRAM rides out Wi-Fi gaps of roughly 15-20 s.
+    buffer_size: 2500000
 
 media_player:
   - platform: speaker_source
@@ -186,6 +189,24 @@ media_player:
           } else {
             id(playback_stopped).execute();
           }
+
+# --- Diagnostics ---
+
+debug:
+  update_interval: 60s
+
+sensor:
+  - platform: wifi_signal
+    name: "Wi-Fi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s
+  - platform: debug
+    psram:
+      name: "Free PSRAM"
+    free:
+      name: "Free Heap"
 
 text_sensor:
   - platform: wifi_info

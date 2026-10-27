@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## v0.5.0 — 2026-10-27
+
+### Added
+
+- Diagnostic sensors: *Wi-Fi Signal*, *Uptime*, *Free PSRAM*, *Free Heap*.
+
+### Fixed
+
+- Music stopped after a Wi-Fi stall of ~25 s: the Sendspin buffer (1 MB by
+  default) ran dry. It is 2.5 MB now. Much longer gaps still stop the
+  music; the signal sensor shows whether the Wi-Fi is the cause.
+
 ## v0.4.0 — 2026-10-27
 
 ### Changed
