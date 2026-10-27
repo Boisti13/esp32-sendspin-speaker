@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Under the hood
+
+- `CLAUDE.md`: Home Assistant now has the v0.2.0 copy and the OTA secret.
+
 ## v0.2.0 — 2026-10-27
 
 Needs ESPHome 2026.10 or later.

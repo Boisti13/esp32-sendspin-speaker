@@ -33,12 +33,12 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 ## Home Assistant copy
 
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
-`speaker-1`), with the fonts from `/homeassistant/esphome/fonts/`. As of
-v0.2.0 that file is still v0.1.0 (OTA password inline, pull-request
-components that ESPHome 2026.10 rejects); the repo has `speaker_1_ota_password`, which must
-be added to the shared `secrets.yaml` before the repo version is copied
-there. Copy a new version only when the owner asks, after backing up the
-old file to `/config/project-backups/esphome/esp32-sendspin-speaker/`.
+`speaker-1`), with the fonts from `/homeassistant/esphome/fonts/`: a plain
+copy of `speaker.yaml` (v0.2.0 since 2026-10-27). The shared `secrets.yaml`
+there has `speaker_1_key` and `speaker_1_ota_password`. Copy a new version
+only when the owner asks: back up the old file to
+`/config/project-backups/esphome/esp32-sendspin-speaker/` first, copy with
+`git show <commit>:speaker.yaml`, check the files match.
 
 ## Versions to bump
 
