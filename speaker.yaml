@@ -1,0 +1,428 @@
+esphome:
+  name: speaker-1
+  friendly_name: Speaker_1
+  project:
+    name: boisti13.esp32-sendspin-speaker
+    version: "0.1.0"
+  on_boot:
+    priority: 600
+    then:
+      - switch.turn_off: amp_power
+      - delay: 1s
+      - homeassistant.service:
+          service: select.select_option
+          data:
+            entity_id: select.speaker_1_es8388_dac_output
+            option: "BOTH"
+            
+esp32:
+  board: esp-wrover-kit
+  framework:
+    type: esp-idf
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret speaker_1_key
+
+
+ota:
+  - platform: esphome
+    password: !secret speaker_1_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Speaker-1 Fallback Hotspot"
+    password: !secret ap_password
+
+globals:
+  - id: last_vol
+    type: int
+    initial_value: '999'
+
+  - id: playback_starting
+    type: bool
+    initial_value: 'false'
+
+  - id: title_scroll_px
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: title_scroll_hold
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: title_scroll_max
+    type: int
+    initial_value: '0'
+
+# Logging
+logger:
+  level: DEBUG
+  
+captive_portal:
+
+spi:
+  id: spi_tft
+  clk_pin: GPIO14
+  mosi_pin: GPIO13
+
+
+
+sensor:
+
+  - platform: wifi_signal
+    id: wifi_rssi
+    update_interval: 10s
+
+  - platform: template
+    id: vol_pct
+    update_interval: 2s
+    accuracy_decimals: 0
+    lambda: |-
+      return id(speaker_1_player).volume * 100.0f;
+    on_value:
+      then:
+        - lambda: |-
+            int v = (int) (x + 0.5f);
+            if (abs(v - id(last_vol)) >= 1) {
+              id(last_vol) = v;
+              if (!id(playback_starting)) {
+                id(tft_display).update();
+              }
+            }
+            
+i2c:
+  sda: GPIO33
+  scl: GPIO32
+  frequency: 200kHz
+  scan: true
+  id: bus_a
+
+audio_dac:
+  - platform: es8388
+    id: es8388_dac
+    i2c_id: bus_a
+    # These settings manage the hardware chip itself
+    # mic_gain: 18dB
+    # dac_volume: 75%
+
+select:
+  - platform: es8388
+    es8388_id: es8388_dac
+    dac_output:
+      name: "ES8388 DAC Output"
+    adc_input_mic:
+      name: "ES8388 ADC MIC Input"
+
+
+i2s_audio:
+  - id: i2s_out
+    i2s_lrclk_pin: GPIO25
+    i2s_bclk_pin: GPIO27
+    i2s_mclk_pin: GPIO0    # MCLK is critical for the A1S
+
+
+switch:
+  - platform: gpio
+    pin: GPIO21
+    id: amp_power
+    name: "Amplifier Power"
+    restore_mode: ALWAYS_OFF
+
+speaker:
+  - platform: i2s_audio
+    id: spk
+    i2s_audio_id: i2s_out
+    i2s_dout_pin: GPIO26
+    audio_dac: es8388_dac
+    dac_type: external
+    channel: stereo
+    sample_rate: 48000
+    bits_per_sample: 32bit
+    buffer_duration: 100ms
+
+# --- SendSpin & Media Player Logic (Standard) ---
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: 0fe230114c80b6d3378f04c777baadee178e40ad   # PR 12253
+    components: [mixer]
+
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: 1ab4b990092ae063a16cb1511a188c536fdb336e   # PR 12254
+    components: [resampler]
+
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: 047ba60f01af84513f8d5aabaa2a53074facee8f   # PR 12256
+    components: [audio]
+
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: bff22983a390352360796f8e1363127e0cd1f898   # PR 12258
+    components: [media_player]
+
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: 9d2d2f6287a72af6397dfd93ee56fbab25c1d32f   # PR 12284
+    components: [mdns, sendspin]
+    refresh: 0s
+
+  - source:
+      type: git
+      url: https://github.com/esphome/esphome
+      ref: 72499eaed2ed54316aca90d368053aa2e1a54f5f   # PR 12429
+    refresh: 0s
+    components: [file, http_request, media_source, speaker_source]
+
+  - source: github://pr#10212
+    components: [runtime_image, online_image]
+    refresh: 1h
+  - source: github://pr#12258
+    components: [ media_player ]
+  - source: github://pr#12284
+    components: [generic_image, mdns, sendspin]
+    refresh: 0s
+
+sendspin:
+  id: sendspin_hub
+  task_stack_in_psram: true
+  kalman_process_error: 0.01
+
+psram:
+  mode: quad
+  speed: 80MHz
+
+
+media_source:
+  - platform: sendspin
+    id: sendspin_source
+
+media_player:  
+  # Required to play audio (part of #12429)
+  - platform: speaker_source
+    name: Sendspin Media Player
+    id: speaker_1_player
+    volume_min: 0.4
+    volume_max: 0.90
+    media_speaker: spk
+    sources:
+      - sendspin_source
+
+    on_state:
+      then:
+        # If we are entering PLAYING, mark "startup busy" for 2s
+        - if:
+            condition:
+              media_player.is_playing: speaker_1_player
+            then:
+              - lambda: |-
+                  id(playback_starting) = true;
+
+              # give I2S/codec a moment to settle before enabling the amp
+              - delay: 150ms
+              - switch.turn_on: amp_power
+
+              # keep UI quiet during pipeline spin-up
+              - delay: 1850ms
+              - lambda: |-
+                  id(playback_starting) = false;
+
+              # single display refresh after startup
+              - component.update: tft_display
+
+            else:
+              - switch.turn_off: amp_power
+
+              # allow UI immediately when not playing
+              - lambda: |-
+                  id(playback_starting) = false;
+              - component.update: tft_display
+
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO39
+      inverted: true
+      mode:
+        input: true
+    name: "Jack Status"
+
+  # Key 1 = Previous track (Music Assistant)
+  - platform: gpio
+    pin:
+      number: GPIO36
+      inverted: true
+    name: "Key 1"
+    filters:
+      - delayed_off: 10ms
+    on_press:
+      - homeassistant.service:
+          service: media_player.media_previous_track
+          data:
+            entity_id: media_player.speaker_1
+
+  # Key 3 = Next track (Music Assistant)
+  - platform: gpio
+    pin:
+      number: GPIO19
+      inverted: true
+    name: "Key 3"
+    filters:
+      - delayed_off: 10ms
+    on_press:
+      - homeassistant.service:
+          service: media_player.media_next_track
+          data:
+            entity_id: media_player.speaker_1
+
+  - platform: gpio
+    pin:
+      number: GPIO023
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Key 4"
+    filters:
+      - delayed_off: 10ms
+    on_press:
+      - media_player.volume_down: speaker_1_player
+
+  - platform: gpio
+    pin:
+      number: GPIO018
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Key 5"
+    filters:
+      - delayed_off: 10ms
+    on_press:
+      - media_player.volume_up: speaker_1_player
+
+  - platform: gpio
+    pin:
+      number: GPIO5
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: "Key 6"
+    filters:
+      - delayed_off: 10ms
+    on_press:
+      - if:
+          condition:
+            media_player.is_playing: speaker_1_player
+          then:
+            - media_player.pause: speaker_1_player
+          else:
+            - media_player.play: speaker_1_player
+
+font:
+  - file: "fonts/Ubuntu-Medium.ttf"
+    id: font_big
+    size: 26
+  - file: "fonts/Ubuntu-Medium.ttf"
+    id: font_small
+    size: 16
+
+  - file: "fonts/MaterialDesignIconsDesktop.ttf"
+    id: mdi_icons
+    size: 28
+    glyphs:
+      - "\U000F040A"  # play
+      - "\U000F03E4"  # pause
+
+display:
+  - platform: st7789v
+    id: tft_display
+    spi_id: spi_tft
+    model: Waveshare 1.47in 172X320
+    width: 172
+    height: 320
+
+    cs_pin: GPIO15          # keep whatever you actually wired for CS
+    dc_pin: GPIO22          # <-- use freed GPIO22 for DC
+    reset_pin: GPIO12       # keep whatever you wired for RESET (or omit if not connected)
+
+    rotation: 90
+    update_interval: never
+    
+    lambda: |-
+      it.fill(Color(0,0,0));
+
+      // Playback state
+      const bool playing =
+        id(speaker_1_player).state ==
+        media_player::MediaPlayerState::MEDIA_PLAYER_STATE_PLAYING;
+
+      const int vol = (int)(id(vol_pct).state + 0.5f);
+
+      // Wi-Fi
+      std::string ip = id(wifi_ip).has_state() ? id(wifi_ip).state : "";
+
+      // Metadata
+      std::string title  = id(ss_title).has_state()  ? id(ss_title).state  : "";
+      std::string artist = id(ss_artist).has_state() ? id(ss_artist).state : "";
+
+      // Header: play/pause icon + volume
+      it.printf(8, 8, id(mdi_icons), "%s", playing ? "\U000F03E4" : "\U000F040A");
+      it.printf(172-8, 6, id(font_small), TextAlign::TOP_RIGHT, "VOL %d%%", vol);
+
+      // Wi-Fi / IP
+      it.printf(8, 32, id(font_small), "%s", ip.c_str());
+
+      // Now playing (static)
+      // If too long, it will clip—no scrolling, no extra load.
+      it.printf(8, 95, id(font_big), "%s", title.c_str());
+      it.printf(8, 140, id(font_small), "%s", artist.c_str());
+
+
+text_sensor:
+
+  - platform: wifi_info
+    ip_address:
+      id: wifi_ip
+    ssid:
+      id: wifi_ssid
+
+  - platform: sendspin
+    id: ss_title
+    type: title
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return !id(playback_starting);'
+            then:
+              - component.update: tft_display
+
+  - platform: sendspin
+    id: ss_artist
+    type: artist
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return !id(playback_starting);'
+            then:
+              - component.update: tft_display
