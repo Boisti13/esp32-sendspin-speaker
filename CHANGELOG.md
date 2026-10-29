@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## v0.7.0 — 2026-10-29
+
+### Changed
+
+- The chime plays when Wi-Fi first connects after boot instead of at
+  power-on, so it also says "online". Not on later reconnects, and not
+  while something plays.
+- Button 1: when nothing is playing it sends Sendspin's *play* to Music
+  Assistant, which resumes the speaker's queue with the last track. Before,
+  it did nothing after boot (the player had nothing loaded) and replayed
+  the chime in v0.6.0.
+
 ## v0.6.1 — 2026-10-29
 
 ### Fixed

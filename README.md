@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.6.1-orange)
+![Version](https://img.shields.io/badge/version-0.7.0-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S
@@ -34,9 +34,13 @@ tracks. Built with ESPHome.
 - **Five buttons that work without Home Assistant**: play/pause, previous,
   next, volume down/up go straight to the player and on to Music Assistant
   through Sendspin. Headphone jack detection.
-- **Boot chime**: a short three-note chime at power-on, built into the
-  firmware (no Home Assistant or network needed). *Boot Sound* in Home
-  Assistant turns it off; the setting survives restarts.
+- **Play picks up where you left off**: with nothing playing, even right
+  after power-on, button 1 asks Music Assistant to play, and it resumes
+  the speaker's queue with the last track.
+- **Chime when it's online**: a short three-note chime when Wi-Fi first
+  connects after power-on (not on later reconnects, and not over music).
+  Built into the firmware. *Boot Sound* in Home Assistant turns it off;
+  the setting survives restarts.
 
 ## Hardware
 
@@ -52,7 +56,7 @@ tracks. Built with ESPHome.
 
 | Button | Pin | Does | Entity in Home Assistant |
 |---|---|---|---|
-| 1 | GPIO36 | play / pause (toggle) | *Button 1 Play/Pause* |
+| 1 | GPIO36 | pause; when not playing, play (resumes Music Assistant's queue) | *Button 1 Play/Pause* |
 | 2 | — | its pin (GPIO13) is the screen's MOSI | — |
 | 3 | GPIO19 | previous track | *Button 3 Previous Track* |
 | 4 | GPIO23 | next track | *Button 4 Next Track* |

@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.6.1"
+    version: "0.7.0"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -18,33 +18,6 @@ esphome:
       - select.set:
           id: dac_output
           option: "BOTH"
-      # Boot chime (sounds/boot.wav), unless turned off with "Boot Sound".
-      # The amplifier follows playback as for any other audio.
-      - if:
-          condition:
-            switch.is_on: boot_sound
-          then:
-            - delay: 500ms
-            - media_player.play_media:
-                id: speaker_1_player
-                media_url: "audio-file://boot_chime"
-            # The chime stays in the player's playlist and play/pause
-            # would replay it: once it has ended, stop the player, which
-            # empties the playlist (unless something else plays by then)
-            - wait_until:
-                condition:
-                  media_player.is_playing: speaker_1_player
-                timeout: 3s
-            - wait_until:
-                condition:
-                  not:
-                    media_player.is_playing: speaker_1_player
-                timeout: 5s
-            - if:
-                condition:
-                  media_player.is_idle: speaker_1_player
-                then:
-                  - media_player.stop: speaker_1_player
 
 esp32:
   board: esp-wrover-kit
@@ -71,6 +44,21 @@ wifi:
   ap:
     ssid: "Speaker-1 Fallback Hotspot"
     password: !secret ap_password
+  # Chime once, on the first connection after boot (not on reconnects,
+  # which could cut into music)
+  on_connect:
+    - if:
+        condition:
+          lambda: 'return !id(chime_played);'
+        then:
+          - lambda: 'id(chime_played) = true;'
+          - if:
+              condition:
+                and:
+                  - switch.is_on: boot_sound
+                  - media_player.is_idle: speaker_1_player
+              then:
+                - script.execute: play_chime
 
 captive_portal:
 
@@ -94,7 +82,38 @@ globals:
     type: bool
     initial_value: 'false'
 
+  # Whether the Wi-Fi chime has had its turn since boot
+  - id: chime_played
+    type: bool
+    initial_value: 'false'
+
 script:
+  # Chime (sounds/boot.wav). The amplifier follows playback as for any
+  # other audio.
+  - id: play_chime
+    mode: single
+    then:
+      - media_player.play_media:
+          id: speaker_1_player
+          media_url: "audio-file://boot_chime"
+      # The chime stays in the player's playlist and a play command would
+      # replay it: once it has ended, stop the player, which empties the
+      # playlist (unless something else plays by then)
+      - wait_until:
+          condition:
+            media_player.is_playing: speaker_1_player
+          timeout: 3s
+      - wait_until:
+          condition:
+            not:
+              media_player.is_playing: speaker_1_player
+          timeout: 5s
+      - if:
+          condition:
+            media_player.is_idle: speaker_1_player
+          then:
+            - media_player.stop: speaker_1_player
+
   # Playback started: amplifier on once the codec has settled, one redraw
   # after the pipeline is up
   - id: playback_started
@@ -159,7 +178,8 @@ switch:
     name: "Amplifier Power"
     restore_mode: ALWAYS_OFF
 
-  # Play the chime at power-on; remembered across restarts
+  # Play the chime when Wi-Fi first connects after boot; remembered
+  # across restarts
   - platform: template
     id: boot_sound
     name: "Boot Sound"
@@ -300,7 +320,18 @@ binary_sensor:
     filters:
       - delayed_off: 10ms
     on_press:
-      - media_player.toggle: speaker_1_player
+      # Playing: pause. Otherwise ask Music Assistant (through Sendspin)
+      # to play: it resumes the speaker's queue, also right after boot,
+      # when the player itself has nothing loaded.
+      - if:
+          condition:
+            media_player.is_playing: speaker_1_player
+          then:
+            - media_player.pause: speaker_1_player
+          else:
+            - lambda: |-
+                id(sendspin_source).handle_command(
+                    media_source::MediaSourceCommand::PLAY);
 
   - platform: gpio
     pin:
