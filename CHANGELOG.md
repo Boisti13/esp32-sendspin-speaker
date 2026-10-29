@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## v0.6.0 — 2026-10-29
+
+### Added
+
+- Boot chime: three rising notes at power-on, played through the player
+  from a file built into the firmware (`sounds/boot.wav`, made by
+  `scripts/make-boot-sound.py`). Switch *Boot Sound* (config, on by
+  default, remembered) turns it off.
+- `sounds/` must now be next to `speaker.yaml` in the ESPHome folder.
+
 ## v0.5.0 — 2026-10-27
 
 ### Added

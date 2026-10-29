@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.5.0-orange)
+![Version](https://img.shields.io/badge/version-0.6.0-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S
@@ -34,6 +34,9 @@ tracks. Built with ESPHome.
 - **Five buttons that work without Home Assistant**: play/pause, previous,
   next, volume down/up go straight to the player and on to Music Assistant
   through Sendspin. Headphone jack detection.
+- **Boot chime**: a short three-note chime at power-on, built into the
+  firmware (no Home Assistant or network needed). *Boot Sound* in Home
+  Assistant turns it off; the setting survives restarts.
 
 ## Hardware
 
@@ -66,7 +69,7 @@ ESP32 picks 1.8 V flash and doesn't boot. Worth moving if boot is flaky.
 | Step | |
 |---|---|
 | 1 | Copy `secrets.example.yaml` to `secrets.yaml` and fill in Wi-Fi, a new API key (`openssl rand -base64 32`) and an OTA password. In Home Assistant's ESPHome app the shared `secrets.yaml` gets `speaker_1_key` and `speaker_1_ota_password`. |
-| 2 | Put `speaker.yaml` and `fonts/` into the ESPHome folder. |
+| 2 | Put `speaker.yaml`, `fonts/` and `sounds/` into the ESPHome folder. |
 | 3 | Flash once over USB: `esphome run speaker.yaml`. After that, over Wi-Fi. |
 | 4 | Add the device in Home Assistant with the API key. It needs no Home Assistant actions. |
 | 5 | In Music Assistant, enable the Sendspin provider; the speaker appears as a player. |
@@ -88,6 +91,8 @@ Press button 1 to pause: the icon changes to play and the amplifier turns off
 speaker.yaml           the whole device: board, codec, Sendspin, screen, buttons
 requirements.txt       the ESPHome version it is tested with
 fonts/                 Ubuntu Medium and Material Design Icons for the screen
+sounds/boot.wav        the boot chime (1.5 s, 22 kHz mono)
+scripts/make-boot-sound.py  makes sounds/boot.wav (synthesised, MIT like the rest)
 secrets.example.yaml   the secrets the config expects
 ```
 
@@ -100,6 +105,9 @@ secrets.example.yaml   the secrets the config expects
   are built in since then; older versions don't have them.
 - The screen has `update_interval: never`: every change that shows on it
   calls `component.update: tft_display`.
+- Another boot sound: replace `sounds/boot.wav` (WAV, MP3, FLAC or Opus,
+  short, ideally with ~300 ms of silence in front so the amplifier is on
+  when it starts) or change and run `scripts/make-boot-sound.py`.
 
 ## License
 

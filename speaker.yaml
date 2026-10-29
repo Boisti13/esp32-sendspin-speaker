@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.5.0"
+    version: "0.6.0"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -18,6 +18,16 @@ esphome:
       - select.set:
           id: dac_output
           option: "BOTH"
+      # Boot chime (sounds/boot.wav), unless turned off with "Boot Sound".
+      # The amplifier follows playback as for any other audio.
+      - if:
+          condition:
+            switch.is_on: boot_sound
+          then:
+            - delay: 500ms
+            - media_player.play_media:
+                id: speaker_1_player
+                media_url: "audio-file://boot_chime"
 
 esp32:
   board: esp-wrover-kit
@@ -132,6 +142,14 @@ switch:
     name: "Amplifier Power"
     restore_mode: ALWAYS_OFF
 
+  # Play the chime at power-on; remembered across restarts
+  - platform: template
+    id: boot_sound
+    name: "Boot Sound"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+    entity_category: config
+
 speaker:
   - platform: i2s_audio
     id: spk
@@ -143,6 +161,13 @@ speaker:
     sample_rate: 48000
     bits_per_sample: 32bit
     buffer_duration: 100ms
+
+# --- Boot chime ---
+# Built into the firmware (65 kB); made by scripts/make-boot-sound.py
+
+audio_file:
+  - id: boot_chime
+    file: sounds/boot.wav
 
 # --- Sendspin ---
 
@@ -156,6 +181,8 @@ media_source:
     # Audio buffered ahead, in bytes (default 1 MB, a few seconds). 2.5 MB
     # in PSRAM rides out Wi-Fi gaps of roughly 15-20 s.
     buffer_size: 2500000
+  - platform: audio_file
+    id: boot_chime_source
 
 media_player:
   - platform: speaker_source
@@ -167,6 +194,7 @@ media_player:
       speaker: spk
       sources:
         - sendspin_source
+        - boot_chime_source
 
     on_volume:
       - lambda: |-
