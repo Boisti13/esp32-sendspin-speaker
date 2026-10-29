@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.6.0-orange)
+![Version](https://img.shields.io/badge/version-0.6.1-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S

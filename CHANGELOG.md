@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## v0.6.1 — 2026-10-29
+
+### Fixed
+
+- Play/pause with no music played since boot replayed the boot chime (it
+  stayed in the player's playlist). The player is stopped once the chime
+  has ended, which empties the playlist; play/pause then does nothing until
+  music has played, as before v0.6.0.
+
 ## v0.6.0 — 2026-10-29
 
 ### Added

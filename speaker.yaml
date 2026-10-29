@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.6.0"
+    version: "0.6.1"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -28,6 +28,23 @@ esphome:
             - media_player.play_media:
                 id: speaker_1_player
                 media_url: "audio-file://boot_chime"
+            # The chime stays in the player's playlist and play/pause
+            # would replay it: once it has ended, stop the player, which
+            # empties the playlist (unless something else plays by then)
+            - wait_until:
+                condition:
+                  media_player.is_playing: speaker_1_player
+                timeout: 3s
+            - wait_until:
+                condition:
+                  not:
+                    media_player.is_playing: speaker_1_player
+                timeout: 5s
+            - if:
+                condition:
+                  media_player.is_idle: speaker_1_player
+                then:
+                  - media_player.stop: speaker_1_player
 
 esp32:
   board: esp-wrover-kit
