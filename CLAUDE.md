@@ -12,8 +12,10 @@ repository.
   computer.
 - **Work on `dev`, commit and push to `dev`.** `main` gets releases only,
   when the owner asks.
-- **Ask before side effects**: pushing, flashing, copying to Home Assistant,
-  changing Home Assistant.
+- **Push and copy to Home Assistant without asking once the compile
+  check passes** (owner, 2026-10-29): push `dev`, then copy to HA as in
+  *Home Assistant copy* below. Still ask before anything else with side
+  effects: flashing, merging to `main`, other changes in Home Assistant.
 - **One change = one commit** with the YAML, the version bump, README and
   CHANGELOG.
 - **The owner flashes.** Never upload to the device unasked.
@@ -35,11 +37,12 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
 `speaker-1`), with the fonts from `/homeassistant/esphome/fonts/` and
 the boot chime from `/homeassistant/esphome/sounds/boot.wav` (v0.6.0 on): a plain
-copy of `speaker.yaml` (v0.6.0 since 2026-10-29). The shared `secrets.yaml`
-there has `speaker_1_key` and `speaker_1_ota_password`. Copy a new version
-only when the owner asks: back up the old file to
+copy of `speaker.yaml` (v0.6.1 since 2026-10-29). The shared `secrets.yaml`
+there has `speaker_1_key` and `speaker_1_ota_password`. Copy every new version
+whose compile check passed (no need to ask): back up the old file to
 `/config/project-backups/esphome/esp32-sendspin-speaker/` first, copy with
-`git show <commit>:speaker.yaml`, check the files match.
+`git show <commit>:speaker.yaml` (and `sounds/` if it changed), check the
+files match.
 
 ## Versions to bump
 
