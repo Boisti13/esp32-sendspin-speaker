@@ -37,7 +37,7 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
 `speaker-1`), with the fonts from `/homeassistant/esphome/fonts/` and
 the boot chime from `/homeassistant/esphome/sounds/boot.wav` (v0.6.0 on): a plain
-copy of `speaker.yaml` (v0.6.1 since 2026-10-29). The shared `secrets.yaml`
+copy of `speaker.yaml` (v0.7.0 since 2026-10-29). The shared `secrets.yaml`
 there has `speaker_1_key` and `speaker_1_ota_password`. Copy every new version
 whose compile check passed (no need to ask): back up the old file to
 `/config/project-backups/esphome/esp32-sendspin-speaker/` first, copy with
