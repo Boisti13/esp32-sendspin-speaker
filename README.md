@@ -73,10 +73,11 @@ ESP32 picks 1.8 V flash and doesn't boot. Worth moving if boot is flaky.
 A battery-powered board set of its own is being designed in KiCad in
 [`hardware/`](hardware/README.md): a main board with the same ESP32-A1S
 module, two 3 W amplifiers, a 1S LiPo charger and one USB-C port for
-charging and flashing; a front panel with an I²C OLED and the buttons; a
-small USB-C board. Panel, USB-C, battery, speakers and status LED connect
-by JST cable. It keeps the pins above, so it will get its own
-`speaker-diy.yaml` with few changes. Not built yet.
+charging and flashing; a front panel with the screen (SPI like this one,
+or an I²C OLED) and the buttons; a small USB-C board. Panel, USB-C,
+battery, speakers, status LED, on/off switch and charge LEDs connect by
+JST cable. It keeps the pins above, screen included, so it will get its
+own `speaker-diy.yaml` with few changes. Not built yet.
 
 ## Install
 

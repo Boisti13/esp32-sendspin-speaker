@@ -2,7 +2,7 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "270d6d33-79fd-4c69-974a-4de4a8700ed7")
+	(uuid "b9ebad30-a277-4aba-afcb-db365a545c3c")
 	(paper "A4")
 	(title_block
 		(title "ESP32 Sendspin Speaker — main board — Audio")
@@ -10,7 +10,7 @@
 		(rev "A")
 	)
 	(lib_symbols)
-	(text "Audio block. To draw here:\n2x NS4150B (BTL, from VBAT_SW, 10u + 100n each), 220-470u bulk,\nJ_SPK_L / J_SPK_R (XH 2, bridged: no wire to GND),\nPJ-320D headphone jack on LOUT1/ROUT1, detect -> HP_DET."
+	(text "Audio block. To draw here:\n2x NS4150B (BTL, from VBAT_SW, 10u + 100n each) on the module's SPOL/SPOR\ndifferential outputs, 220-470u bulk, J_SPK_L / J_SPK_R (XH 2, bridged:\nno wire to GND), PJ-320D headphone jack on HPOUTL/R, detect -> HP_DET."
 		(exclude_from_sim no)
 		(at 101.6 40.64 0)
 		(effects
@@ -19,64 +19,9 @@
 			)
 			(justify left top)
 		)
-		(uuid "d22111ac-5ba8-43fb-8d9f-3193ab5c39e0")
+		(uuid "2a60fc87-af3b-4d80-a0bb-92c189c005b2")
 	)
-	(hierarchical_label "LOUT2"
-		(shape input)
-		(at 50.8 60.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4f086ad3-d87a-4e0b-b34b-37df7efabc3b")
-	)
-	(hierarchical_label "AMP_EN"
-		(shape input)
-		(at 50.8 71.12 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "5d2a49ab-d49a-4822-8240-5b202a313ad6")
-	)
-	(hierarchical_label "ROUT2"
-		(shape input)
-		(at 50.8 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "86e198a2-8248-42fa-b658-e2d6e9233e0e")
-	)
-	(hierarchical_label "HP_DET"
-		(shape output)
-		(at 50.8 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "876a08d7-0b70-434e-b363-288c0e9f1ebd")
-	)
-	(hierarchical_label "ROUT1"
-		(shape input)
-		(at 50.8 55.88 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "db7be5b1-283b-4f54-b337-8be5ebe62d50")
-	)
-	(hierarchical_label "LOUT1"
+	(hierarchical_label "HPOUTL"
 		(shape input)
 		(at 50.8 50.8 180)
 		(effects
@@ -85,6 +30,83 @@
 			)
 			(justify right)
 		)
-		(uuid "e406392d-1977-4ef1-99a6-011c8d298763")
+		(uuid "2d06c1e4-1a96-4dc6-945c-d839fbded96e")
+	)
+	(hierarchical_label "HP_DET"
+		(shape output)
+		(at 50.8 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4fcd1146-2315-41a8-9cdf-92fbdde967c8")
+	)
+	(hierarchical_label "SPORN"
+		(shape input)
+		(at 50.8 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "607f88de-83ff-4902-b3ad-ae3e50fdf07f")
+	)
+	(hierarchical_label "HPOUTR"
+		(shape input)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "63c8ecc7-53bd-4157-b785-99a7e0366d0a")
+	)
+	(hierarchical_label "SPOLP"
+		(shape input)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "92aa89f3-d9e7-4e4b-a331-0fe80cb97566")
+	)
+	(hierarchical_label "AMP_EN"
+		(shape input)
+		(at 50.8 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b1a1d43f-23ed-4bea-8969-b330716d5439")
+	)
+	(hierarchical_label "SPORP"
+		(shape input)
+		(at 50.8 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e0ee6265-2252-491a-b0c9-b1daa0096f72")
+	)
+	(hierarchical_label "SPOLN"
+		(shape input)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e912ddd4-a3f7-4a69-9f42-441872887063")
 	)
 )

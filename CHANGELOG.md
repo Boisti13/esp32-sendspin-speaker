@@ -13,6 +13,13 @@
   status LED. SMD passives and LEDs in 0805 wherever possible.
 - Main board block diagram: hierarchical sheets USB, Power, MCU, Audio
   and Connectors with their signals, each sheet listing what goes in it.
+- Footprints for every part (`hardware/README.md`): KiCad's libraries,
+  plus ESP32-A1S, NS4150B, FS8205A, MSK12C02 and PJ-320D imported from LCSC
+  into `hardware/lib/lcsc` (A1S with an antenna keepout).
+- Pin plan reworked to the A1S's real pads (the codec's I²C/I²S are inside
+  the module): display on the ST7789's pins 14/13/15/22, SPI or I²C;
+  status LED on 12, CHRG/STDBY on 4/2 through diodes. On/off switch and
+  charge LEDs can go off-board (J_SW, J_CHG).
 
 ## v0.7.0 — 2026-10-29
 

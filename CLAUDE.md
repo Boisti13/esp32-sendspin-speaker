@@ -65,9 +65,19 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
 - **Pins are shared with the firmware.** A pin change goes into the
   schematic, `hardware/README.md` and `speaker-diy.yaml` in the same
   commit. GPIO12, 16, 17 and 35 stay unused.
+- **Right footprint right away** (owner, 2026-10-30): every symbol gets its
+  final footprint (and `LCSC` field where known) the moment it is placed,
+  as listed in `hardware/README.md` → *Parts and footprints*. A part
+  KiCad 10 doesn't have is imported from LCSC with easyeda2kicad
+  (`~/.venvs/easyeda2kicad` on HX99G-BKG) into a scratch folder, checked,
+  then merged into `hardware/lib/lcsc.*` with the fixes listed in the
+  README (3D path, NPTH pegs, keepouts); add it to `THIRD_PARTY_NOTICES.md`.
 - **Libraries are project-local** (`hardware/lib/`, tables use
-  `${KIPRJMOD}`). Only our own parts or ones with a compatible licence;
-  note any third-party part in `THIRD_PARTY_NOTICES.md`.
+  `${KIPRJMOD}/../lib`). Only our own parts or ones with a compatible
+  licence; note any third-party part in `THIRD_PARTY_NOTICES.md`.
+- **The A1S has no GPIO32/33/25/26/27/35 pads** (codec I²C/I²S are inside
+  the module) and every other pad is used: a new signal means giving up
+  one. Mind the straps (12 low, 2 low/floating, 15 high).
 - **Don't commit production files** (Gerbers, BOM, CPL; `hardware/production/`
   is ignored). They go on a GitHub release tagged `hw-rev-a`, … — the owner
   says when. The revision is also on the silkscreen and in the title block.

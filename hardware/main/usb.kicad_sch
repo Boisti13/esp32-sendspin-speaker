@@ -2,7 +2,7 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "6a0b4005-935f-443a-8679-80ce279f1907")
+	(uuid "cfc7eebe-a734-41a2-8d5b-6a2f56122061")
 	(paper "A4")
 	(title_block
 		(title "ESP32 Sendspin Speaker — main board — USB")
@@ -19,7 +19,7 @@
 			)
 			(justify left top)
 		)
-		(uuid "81607896-6b9a-42a2-aa74-2d34d49f48f8")
+		(uuid "38270119-d361-4d94-8e0f-ea642514893b")
 	)
 	(hierarchical_label "IO0"
 		(shape output)
@@ -30,7 +30,7 @@
 			)
 			(justify right)
 		)
-		(uuid "15e5cd43-9f07-4b6d-b865-2eb24d29f056")
+		(uuid "48f1c1c0-5322-4aea-80ae-2be2718961f9")
 	)
 	(hierarchical_label "U0RXD"
 		(shape output)
@@ -41,7 +41,7 @@
 			)
 			(justify right)
 		)
-		(uuid "204f5374-7450-4a3f-8af2-4e44c7d13d64")
+		(uuid "6b76a5d7-c0ab-4034-92b1-1799553614b1")
 	)
 	(hierarchical_label "U0TXD"
 		(shape input)
@@ -52,7 +52,7 @@
 			)
 			(justify right)
 		)
-		(uuid "2203126b-cf00-4213-b9cf-bffbd3df483f")
+		(uuid "70d81790-5d15-4c73-93fe-1ba56ffb88d8")
 	)
 	(hierarchical_label "EN"
 		(shape output)
@@ -63,7 +63,7 @@
 			)
 			(justify right)
 		)
-		(uuid "2dc7cde6-cae6-49ae-9a8a-973e593b8082")
+		(uuid "cd36bbce-99d8-40bd-bbfe-00d4d897aeb5")
 	)
 	(hierarchical_label "VBUS"
 		(shape output)
@@ -74,6 +74,6 @@
 			)
 			(justify right)
 		)
-		(uuid "e626602e-77f5-4fd1-8a12-45312c53ae9a")
+		(uuid "f9de3947-c94c-4297-b3e0-71e1e410bd0c")
 	)
 )

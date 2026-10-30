@@ -2,7 +2,7 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "37413601-0add-42f6-bfc2-fa3109d4923f")
+	(uuid "9ff359a6-4225-41a4-bf38-76fa95de203b")
 	(paper "A4")
 	(title_block
 		(title "ESP32 Sendspin Speaker — main board — Power")
@@ -10,7 +10,7 @@
 		(rev "A")
 	)
 	(lib_symbols)
-	(text "Power block. To draw here:\nTP4056 (R_PROG 2.4k, ~500 mA), red/green CHRG/STDBY LEDs, DW01A + FS8205A,\nJ_BAT (PH 2.0), load sharing AO3401A + SS34, MSK-12C02 on/off -> VBAT_SW,\n3V3: AP2112K-3.3 or TPS63802, battery divider 2x 100k + 100n."
+	(text "Power block. To draw here:\nTP4056 (R_PROG 2.4k, ~500 mA), DW01A + FS8205A, J_BAT (PH 2.0),\nload sharing AO3401A + SS34, MSK12C02 on/off or J_SW (XH 2) -> VBAT_SW,\ncharge LEDs on board or J_CHG (XH 3); CHRG/STDBY to the GPIOs through\nBAT54 diodes (keeps VBUS off the pins), AP2112K-3.3, battery divider 2x 100k + 100n."
 		(exclude_from_sim no)
 		(at 101.6 40.64 0)
 		(effects
@@ -19,29 +19,7 @@
 			)
 			(justify left top)
 		)
-		(uuid "1eea05e4-2a4a-4cb4-be8d-16c015e8c0b4")
-	)
-	(hierarchical_label "CHRG"
-		(shape output)
-		(at 50.8 55.88 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "60e0c885-e4e6-4a17-b18e-0fb049607f3f")
-	)
-	(hierarchical_label "VBUS"
-		(shape input)
-		(at 50.8 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d8d74936-6083-458b-a2b3-32f5536f6821")
+		(uuid "c19e0fa6-379a-470f-8096-945861fdd54b")
 	)
 	(hierarchical_label "STDBY"
 		(shape output)
@@ -52,7 +30,7 @@
 			)
 			(justify right)
 		)
-		(uuid "f23c5f66-0020-4583-ae16-a86261ddd19f")
+		(uuid "0d53eb4c-fc49-4a5b-934e-2c4d2521ea46")
 	)
 	(hierarchical_label "VBAT_SENSE"
 		(shape output)
@@ -63,6 +41,28 @@
 			)
 			(justify right)
 		)
-		(uuid "f4be4a14-7b23-4ce0-a5f6-fef80a092f67")
+		(uuid "3d979fd6-3c0a-46c1-b5f1-faf5becbca26")
+	)
+	(hierarchical_label "VBUS"
+		(shape input)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c42ca9e5-6d87-459a-bf4e-1f99609e58cf")
+	)
+	(hierarchical_label "CHRG"
+		(shape output)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "dae7eeeb-e628-45ea-80a1-9bcb63c42330")
 	)
 )

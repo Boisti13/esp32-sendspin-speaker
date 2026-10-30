@@ -2,7 +2,7 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "c73f9cb4-eda1-4469-a0b1-cc40ade215d1")
+	(uuid "892d340b-2040-41ea-b8fb-889fe8777068")
 	(paper "A4")
 	(title_block
 		(title "ESP32 Sendspin Speaker — main board — MCU")
@@ -10,7 +10,7 @@
 		(rev "A")
 	)
 	(lib_symbols)
-	(text "MCU block. To draw here:\nESP32-A1S (ES8388), 22u + 100n, EN 10k + 1u, Boot and Reset buttons,\nstatus LED (GPIO22), I2C pull-ups 4.7k, 10k pull-ups on GPIO36/39.\nUnused: GPIO12, 16, 17, 35."
+	(text "MCU block. To draw here:\nESP32-A1S (ES8388; codec I2C/I2S are inside the module), 22u + 100n, EN 10k + 1u,\nBoot and Reset buttons, 10k pull-ups on GPIO36/39, 10k pull-down on GPIO12 (LED),\ndisplay: SCK 14, MOSI/SDA 13, CS 15, DC 22; 4.7k pull-ups on 13/14 fitted for I2C only.\nCHRG 4, STDBY 2. Unused: MIC/LINEIN pins."
 		(exclude_from_sim no)
 		(at 101.6 40.64 0)
 		(effects
@@ -19,18 +19,7 @@
 			)
 			(justify left top)
 		)
-		(uuid "fa15eb1c-8cd8-42d9-8b97-648214d62e8e")
-	)
-	(hierarchical_label "BTN6"
-		(shape input)
-		(at 50.8 147.32 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0a577d1f-268e-4940-84fe-4d39030970e5")
+		(uuid "7a2a77a5-00ae-49af-b2dd-46db2a5b099c")
 	)
 	(hierarchical_label "U0TXD"
 		(shape output)
@@ -41,172 +30,29 @@
 			)
 			(justify right)
 		)
-		(uuid "12a493a2-b350-4166-9177-82654a2437c2")
+		(uuid "0a98c7d5-059d-4358-8481-79cb385a2d9b")
+	)
+	(hierarchical_label "LED"
+		(shape output)
+		(at 50.8 172.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1171f889-2782-4a20-b216-3e9f4cd76fed")
 	)
 	(hierarchical_label "BTN1"
 		(shape input)
-		(at 50.8 127 180)
+		(at 50.8 147.32 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "12da8961-5ee9-4312-bcb0-97d2d42558f4")
-	)
-	(hierarchical_label "STDBY"
-		(shape input)
-		(at 50.8 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "1820a1cd-1e21-4b20-86e4-7c77e11116bc")
-	)
-	(hierarchical_label "BTN3"
-		(shape input)
-		(at 50.8 132.08 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2a286757-39fa-494a-827d-6873f72ccd72")
-	)
-	(hierarchical_label "SDA"
-		(shape bidirectional)
-		(at 50.8 116.84 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2c9c1b77-5137-43e1-86d1-876373e8c10f")
-	)
-	(hierarchical_label "VBAT_SENSE"
-		(shape input)
-		(at 50.8 81.28 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "36bb2845-bdcd-4a0f-a64f-9368703fee7a")
-	)
-	(hierarchical_label "IO0"
-		(shape bidirectional)
-		(at 50.8 66.04 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "576e1752-c6a1-4f76-a70e-8584d5f4c73f")
-	)
-	(hierarchical_label "AMP_EN"
-		(shape output)
-		(at 50.8 106.68 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "5bbb7730-f62a-4dde-ab13-8f2c16e89187")
-	)
-	(hierarchical_label "U0RXD"
-		(shape input)
-		(at 50.8 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "5e38645f-af54-4015-9744-4b18a429c8f9")
-	)
-	(hierarchical_label "EN"
-		(shape input)
-		(at 50.8 60.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "5f625e4c-21d7-4095-8cd3-4e833182c963")
-	)
-	(hierarchical_label "ROUT1"
-		(shape output)
-		(at 50.8 91.44 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "7025717d-5f0d-4b94-b424-46fce3aaa20c")
-	)
-	(hierarchical_label "LOUT1"
-		(shape output)
-		(at 50.8 86.36 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "8ae32c35-3117-4782-b4ea-7c442d21a1e8")
-	)
-	(hierarchical_label "BTN5"
-		(shape input)
-		(at 50.8 142.24 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9b8f879f-963c-4c8e-9338-be40c48b41c4")
-	)
-	(hierarchical_label "ROUT2"
-		(shape output)
-		(at 50.8 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a9425bd1-9639-4298-b86f-a8a248af8305")
-	)
-	(hierarchical_label "LOUT2"
-		(shape output)
-		(at 50.8 96.52 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "af3c6372-f1c0-490f-b3d0-6348a7d39aa3")
-	)
-	(hierarchical_label "HP_DET"
-		(shape input)
-		(at 50.8 111.76 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b8c7b6b8-62ed-427e-90e0-f8bca16dc048")
+		(uuid "3c13547f-21fe-43d3-9639-b741028ac655")
 	)
 	(hierarchical_label "CHRG"
 		(shape input)
@@ -217,10 +63,10 @@
 			)
 			(justify right)
 		)
-		(uuid "c6bf674e-8584-469d-b463-2a4ab3cc9f7e")
+		(uuid "3c7fd6b1-c99f-4e20-83f4-08452cb3f7fb")
 	)
-	(hierarchical_label "LED"
-		(shape output)
+	(hierarchical_label "BTN3"
+		(shape input)
 		(at 50.8 152.4 180)
 		(effects
 			(font
@@ -228,21 +74,21 @@
 			)
 			(justify right)
 		)
-		(uuid "d1b5df78-b0ad-47fd-8244-bea6539e6015")
+		(uuid "3e346681-55c9-4fe6-b6f4-52dbc137a652")
 	)
-	(hierarchical_label "SCL"
+	(hierarchical_label "SPORP"
 		(shape output)
-		(at 50.8 121.92 180)
+		(at 50.8 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "e2ee35b6-9d17-4e4f-842d-8aa26ff2680a")
+		(uuid "40750cda-b184-4112-9e40-bbf60b51cd3c")
 	)
-	(hierarchical_label "BTN4"
-		(shape input)
+	(hierarchical_label "DISP_CS"
+		(shape output)
 		(at 50.8 137.16 180)
 		(effects
 			(font
@@ -250,6 +96,204 @@
 			)
 			(justify right)
 		)
-		(uuid "f104b13d-8b55-42e6-a144-50e27a8c1e21")
+		(uuid "4749a582-9dbc-4b06-873d-d46b17ce398e")
+	)
+	(hierarchical_label "BTN5"
+		(shape input)
+		(at 50.8 162.56 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4942861d-6ca4-4692-8c75-3e4a80ce1365")
+	)
+	(hierarchical_label "HP_DET"
+		(shape input)
+		(at 50.8 121.92 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5e98f658-9672-4476-b683-2f6fd8b4eb1d")
+	)
+	(hierarchical_label "IO0"
+		(shape bidirectional)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5fe639ae-6f88-48d6-ac20-b40c2817db63")
+	)
+	(hierarchical_label "EN"
+		(shape input)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "63001a32-4426-40f6-a3eb-b14e576737dc")
+	)
+	(hierarchical_label "DISP_SCK"
+		(shape output)
+		(at 50.8 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "686be185-f7db-4a7f-aabe-fd5fd5cc2948")
+	)
+	(hierarchical_label "AMP_EN"
+		(shape output)
+		(at 50.8 116.84 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6b637def-54dd-447e-abe4-dd9a445f8b15")
+	)
+	(hierarchical_label "SPOLP"
+		(shape output)
+		(at 50.8 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6f341dd4-2f2b-43fa-a31c-0ea0c6171fe9")
+	)
+	(hierarchical_label "VBAT_SENSE"
+		(shape input)
+		(at 50.8 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "713b5d14-6ceb-4883-b4c9-9a9d3bd45bdc")
+	)
+	(hierarchical_label "U0RXD"
+		(shape input)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "83c8810d-9f93-4a68-bd51-14d69a7e1be1")
+	)
+	(hierarchical_label "DISP_MOSI"
+		(shape bidirectional)
+		(at 50.8 132.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "86b82b9c-4142-4c5c-8e7e-dd6fe249be54")
+	)
+	(hierarchical_label "HPOUTL"
+		(shape output)
+		(at 50.8 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a10eae7b-9177-4f6d-81f7-96f5a6b0f054")
+	)
+	(hierarchical_label "SPOLN"
+		(shape output)
+		(at 50.8 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b565a1cd-76ed-41dd-8d71-4e74414b21bd")
+	)
+	(hierarchical_label "STDBY"
+		(shape input)
+		(at 50.8 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c7480e6c-5540-4844-b8cd-81ed7aa25bc9")
+	)
+	(hierarchical_label "BTN4"
+		(shape input)
+		(at 50.8 157.48 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d48e1119-3dc6-4246-b677-b8d0bc98bb2a")
+	)
+	(hierarchical_label "DISP_DC"
+		(shape output)
+		(at 50.8 142.24 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "db6420a8-cb72-441c-9c98-135b19745382")
+	)
+	(hierarchical_label "HPOUTR"
+		(shape output)
+		(at 50.8 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e6eee28f-3dc4-4af6-b415-c7be0e12c374")
+	)
+	(hierarchical_label "SPORN"
+		(shape output)
+		(at 50.8 111.76 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f0e3ef11-a761-4d53-8fe5-38b17c7d936e")
+	)
+	(hierarchical_label "BTN6"
+		(shape input)
+		(at 50.8 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f6f98d31-dab0-4806-8f96-7a056270b133")
 	)
 )
