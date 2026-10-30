@@ -128,7 +128,7 @@
 					(type none)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at -21.59 22.86 0)
 				(length 2.54)
 				(name "GND"
@@ -146,7 +146,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at -21.59 20.32 0)
 				(length 2.54)
 				(name "3V3"
@@ -164,7 +164,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 17.78 0)
 				(length 2.54)
 				(name "SENSOR_VN"
@@ -182,7 +182,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 15.24 0)
 				(length 2.54)
 				(name "SENSOR_VP"
@@ -200,7 +200,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 12.7 0)
 				(length 2.54)
 				(name "IO34"
@@ -218,7 +218,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 10.16 0)
 				(length 2.54)
 				(name "IO0"
@@ -236,7 +236,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 7.62 0)
 				(length 2.54)
 				(name "IO14"
@@ -254,7 +254,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 5.08 0)
 				(length 2.54)
 				(name "IO12"
@@ -272,7 +272,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 2.54 0)
 				(length 2.54)
 				(name "IO13"
@@ -290,7 +290,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 0 0)
 				(length 2.54)
 				(name "IO15"
@@ -308,7 +308,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 -2.54 0)
 				(length 2.54)
 				(name "IO2"
@@ -326,7 +326,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at -21.59 -5.08 0)
 				(length 2.54)
 				(name "IO4"
@@ -344,7 +344,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at -21.59 -7.62 0)
 				(length 2.54)
 				(name "HBIAS"
@@ -362,7 +362,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 -10.16 0)
 				(length 2.54)
 				(name "MIC2N"
@@ -380,7 +380,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 -12.7 0)
 				(length 2.54)
 				(name "MIC2P"
@@ -398,7 +398,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at -21.59 -15.24 0)
 				(length 2.54)
 				(name "MBIAS"
@@ -416,7 +416,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 -17.78 0)
 				(length 2.54)
 				(name "MIC1P"
@@ -434,7 +434,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at -21.59 -20.32 0)
 				(length 2.54)
 				(name "MIC1N"
@@ -452,7 +452,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at -21.59 -22.86 0)
 				(length 2.54)
 				(name "GND"
@@ -470,7 +470,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at 21.59 -22.86 180)
 				(length 2.54)
 				(name "GND"
@@ -488,7 +488,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at 21.59 -20.32 180)
 				(length 2.54)
 				(name "LINEINR"
@@ -506,7 +506,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at 21.59 -17.78 180)
 				(length 2.54)
 				(name "LINEINL"
@@ -524,7 +524,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -15.24 180)
 				(length 2.54)
 				(name "SPORP"
@@ -542,7 +542,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -12.7 180)
 				(length 2.54)
 				(name "SPORN"
@@ -560,7 +560,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -10.16 180)
 				(length 2.54)
 				(name "SPOLP"
@@ -578,7 +578,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -7.62 180)
 				(length 2.54)
 				(name "SPOLN"
@@ -596,7 +596,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -5.08 180)
 				(length 2.54)
 				(name "HPOUTL"
@@ -614,7 +614,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 -2.54 180)
 				(length 2.54)
 				(name "HPOUTR"
@@ -632,7 +632,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 0 180)
 				(length 2.54)
 				(name "IO5"
@@ -650,7 +650,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 2.54 180)
 				(length 2.54)
 				(name "IO18"
@@ -668,7 +668,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 5.08 180)
 				(length 2.54)
 				(name "IO23"
@@ -686,7 +686,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 7.62 180)
 				(length 2.54)
 				(name "IO19"
@@ -704,7 +704,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 10.16 180)
 				(length 2.54)
 				(name "IO22"
@@ -722,7 +722,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin bidirectional line
 				(at 21.59 12.7 180)
 				(length 2.54)
 				(name "IO21"
@@ -740,7 +740,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at 21.59 15.24 180)
 				(length 2.54)
 				(name "EN"
@@ -758,7 +758,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin output line
 				(at 21.59 17.78 180)
 				(length 2.54)
 				(name "TXD0"
@@ -776,7 +776,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin input line
 				(at 21.59 20.32 180)
 				(length 2.54)
 				(name "RXD0"
@@ -794,7 +794,7 @@
 					)
 				)
 			)
-			(pin unspecified line
+			(pin power_in line
 				(at 21.59 22.86 180)
 				(length 2.54)
 				(name "GND"

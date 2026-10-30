@@ -7,10 +7,12 @@ screen even stays on the same pins — so the firmware carries over as
 KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: main board block diagram drawn (five hierarchical sheets with
-> their signals); the sheets themselves are still empty. All parts have a
-> symbol and footprint (table below). Nothing here has been built or
-> tested yet.
+> Status: main board block diagram and the **MCU sheet** drawn; Power,
+> USB, Audio and Connectors sheets still empty. All parts have a symbol and
+> footprint (table below). Nothing here has been built or tested yet.
+
+Reference designators are numbered per sheet: MCU 1xx, Power 2xx, USB 3xx,
+Audio 4xx, Connectors 5xx (front panel and USB-C board: 6xx, 7xx).
 
 ## Highlights
 
@@ -199,7 +201,12 @@ usb/sendspin-speaker-usb.kicad_*     USB-C board
 */sym-lib-table, */fp-lib-table      each project points at ../lib/ only
 lib/lcsc.kicad_sym, .pretty/, .3dshapes/   parts imported from LCSC
 lib/sendspin-speaker.kicad_sym, .pretty/   parts we draw ourselves
+scripts/schgen.py, make_*.py         draft generator for a sheet's first version
 ```
+
+`scripts/` writes the first draft of a sheet (symbols copied from the
+libraries, footprints set, pins wired to labels on the 1.27 mm grid). Once
+a sheet has been edited in KiCad it is never regenerated.
 
 ## Manufacturing
 

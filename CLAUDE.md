@@ -81,6 +81,14 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
 - **Don't commit production files** (Gerbers, BOM, CPL; `hardware/production/`
   is ignored). They go on a GitHub release tagged `hw-rev-a`, … — the owner
   says when. The revision is also on the silkscreen and in the title block.
+- **References per sheet**: MCU 1xx, Power 2xx, USB 3xx, Audio 4xx,
+  Connectors 5xx, front panel 6xx, USB-C board 7xx.
+- **Drawing sheets**: the `kicad` MCP's `build` profile only places net
+  labels, so first drafts come from `hardware/scripts/` (one `make_<sheet>.py`
+  per sheet). Never regenerate a sheet that has been edited in KiCad.
+  After any file change, close and reopen KiCad (it doesn't reload).
+  Check: ERC, the netlist (`kicad-cli sch export netlist`) for the nets you
+  meant, and a look at the sheet.
 - **Don't use the MCP's `vcs_commit_checkpoint`**: commits are made by
   hand, one per change, like the firmware.
 - Check before committing: `kicad-cli sch erc` and `kicad-cli pcb drc`

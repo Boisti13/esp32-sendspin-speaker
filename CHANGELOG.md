@@ -20,6 +20,11 @@
   the module): display on the ST7789's pins 14/13/15/22, SPI or I²C;
   status LED on 12, CHRG/STDBY on 4/2 through diodes. On/off switch and
   charge LEDs can go off-board (J_SW, J_CHG).
+- MCU sheet drawn: ESP32-A1S with all pads wired (unused mic/line-in pads
+  marked), 22 µF + 100 nF, EN 10k/1 µF with Reset, Boot, pull-ups on
+  GPIO36/39 and display CS, optional I²C pull-ups (not fitted), status LED
+  on GPIO12 with its strap pull-down. The A1S symbol got real pin types.
+  Draft generator in `hardware/scripts/`.
 
 ## v0.7.0 — 2026-10-29
 
