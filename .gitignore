@@ -31,3 +31,5 @@ hardware/**/~*
 hardware/**/*.kicad_prl
 hardware/production/
 hardware/**/*.bak
+# KiCad 10 local history (a git repository of its own)
+hardware/**/.history/
