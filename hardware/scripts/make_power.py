@@ -40,10 +40,10 @@ u = s.part("Battery_Management", "TP4056-42-ESOP8", "U201", "TP4056", 80.01, 80.
            datasheet="https://www.lcsc.com/datasheet/C16581.pdf")
 net(u["4"], "VBUS", stub=5.08)           # VCC
 net(u["8"], "VBUS")                      # CE: always enabled
-net(u["1"], "GND")                       # TEMP: no NTC
+net(u["1"], "GND", stub=12.7)           # TEMP: no NTC (long stub keeps GND clear of PROG)
 net(u["2"], "PROG")
 net(u["5"], "VBAT")                      # BAT
-net(u["3"], "GND"); net(u["9"], "GND")   # GND, exposed pad
+net(u["3"], "GND"); s.wire(*u["9"][:2], *u["3"][:2])   # GND, exposed pad tied to it
 net(u["7"], "CHRG_N", stub=5.08)
 net(u["6"], "STDBY_N", stub=5.08)
 two("Device", "R", "R201", "2.4k", 110.49, 80.01, "PROG", "GND", R0805)    # ~500 mA
@@ -72,7 +72,7 @@ net(j["1"], "VBAT"); net(j["2"], "BAT_N")
 u = s.part("Battery_Management", "DW01A", "U202", "DW01A", 220.98, 63.5,
            footprint="Package_TO_SOT_SMD:SOT-23-6")
 net(u["5"], "DW_VCC"); net(u["6"], "BAT_N"); net(u["2"], "DW_CS")
-net(u["1"], "OD"); net(u["3"], "OC"); s.no_connect(*u["4"][:2])
+net(u["1"], "OD", bend=(-5.08, 0)); net(u["3"], "OC", bend=(5.08, 0)); s.no_connect(*u["4"][:2])
 two("Device", "R", "R204", "100", 254.0, 50.8, "VBAT", "DW_VCC", R0805)
 two("Device", "C", "C203", "100n", 271.78, 50.8, "DW_VCC", "BAT_N", C0805)
 two("Device", "R", "R205", "1k", 254.0, 76.2, "DW_CS", "GND", R0805)
@@ -88,26 +88,30 @@ net(d["2"], "VBUS"); net(d["1"], "VBAT_LS")
 q = s.part("Transistor_FET", "AO3401A", "Q202", "AO3401A", 190.5, 175.26,
            footprint="Package_TO_SOT_SMD:SOT-23")
 net(q["1"], "VBUS")                          # gate: off while USB is present
-net(q["3"], "VBAT"); net(q["2"], "VBAT_LS")  # drain at the cell, source at the load
+net(q["3"], "VBAT"); net(q["2"], "VBAT_LS", bend=(5.08, 0))  # drain at the cell, source at the load
 two("Device", "R", "R206", "100k", 218.44, 160.02, "VBUS", "GND", R0805)
 two("Device", "C", "C204", "10u", 236.22, 160.02, "VBAT_LS", "GND", C0805)
 
 # --- on/off: on-board slide switch, panel switch on J_SW, or bridge JP201 ------
 sw = s.part("lcsc", "MSK12C02", "SW201", "MSK12C02", 287.02, 154.94,
-            footprint="lcsc:SW-TH_MSK12C02", lcsc="C431540")
-net(sw["1"], "VBAT_LS", stub=5.08); net(sw["2"], "VBAT_SW", stub=5.08)
+            footprint="lcsc:SW-TH_MSK12C02", lcsc="C431540",
+            texts={"Reference": (12.7, -2.54, "left"), "Value": (0, 8.89, "")})
+net(sw["1"], "VBAT_LS", stub=5.08, bend=(-5.08, 0)); net(sw["2"], "VBAT_SW")
 s.no_connect(*sw["3"][:2]); s.no_connect(*sw["4"][:2])
 j = s.part("Connector_Generic", "Conn_01x02", "J202", "J_SW", 287.02, 180.34,
            footprint=XH.format(n=2))
-net(j["1"], "VBAT_LS"); net(j["2"], "VBAT_SW")
+net(j["1"], "VBAT_LS"); net(j["2"], "VBAT_SW", stub=15.24)  # rail symbol clear of pin 1's label
 jp = s.part("Jumper", "SolderJumper_2_Open", "JP201", "SW bypass", 287.02, 200.66,
             footprint="Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm", in_bom=False)
 net(jp["1"], "VBAT_LS"); net(jp["2"], "VBAT_SW")
 
 # --- 3.3 V -------------------------------------------------------------------------
 u = s.part("Regulator_Linear", "AP2112K-3.3", "U203", "AP2112K-3.3", 345.44, 80.01,
-           footprint="Package_TO_SOT_SMD:SOT-23-5")
-net(u["1"], "VBAT_SW"); net(u["3"], "VBAT_SW", stub=7.62)
+           footprint="Package_TO_SOT_SMD:SOT-23-5",
+           texts={"Reference": (0, -8.89, ""), "Value": (0, 10.16, "")})
+net(u["1"], "VBAT_SW")                     # VIN
+vx, vy, _ = u["1"]; ex, ey, _ = u["3"]      # EN tied to VIN
+s.wire(ex, ey, vx - 2.54, ey); s.wire(vx - 2.54, ey, vx - 2.54, vy); s.junction(vx - 2.54, vy)
 net(u["2"], "GND"); net(u["5"], "+3V3"); s.no_connect(*u["4"][:2])
 two("Device", "C", "C205", "10u", 322.58, 99.06, "VBAT_SW", "GND", C0805)
 two("Device", "C", "C206", "10u", 370.84, 99.06, "+3V3", "GND", C0805)

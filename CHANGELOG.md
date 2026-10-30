@@ -30,6 +30,8 @@
   sharing (SS34, AO3401A), MSK12C02 / J_SW / solder-jumper bypass,
   AP2112K-3.3, battery divider on the cell (2 × 470k: on VBAT_SW it would
   read USB's 4.6 V while charging).
+- Power sheet tidied: part texts placed where each symbol expects them,
+  crowded labels and rail symbols moved apart (netlist unchanged).
 
 ## v0.7.0 — 2026-10-29
 
