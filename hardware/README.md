@@ -6,7 +6,8 @@ firmware carries over as `speaker-diy.yaml` with only the display, battery
 and LED parts changed. KiCad 10 projects; the hardware is licensed under
 CERN-OHL-P-2.0 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: projects created, schematics not started. Nothing here has been
+> Status: main board block diagram drawn (five hierarchical sheets with
+> their signals); the sheets themselves are still empty. Nothing here has been
 > built or tested yet.
 
 ## Highlights
@@ -126,7 +127,12 @@ polymer), and values that don't come in 0805 at the needed voltage (check
 ## Layout
 
 ```
-main/sendspin-speaker-main.kicad_*   main board
+main/sendspin-speaker-main.kicad_*   main board; the top sheet is the block diagram
+main/usb.kicad_sch                   USB-C, ESD, CH340C, auto-reset
+main/power.kicad_sch                 charger, protection, load sharing, switch, 3V3, battery sense
+main/mcu.kicad_sch                   ESP32-A1S, Boot/Reset, status LED, pull-ups
+main/audio.kicad_sch                 2x NS4150B, speaker connectors, headphone jack
+main/connectors.kicad_sch            J_UI (front panel), J_LED
 ui/sendspin-speaker-ui.kicad_*       front panel
 usb/sendspin-speaker-usb.kicad_*     USB-C board
 */sym-lib-table, */fp-lib-table      each project points at ../lib/ only

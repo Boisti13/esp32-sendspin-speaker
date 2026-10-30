@@ -1,0 +1,90 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "270d6d33-79fd-4c69-974a-4de4a8700ed7")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — main board — Audio")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(text "Audio block. To draw here:\n2x NS4150B (BTL, from VBAT_SW, 10u + 100n each), 220-470u bulk,\nJ_SPK_L / J_SPK_R (XH 2, bridged: no wire to GND),\nPJ-320D headphone jack on LOUT1/ROUT1, detect -> HP_DET."
+		(exclude_from_sim no)
+		(at 101.6 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "d22111ac-5ba8-43fb-8d9f-3193ab5c39e0")
+	)
+	(hierarchical_label "LOUT2"
+		(shape input)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4f086ad3-d87a-4e0b-b34b-37df7efabc3b")
+	)
+	(hierarchical_label "AMP_EN"
+		(shape input)
+		(at 50.8 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5d2a49ab-d49a-4822-8240-5b202a313ad6")
+	)
+	(hierarchical_label "ROUT2"
+		(shape input)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "86e198a2-8248-42fa-b658-e2d6e9233e0e")
+	)
+	(hierarchical_label "HP_DET"
+		(shape output)
+		(at 50.8 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "876a08d7-0b70-434e-b363-288c0e9f1ebd")
+	)
+	(hierarchical_label "ROUT1"
+		(shape input)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "db7be5b1-283b-4f54-b337-8be5ebe62d50")
+	)
+	(hierarchical_label "LOUT1"
+		(shape input)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e406392d-1977-4ef1-99a6-011c8d298763")
+	)
+)

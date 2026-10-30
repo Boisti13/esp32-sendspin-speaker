@@ -1,0 +1,112 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "9ebeec7b-bbb8-4346-8d3e-8b96f2188f41")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — main board — Connectors")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(text "Connectors block. To draw here:\nJ_UI (XH 10) to the front panel: 3V3, GND, SDA, SCL, BTN1/3/4/5/6, LED.\nJ_LED (XH 3): VBAT_SW, LED, GND."
+		(exclude_from_sim no)
+		(at 101.6 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "25c442ea-17b1-40a5-b306-7430d772f090")
+	)
+	(hierarchical_label "BTN4"
+		(shape output)
+		(at 50.8 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "286361c3-5e6a-4cc3-af30-f542e23848a3")
+	)
+	(hierarchical_label "BTN3"
+		(shape output)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4d2ea46a-a18d-41b3-92d6-2b717c4ec239")
+	)
+	(hierarchical_label "SDA"
+		(shape bidirectional)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "91e04cb1-1b2a-4f51-9e71-a20b223d40bf")
+	)
+	(hierarchical_label "BTN5"
+		(shape output)
+		(at 50.8 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ae44ed72-2f84-4e53-8715-1fb1f66532fd")
+	)
+	(hierarchical_label "BTN1"
+		(shape output)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b0c7c75e-39d0-470a-a5b9-49a30b76de79")
+	)
+	(hierarchical_label "SCL"
+		(shape input)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "cdfeb306-b2b5-4d14-8cd1-13200b96670a")
+	)
+	(hierarchical_label "BTN6"
+		(shape output)
+		(at 50.8 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f6a294df-2bab-46e4-9491-f96f1dc4f89d")
+	)
+	(hierarchical_label "LED"
+		(shape input)
+		(at 50.8 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f76c334d-7ae1-4390-ad5f-aa4048203a5e")
+	)
+)

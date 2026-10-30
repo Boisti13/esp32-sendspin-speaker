@@ -1,0 +1,68 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "37413601-0add-42f6-bfc2-fa3109d4923f")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — main board — Power")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(text "Power block. To draw here:\nTP4056 (R_PROG 2.4k, ~500 mA), red/green CHRG/STDBY LEDs, DW01A + FS8205A,\nJ_BAT (PH 2.0), load sharing AO3401A + SS34, MSK-12C02 on/off -> VBAT_SW,\n3V3: AP2112K-3.3 or TPS63802, battery divider 2x 100k + 100n."
+		(exclude_from_sim no)
+		(at 101.6 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "1eea05e4-2a4a-4cb4-be8d-16c015e8c0b4")
+	)
+	(hierarchical_label "CHRG"
+		(shape output)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "60e0c885-e4e6-4a17-b18e-0fb049607f3f")
+	)
+	(hierarchical_label "VBUS"
+		(shape input)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d8d74936-6083-458b-a2b3-32f5536f6821")
+	)
+	(hierarchical_label "STDBY"
+		(shape output)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f23c5f66-0020-4583-ae16-a86261ddd19f")
+	)
+	(hierarchical_label "VBAT_SENSE"
+		(shape output)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f4be4a14-7b23-4ce0-a5f6-fef80a092f67")
+	)
+)

@@ -1,0 +1,255 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "c73f9cb4-eda1-4469-a0b1-cc40ade215d1")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — main board — MCU")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(text "MCU block. To draw here:\nESP32-A1S (ES8388), 22u + 100n, EN 10k + 1u, Boot and Reset buttons,\nstatus LED (GPIO22), I2C pull-ups 4.7k, 10k pull-ups on GPIO36/39.\nUnused: GPIO12, 16, 17, 35."
+		(exclude_from_sim no)
+		(at 101.6 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "fa15eb1c-8cd8-42d9-8b97-648214d62e8e")
+	)
+	(hierarchical_label "BTN6"
+		(shape input)
+		(at 50.8 147.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0a577d1f-268e-4940-84fe-4d39030970e5")
+	)
+	(hierarchical_label "U0TXD"
+		(shape output)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "12a493a2-b350-4166-9177-82654a2437c2")
+	)
+	(hierarchical_label "BTN1"
+		(shape input)
+		(at 50.8 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "12da8961-5ee9-4312-bcb0-97d2d42558f4")
+	)
+	(hierarchical_label "STDBY"
+		(shape input)
+		(at 50.8 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1820a1cd-1e21-4b20-86e4-7c77e11116bc")
+	)
+	(hierarchical_label "BTN3"
+		(shape input)
+		(at 50.8 132.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2a286757-39fa-494a-827d-6873f72ccd72")
+	)
+	(hierarchical_label "SDA"
+		(shape bidirectional)
+		(at 50.8 116.84 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2c9c1b77-5137-43e1-86d1-876373e8c10f")
+	)
+	(hierarchical_label "VBAT_SENSE"
+		(shape input)
+		(at 50.8 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "36bb2845-bdcd-4a0f-a64f-9368703fee7a")
+	)
+	(hierarchical_label "IO0"
+		(shape bidirectional)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "576e1752-c6a1-4f76-a70e-8584d5f4c73f")
+	)
+	(hierarchical_label "AMP_EN"
+		(shape output)
+		(at 50.8 106.68 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5bbb7730-f62a-4dde-ab13-8f2c16e89187")
+	)
+	(hierarchical_label "U0RXD"
+		(shape input)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5e38645f-af54-4015-9744-4b18a429c8f9")
+	)
+	(hierarchical_label "EN"
+		(shape input)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5f625e4c-21d7-4095-8cd3-4e833182c963")
+	)
+	(hierarchical_label "ROUT1"
+		(shape output)
+		(at 50.8 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7025717d-5f0d-4b94-b424-46fce3aaa20c")
+	)
+	(hierarchical_label "LOUT1"
+		(shape output)
+		(at 50.8 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8ae32c35-3117-4782-b4ea-7c442d21a1e8")
+	)
+	(hierarchical_label "BTN5"
+		(shape input)
+		(at 50.8 142.24 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9b8f879f-963c-4c8e-9338-be40c48b41c4")
+	)
+	(hierarchical_label "ROUT2"
+		(shape output)
+		(at 50.8 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a9425bd1-9639-4298-b86f-a8a248af8305")
+	)
+	(hierarchical_label "LOUT2"
+		(shape output)
+		(at 50.8 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "af3c6372-f1c0-490f-b3d0-6348a7d39aa3")
+	)
+	(hierarchical_label "HP_DET"
+		(shape input)
+		(at 50.8 111.76 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b8c7b6b8-62ed-427e-90e0-f8bca16dc048")
+	)
+	(hierarchical_label "CHRG"
+		(shape input)
+		(at 50.8 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c6bf674e-8584-469d-b463-2a4ab3cc9f7e")
+	)
+	(hierarchical_label "LED"
+		(shape output)
+		(at 50.8 152.4 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d1b5df78-b0ad-47fd-8244-bea6539e6015")
+	)
+	(hierarchical_label "SCL"
+		(shape output)
+		(at 50.8 121.92 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e2ee35b6-9d17-4e4f-842d-8aa26ff2680a")
+	)
+	(hierarchical_label "BTN4"
+		(shape input)
+		(at 50.8 137.16 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f104b13d-8b55-42e6-a144-50e27a8c1e21")
+	)
+)

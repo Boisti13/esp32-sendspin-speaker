@@ -11,6 +11,8 @@
   OLED and buttons (`ui/`), USB-C (`usb/`) — with a JST connector plan for
   the panel, USB-C (or USB-C on the main board), LiPo, speakers and
   status LED. SMD passives and LEDs in 0805 wherever possible.
+- Main board block diagram: hierarchical sheets USB, Power, MCU, Audio
+  and Connectors with their signals, each sheet listing what goes in it.
 
 ## v0.7.0 — 2026-10-29
 

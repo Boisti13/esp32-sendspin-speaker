@@ -1,0 +1,79 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "6a0b4005-935f-443a-8679-80ce279f1907")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — main board — USB")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(text "USB block. To draw here:\nUSB-C on board (USB1) or USB-C board via J_USB (XH 4), CC 5.1k, USBLC6-2SC6,\nCH340C with its own ME6211/XC6206 3V3 from VBUS, TX/RX 470R,\nauto-reset (2x S8050 or UMH3N: DTR/RTS -> EN/IO0)."
+		(exclude_from_sim no)
+		(at 101.6 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "81607896-6b9a-42a2-aa74-2d34d49f48f8")
+	)
+	(hierarchical_label "IO0"
+		(shape output)
+		(at 50.8 71.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "15e5cd43-9f07-4b6d-b865-2eb24d29f056")
+	)
+	(hierarchical_label "U0RXD"
+		(shape output)
+		(at 50.8 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "204f5374-7450-4a3f-8af2-4e44c7d13d64")
+	)
+	(hierarchical_label "U0TXD"
+		(shape input)
+		(at 50.8 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2203126b-cf00-4213-b9cf-bffbd3df483f")
+	)
+	(hierarchical_label "EN"
+		(shape output)
+		(at 50.8 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2dc7cde6-cae6-49ae-9a8a-973e593b8082")
+	)
+	(hierarchical_label "VBUS"
+		(shape output)
+		(at 50.8 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e626602e-77f5-4fd1-8a12-45312c53ae9a")
+	)
+)
