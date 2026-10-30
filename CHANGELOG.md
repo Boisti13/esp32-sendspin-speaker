@@ -25,6 +25,11 @@
   GPIO36/39 and display CS, optional I²C pull-ups (not fitted), status LED
   on GPIO12 with its strap pull-down. The A1S symbol got real pin types.
   Draft generator in `hardware/scripts/`.
+- Power sheet drawn: TP4056 (2.4k, ~500 mA) with on-board or J_CHG charge
+  LEDs and BAT54W read-back to GPIO4/2, J_BAT + DW01A/FS8205A, load
+  sharing (SS34, AO3401A), MSK12C02 / J_SW / solder-jumper bypass,
+  AP2112K-3.3, battery divider on the cell (2 × 470k: on VBAT_SW it would
+  read USB's 4.6 V while charging).
 
 ## v0.7.0 — 2026-10-29
 

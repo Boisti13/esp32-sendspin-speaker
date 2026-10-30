@@ -25,15 +25,41 @@ def _block(text, start):
     raise ValueError("unbalanced")
 
 
-def load_symbol(lib, name):
+def _children(blk):
+    """Top-level child blocks of an s-expression block, as (start, end) spans."""
+    out, depth, start = [], 0, None
+    for i, ch in enumerate(blk):
+        if ch == "(":
+            depth += 1
+            if depth == 2:
+                start = i
+        elif ch == ")":
+            if depth == 2:
+                out.append((start, i + 1))
+            depth -= 1
+    return out
+
+
+def _raw_symbol(lib, name):
     path = PROJECT_LIBS.get(lib, f"{KICAD}/{lib}.kicad_sym")
     t = open(path, encoding="utf-8").read()
     m = re.search(r'\n\s*\(symbol "' + re.escape(name) + r'"', t)
     if not m:
         raise KeyError(f"{lib}:{name}")
     blk = _block(t, m.start() + t[m.start():].index("("))
-    if "(extends " in blk:
-        raise ValueError(f"{lib}:{name} extends another symbol")
+    ext = re.search(r'\(extends "([^"]+)"\)', blk)
+    if not ext:
+        return blk
+    # derived symbol: parent's graphics and pins, the child's own properties
+    parent = _raw_symbol(lib, ext.group(1))
+    props = [blk[a:b] for a, b in _children(blk) if blk[a:b].startswith("(property")]
+    keep = [parent[a:b] for a, b in _children(parent) if not parent[a:b].startswith("(property")]
+    keep = [k.replace(f'(symbol "{ext.group(1)}_', f'(symbol "{name}_') for k in keep]
+    return f'(symbol "{name}"\n' + "\n".join(props + keep) + "\n)"
+
+
+def load_symbol(lib, name):
+    blk = _raw_symbol(lib, name)
     blk = blk.replace(f'(symbol "{name}"', f'(symbol "{lib}:{name}"', 1)
     pins = {}
     for px, py, ang, num in re.findall(
@@ -41,6 +67,9 @@ def load_symbol(lib, name):
         pins.setdefault(num, (float(px), float(py), int(ang)))
     return blk, pins
 
+
+# rail -> power-library symbol drawn for it (VBUS is a hierarchical signal, not a rail here)
+POWER = {"+3V3": "+3V3", "GND": "GND", "VBAT": "+BATT", "VBAT_SW": "+BATT", "+3V3_USB": "+3V3"}
 
 # pin angle -> direction a wire leaves the connection point (screen coords, y down)
 AWAY = {0: (-1, 0), 180: (1, 0), 90: (0, 1), 270: (0, -1)}
@@ -91,9 +120,15 @@ class Sheet:
         self.items.append(s)
         return {n: (r2(x + px), r2(y - py), a) for n, (px, py, a) in pins.items()}
 
-    def power(self, name, x, y):
+    def power(self, net, x, y):
+        """Power symbol; the net is named by its value (rails KiCad has no symbol for
+        borrow +BATT / +3V3 graphics)."""
         self.pwr += 1
-        self.part("power", name, f"#PWR{self.pwr_base + self.pwr:04d}", name, x, y)
+        self.part("power", POWER[net], f"#PWR{self.pwr_base + self.pwr:04d}", net, x, y)
+
+    def flag(self, x, y):
+        self.pwr += 1
+        self.part("power", "PWR_FLAG", f"#FLG{self.pwr_base + self.pwr:04d}", "PWR_FLAG", x, y)
 
     def wire(self, x1, y1, x2, y2):
         x1, y1, x2, y2 = g(x1), g(y1), g(x2), g(y2)
@@ -122,7 +157,7 @@ class Sheet:
         x, y, a = pin
         dx, dy = AWAY[a]
         ex, ey = x + dx * stub, y + dy * stub
-        if net in ("+3V3", "GND", "VBAT_SW", "VBUS", "VBAT", "+3V3_USB"):
+        if net in POWER:
             if a in (0, 180):  # side pin: stub out, symbol at its end
                 self.wire(x, y, ex, ey)
                 self.power(net, ex, ey)

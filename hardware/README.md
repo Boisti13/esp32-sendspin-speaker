@@ -7,7 +7,7 @@ screen even stays on the same pins — so the firmware carries over as
 KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: main board block diagram and the **MCU sheet** drawn; Power,
+> Status: main board block diagram, **MCU** and **Power** sheets drawn;
 > USB, Audio and Connectors sheets still empty. All parts have a symbol and
 > footprint (table below). Nothing here has been built or tested yet.
 
@@ -108,7 +108,8 @@ library where it has the part; otherwise imported from LCSC into
 | Load sharing | AO3401A | `Package_TO_SOT_SMD:SOT-23` | |
 | | SS34 | `Diode_SMD:D_SMA` | |
 | Power switch | MSK12C02 | `lcsc:SW-TH_MSK12C02` | C431540 |
-| Charge status | 2 × BAT54W (GPIO isolation) | `Diode_SMD:D_SOD-323` | |
+| Switch bypass | solder jumper JP201 | `Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm` | |
+| Charge status | 2 × BAT54W (GPIO isolation) | `Package_TO_SOT_SMD:SOT-323_SC-70` | |
 | 3.3 V | AP2112K-3.3 | `Package_TO_SOT_SMD:SOT-23-5` | |
 | 3.3 V (CH340C) | XC6206P332MR | `Package_TO_SOT_SMD:SOT-23-3` | |
 | USB-UART | CH340C | `Package_SO:SOIC-16_3.9x9.9mm_P1.27mm` | |
@@ -138,7 +139,15 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
   pull-up + 1 µF. GPIO0 is also the codec's MCLK, as on the Audio Kit.
 - USB-C: 5.1 kΩ on CC1 and CC2 separately; A6/B6 and A7/B7 tied.
 - Module: 22 µF + 100 nF at 3V3; amps: 10 µF + 100 nF each.
-- Battery sense: 2 × 100 kΩ + 100 nF, switched VBAT → GPIO34.
+- Battery sense: 2 × 470 kΩ + 100 nF on the **cell** (VBAT) → GPIO34, ~4.5 µA.
+  Not on VBAT_SW: with USB in, load sharing puts ~4.6 V from VBUS there and
+  the cell couldn't be measured while charging.
+- Protection sits in the negative lead: BAT_N is the cell's minus, GND
+  the protected system ground (P−). DW01A: 100 Ω / 100 nF supply, CS via 1 kΩ.
+- Load sharing: SS34 from VBUS to the load (VBAT_LS); AO3401A with drain
+  at the cell, source at the load, gate on VBUS (100 kΩ to GND), so it
+  connects the cell only without USB.
+- AP2112K-3.3: 10 µF in and out, EN tied to VIN.
 - Flashing over USB needs the switch on.
 
 ## Pin plan
@@ -168,9 +177,11 @@ so). All pads are in use.
 - Display: keep the ST7789 config without `reset_pin`, or switch to
   `ssd1306_i2c` with `i2c: sda: 13, scl: 14` (a second bus; the codec's
   stays on 33/32) and a monochrome UI.
-- Battery `adc` on GPIO34 (12 dB, ×2); warn below 3.5 V (LDO).
+- Battery `adc` on GPIO34 (12 dB, ×2, cell voltage); warn below 3.5 V (LDO).
 - Status LED on GPIO12.
-- *Charging* / *Charged* binary sensors on GPIO4/GPIO2 (inverted, pull-up).
+- *Charging* / *Charged* binary sensors on GPIO4/GPIO2 (pull-up): charging =
+  CHRG low and STDBY high, charged = STDBY low and CHRG high; anything else
+  means no USB (without VBUS both can read low through the TP4056).
 
 ## Libraries
 
