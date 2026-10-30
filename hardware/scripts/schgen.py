@@ -6,7 +6,10 @@ or the hand edits are lost. Usage: see make_mcu.py.
 import re, uuid
 
 KICAD = "D:/Programs/KiCad/10.0/share/kicad/symbols"
-PROJECT_LIBS = {"lcsc": "D:/dev/esp32-sendspin-speaker/hardware/lib/lcsc.kicad_sym"}
+PROJECT_LIBS = {
+    "lcsc": "D:/dev/esp32-sendspin-speaker/hardware/lib/lcsc.kicad_sym",
+    "sendspin-speaker": "D:/dev/esp32-sendspin-speaker/hardware/lib/sendspin-speaker.kicad_sym",
+}
 FONT = "(effects (font (size 1.27 1.27))"
 U = lambda: str(uuid.uuid4())
 r2 = lambda v: round(v, 2)
@@ -70,10 +73,12 @@ def load_symbol(lib, name):
         m = re.search(r'\(at ([-\d.]+) ([-\d.]+) (\d+)\)', prop)
         just = re.search(r'\(justify ([^)]*)\)', prop)
         texts[k] = (float(m.group(1)), float(m.group(2)), int(m.group(3)), just.group(1) if just else "")
-    pins = {}
-    for px, py, ang, num in re.findall(
-            r'\(pin \w+ \w+\s*\(at ([-\d.]+) ([-\d.]+) (\d+)\).*?\(number "([^"]+)"', blk, re.S):
-        pins.setdefault(num, (float(px), float(py), int(ang)))
+    pins = {}  # number -> (x, y, angle, unit); unit 0 = shared by all units
+    for m in re.finditer(r'\(symbol "' + re.escape(name) + r'_(\d+)_(\d+)"', blk):
+        unit, sub = int(m.group(1)), _block(blk, m.start())
+        for px, py, ang, num in re.findall(
+                r'\(pin \w+ \w+\s*\(at ([-\d.]+) ([-\d.]+) (\d+)\).*?\(number "([^"]+)"', sub, re.S):
+            pins.setdefault(num, (float(px), float(py), int(ang), unit))
     return blk, pins, texts
 
 
@@ -99,9 +104,9 @@ class Sheet:
         return self.libs[f"{lib}:{name}"][2]
 
     def part(self, lib, name, ref, value, x, y, footprint="", lcsc="", dnp=False,
-             datasheet="~", in_bom=True, hide_ref=False, text_lib=True, texts=None):
+             datasheet="~", in_bom=True, hide_ref=False, text_lib=True, texts=None, unit=1):
         x, y = g(x), g(y)
-        pins = self._lib(lib, name)
+        pins = {n: p[:3] for n, p in self._lib(lib, name).items() if p[3] in (0, unit)}
         is_pwr = ref.startswith("#")
         horizontal = all(a in (0, 180) for _, _, a in pins.values()) and len(pins) == 2
         # R/C: texts beside the part read better than KiCad's value-inside-the-body default
@@ -131,7 +136,7 @@ class Sheet:
             props = [("Reference", ref, x, y + (6.35 if not down else -6.35), True),
                      ("Value", value, x, y + (3.81 if down else -3.81), down),  # GND text hidden: the symbol says it
                      ("Footprint", "", x, y, True), ("Datasheet", "", x, y, True)]
-        s = (f'(symbol (lib_id "{lib}:{name}") (at {r2(x)} {r2(y)} 0) (unit 1) (exclude_from_sim no) '
+        s = (f'(symbol (lib_id "{lib}:{name}") (at {r2(x)} {r2(y)} 0) (unit {unit}) (exclude_from_sim no) '
              f'(in_bom {"no" if is_pwr or not in_bom else "yes"}) (on_board {"no" if is_pwr else "yes"}) '
              f'(dnp {"yes" if dnp else "no"}) (uuid "{U()}")\n')
         for k, v, px, py, hide in props:
@@ -145,7 +150,7 @@ class Sheet:
         for num in pins:
             s += f'  (pin "{num}" (uuid "{U()}"))\n'
         s += (f'  (instances (project "{self.project}" (path "{self.path}" '
-              f'(reference "{ref}") (unit 1))))\n)\n')
+              f'(reference "{ref}") (unit {unit}))))\n)\n')
         self.items.append(s)
         return {n: (r2(x + px), r2(y - py), a) for n, (px, py, a) in pins.items()}
 
