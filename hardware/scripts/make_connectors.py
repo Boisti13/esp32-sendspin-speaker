@@ -44,7 +44,7 @@ s.text("Connectors\n"
        "SCK = SCL and MOSI = SDA (fit R105/R106 on the MCU sheet). Buttons pull to GND on the panel.\n"
        "J_LED (XH 3): status LED off board through R501 330R: a plain LED straight to LED/GND,\n"
        "or an SK6812 (data through R501, power from VBAT_SW).\n"
-       "Pin orders are the contract with the front panel (hardware/README.md).", 38.1, 160.02)
+       "Pin orders are the contract with the front panel (hardware/README.md).", 38.1, 30.48)
 
 s.write(OUT, FILE_UUID, TITLE)
 print("ok")

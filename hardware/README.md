@@ -7,9 +7,10 @@ screen even stays on the same pins — so the firmware carries over as
 KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: main board block diagram, **MCU** and **Power** sheets drawn;
-> USB, Audio and Connectors sheets still empty. All parts have a symbol and
-> footprint (table below). Nothing here has been built or tested yet.
+> Status: **all schematics drawn** — main board (MCU, Power, USB, Audio,
+> Connectors), front panel and USB-C board. ERC is clean on all three, every
+> part has its footprint. Before layout: check the PJ-320D pinout (see
+> *Open checks*). No PCB layout yet; nothing built or tested.
 
 Reference designators are numbered per sheet: MCU 1xx, Power 2xx, USB 3xx,
 Audio 4xx, Connectors 5xx (front panel and USB-C board: 6xx, 7xx).
@@ -60,7 +61,7 @@ JST XH (2.5 mm) unless noted. Pin 1 first.
 | J_BAT | LiPo cell | **PH 2.0, 2** | BAT+, BAT− |
 | J_SW | on/off switch | XH 2 | VBAT_LS, VBAT_SW (switch in series) |
 | J_CHG | charge LEDs | XH 3 | LED+ (VBUS), CHRG (red cathode), STDBY (green cathode) |
-| J_LED | status LED | XH 3 | VBAT_SW, LED (12), GND |
+| J_LED | status LED | XH 3 | VBAT_SW, LED (12) through 330 Ω, GND |
 | J_SPK_L | left speaker | XH 2 | OUTP, OUTN |
 | J_SPK_R | right speaker | XH 2 | OUTP, OUTN |
 
@@ -86,9 +87,10 @@ JST XH (2.5 mm) unless noted. Pin 1 first.
   neither, bridge the solder jumper next to them.
 - **J_CHG**: the LED resistors stay on the main board; the on-board 0805
   LEDs are in parallel and can be left off.
-- **J_LED**: a plain LED with its resistor on the main board can be wired
+- **J_LED**: GPIO12 goes out through R501 (330 Ω), so a plain LED wires
   straight to LED/GND; VBAT_SW is there for an SK6812-type LED (needs
-  > 3.7 V, hence not 3V3). The on-board LED footprint stays as an option.
+  > 3.7 V, hence not 3V3; R501 is its data series resistor). The on-board
+  LED (D101/R108) stays as well.
 
 ## Parts and footprints
 
@@ -100,7 +102,7 @@ library where it has the part; otherwise imported from LCSC into
 |---|---|---|---|
 | Module | ESP32-A1S (ES8388), hand-soldered | `lcsc:WIRELM-SMD_ESP32-A1S` (+ antenna keepout) | C277945 |
 | Amps | 2 × NS4150B | `lcsc:MSOP-8_L3.0-W3.0-P0.65-LS5.0-BL` | C189961 |
-| Bulk | 220–470 µF, ≥ 6.3 V | `Capacitor_SMD:CP_Elec_8x10` | |
+| Bulk | 470 µF, ≥ 6.3 V | `Capacitor_SMD:CP_Elec_8x10` | |
 | Headphones | PJ-320D | `lcsc:AUDIO-SMD_PJ-320D-1` | C431535 |
 | Charger | TP4056 | `Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm_ThermalVias` | |
 | Protection | DW01A | `Package_TO_SOT_SMD:SOT-23-6` | |
@@ -117,6 +119,8 @@ library where it has the part; otherwise imported from LCSC into
 | ESD | USBLC6-2SC6 | `Package_TO_SOT_SMD:SOT-23-6` | |
 | USB-C | 16-pin receptacle | `Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12` | |
 | Boot, Reset | tactile 5.1 × 5.1 mm | `Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A` | |
+| Panel buttons | tactile 6 × 6 mm THT | `Button_Switch_THT:SW_PUSH_6mm` | |
+| Display headers | 1 × 8 (SPI), 1 × 4 (I²C) | `Connector_PinHeader_2.54mm:PinHeader_1x08/1x04_P2.54mm_Vertical` | |
 | JST XH | B*B-XH-A vertical | `Connector_JST:JST_XH_B<n>B-XH-A_1x<n>_P2.50mm_Vertical` | |
 | JST PH | B2B-PH-K vertical | `Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical` | |
 | R, C, LED | | `Resistor_SMD:R_0805_2012Metric`, `Capacitor_SMD:C_0805_2012Metric`, `LED_SMD:LED_0805_2012Metric` | |
@@ -138,7 +142,16 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
   to VCC, TX/RX through 470 Ω. Auto-reset DTR/RTS → EN/GPIO0; EN 10 kΩ
   pull-up + 1 µF. GPIO0 is also the codec's MCLK, as on the Audio Kit.
 - USB-C: 5.1 kΩ on CC1 and CC2 separately; A6/B6 and A7/B7 tied.
-- Module: 22 µF + 100 nF at 3V3; amps: 10 µF + 100 nF each.
+- Module: 22 µF + 100 nF at 3V3.
+- NS4150B: inputs from the module's differential speaker outputs through
+  100 nF + 100 kΩ per leg (gain = 240 kΩ / Rin = 2.4, −3 dB at 16 Hz; 47 kΩ
+  gives 5.1 if it's too quiet), Bypass 1 µF, supply 10 µF + 1 µF (the
+  datasheet's 1 µF instead of 100 nF), R421 100 kΩ pull-down on AMP_EN so
+  the amps stay off while booting.
+- Headphones: HPOUTL/R through 47 µF (0805; the codec's outputs sit at
+  VREF), −3 dB around 100 Hz into 32 Ω.
+- Front panel: ST7789 reset by RC (10 kΩ / 1 µF), backlight always on;
+  status LED option D601/R602.
 - Battery sense: 2 × 470 kΩ + 100 nF on the **cell** (VBAT) → GPIO34, ~4.5 µA.
   Not on VBAT_SW: with USB in, load sharing puts ~4.6 V from VBUS there and
   the cell couldn't be measured while charging.
@@ -149,6 +162,16 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
   connects the cell only without USB.
 - AP2112K-3.3: 10 µF in and out, EN tied to VIN.
 - Flashing over USB needs the switch on.
+
+## Open checks
+
+- **PJ-320D pinout**: wired as 1 sleeve (GND), 4 tip (L), 3 ring (R),
+  2 detect, after a third-party listing — the LCSC datasheet wasn't
+  readable. Check against the datasheet or measure a jack before layout.
+- **NS4150B values**: Rin/Cin from the gain formula; the typical
+  application page of the datasheet wasn't readable either — compare.
+- **ES8388 headphone coupling**: whether the A1S module already has coupling
+  caps on HPOUTL/R isn't documented; with them the 47 µF are harmless.
 
 ## Pin plan
 

@@ -32,6 +32,14 @@
   read USB's 4.6 V while charging).
 - Power sheet tidied: part texts placed where each symbol expects them,
   crowded labels and rail symbols moved apart (netlist unchanged).
+- USB sheet: USB-C (or J_USB) with CC resistors and USBLC6-2SC6, CH340C on
+  its own XC6206 3.3 V, TX/RX 470 Ω, UMH3N auto-reset. CH340C symbol copy
+  with V3 as power input (tied to VCC).
+- Audio sheet: 2 × NS4150B with 100n/100k inputs, bypass, supply caps,
+  470 µF bulk, AMP_EN pull-down, speaker connectors, PJ-320D on 47 µF.
+- Connectors sheet: J_UI (XH 12) and J_LED (through 330 Ω).
+- Front panel and USB-C board schematics. ERC clean on all three projects.
+- KiCad 10's local history folder (`.history/`) is ignored.
 
 ## v0.7.0 — 2026-10-29
 
