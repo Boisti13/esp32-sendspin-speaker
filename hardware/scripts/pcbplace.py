@@ -57,17 +57,38 @@ class Board:
             row_h = max(row_h, h)
         return left
 
-    def outline(self):
+    def outline(self, radius=3.0):
+        """Rectangle with rounded corners: four edges and four quarter arcs."""
         for d in list(self.b.GetDrawings()):
             if d.GetLayer() == pcbnew.Edge_Cuts:
                 self.trash.append(d); self.b.Remove(d)
-        r = pcbnew.PCB_SHAPE(self.b)
-        r.SetShape(pcbnew.SHAPE_T_RECT)
-        r.SetStart(pcbnew.VECTOR2I(mm(self.x0), mm(self.y0)))
-        r.SetEnd(pcbnew.VECTOR2I(mm(self.x0 + self.w), mm(self.y0 + self.h)))
-        r.SetLayer(pcbnew.Edge_Cuts)
-        r.SetWidth(mm(0.1))
-        self.b.Add(r)
+        x0, y0, x1, y1, r = self.x0, self.y0, self.x0 + self.w, self.y0 + self.h, radius
+        v = lambda x, y: pcbnew.VECTOR2I(mm(x), mm(y))
+
+        def add(shape, *pts):
+            s = pcbnew.PCB_SHAPE(self.b)
+            s.SetShape(shape)
+            if shape == pcbnew.SHAPE_T_SEGMENT:
+                s.SetStart(v(*pts[0])); s.SetEnd(v(*pts[1]))
+            else:
+                s.SetArcGeometry(v(*pts[0]), v(*pts[1]), v(*pts[2]))
+            s.SetLayer(pcbnew.Edge_Cuts); s.SetWidth(mm(0.1))
+            self.b.Add(s)
+
+        k = r * (1 - 0.7071067811865476)          # arc midpoint inset from the corner
+        add(pcbnew.SHAPE_T_SEGMENT, (x0 + r, y0), (x1 - r, y0))
+        add(pcbnew.SHAPE_T_ARC, (x1 - r, y0), (x1 - k, y0 + k), (x1, y0 + r))
+        add(pcbnew.SHAPE_T_SEGMENT, (x1, y0 + r), (x1, y1 - r))
+        add(pcbnew.SHAPE_T_ARC, (x1, y1 - r), (x1 - k, y1 - k), (x1 - r, y1))
+        add(pcbnew.SHAPE_T_SEGMENT, (x1 - r, y1), (x0 + r, y1))
+        add(pcbnew.SHAPE_T_ARC, (x0 + r, y1), (x0 + k, y1 - k), (x0, y1 - r))
+        add(pcbnew.SHAPE_T_SEGMENT, (x0, y1 - r), (x0, y0 + r))
+        add(pcbnew.SHAPE_T_ARC, (x0, y0 + r), (x0 + k, y0 + k), (x0 + r, y0))
+
+    def corners(self, inset):
+        """Hole centres `inset` mm in from both edges at each corner."""
+        x0, y0, x1, y1 = self.x0 + inset, self.y0 + inset, self.x0 + self.w - inset, self.y0 + self.h - inset
+        return ((x0, y0), (x1, y0), (x0, y1), (x1, y1))
 
     def holes(self, name, points):
         """Board-only mounting holes (not in the schematic, BOM or position files),

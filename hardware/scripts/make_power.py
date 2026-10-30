@@ -67,7 +67,7 @@ net(j["1"], "VBUS"); net(j["2"], "CHRG_K"); net(j["3"], "STDBY_K")
 
 # --- battery and protection (DW01A + FS8205A in the negative lead) -------------
 j = s.part("Connector_Generic", "Conn_01x02", "J201", "J_BAT", 180.34, 63.5,
-           footprint="Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical")
+           footprint="Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
 net(j["1"], "VBAT"); net(j["2"], "BAT_N")
 u = s.part("Battery_Management", "DW01A", "U202", "DW01A", 220.98, 63.5,
            footprint="Package_TO_SOT_SMD:SOT-23-6")

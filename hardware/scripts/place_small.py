@@ -22,24 +22,24 @@ B.place("J603", X0 + (W + w) / 2 + 6.0, Y0 + 3.0, 90)     # I2C OLED header next
 for k, ref in enumerate(("SW601", "SW603", "SW604", "SW605", "SW606")):
     B.place(ref, X0 + 9.0 + 12.0 * k, Y0 + H - 13.0)       # 12 mm pitch
 B.place("J601", X0 + (W - 33.5) / 2, Y0 + 15.0, back=True)  # cable from the main board, back side
-left = B.pack(["R601", "C602", "C601", "R602", "D601"], X0 + 7.0, Y0 + 15.0, X0 + 20.0, Y0 + 27.0)
+B.place("J604", X0 + 10.0, Y0 + 16.0, 90)                  # status LED header
+left = []
 print("front panel, did not fit:", left)
-B.outline()
-B.holes("MountingHole_3.2mm_M3", ((X0 + 3, Y0 + 3), (X0 + W - 3, Y0 + 3),
-                                  (X0 + 3, Y0 + H - 3), (X0 + W - 3, Y0 + H - 3)))
+B.outline(radius=3.0)
+B.holes("MountingHole_3.2mm_M3", B.corners(4.5))
 B.gnd_pour()
 B.save()
 
 # --- USB-C board: receptacle on the left edge, J_USB on the right ---------------------
-X0, Y0, W, H = 100.0, 100.0, 32.0, 20.0
+X0, Y0, W, H = 100.0, 100.0, 32.0, 22.0
 B = Board(f"{HW}/usb/sendspin-speaker-usb.kicad_pcb", X0, Y0, W, H)
 B.place("USB701", X0 - 0.8, Y0 + 5.0, 270)
 w, _ = B.size("J701", 90)
 B.place("J701", X0 + W - w - 0.5, Y0 + 3.3, 90)
-left = B.pack(["U701", "R701", "R702"], X0 + 11.5, Y0 + 6.0, X0 + 23.0, Y0 + 14.0)
+left = []                                                   # no parts: a bare breakout
 print("USB-C board, did not fit:", left)
-B.outline()
-B.holes("MountingHole_2.2mm_M2", ((X0 + 14.5, Y0 + 2.5), (X0 + 14.5, Y0 + H - 2.5)))
+B.outline(radius=2.0)
+B.holes("MountingHole_2.2mm_M2", ((X0 + 16.0, Y0 + 3.0), (X0 + 16.0, Y0 + H - 3.0)))
 B.gnd_pour()
 B.save()
 print("saved")

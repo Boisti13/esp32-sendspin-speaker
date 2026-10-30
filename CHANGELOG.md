@@ -50,8 +50,10 @@
   USB-C breakout or panel wiring can replace them: J_USB is now XH 6 with
   CC1/CC2 (CC resistors and ESD on the main board); J_UI's LED pin comes
   through R501; panel RC reset, decoupling and LED removed (ST7789 RST tied
-  high). Schematics only so far: the boards still need Update PCB (F8)
-  and re-placement.
+  high). Boards updated and re-placed.
+- J_BAT is a JST XH 2 like every other connector (was PH 2.0).
+- Mounting holes 4.5 mm in from the edges so M3 screw heads stay on the
+  board (M2: 3 mm); rounded board corners (r = 3 mm, USB-C board 2 mm).
 
 ## v0.7.0 — 2026-10-29
 

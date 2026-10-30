@@ -12,7 +12,7 @@ KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 > layers. Not routed yet. Before routing: check the PJ-320D pinout (see
 > *Open checks*). Nothing built or tested.
 
-| Main board, 90 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 20 mm |
+| Main board, 90 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 22 mm |
 |---|---|---|
 | ![main board](docs/main-top.png) | ![front panel](docs/ui-top.png) | ![USB-C board](docs/usb-top.png) |
 
@@ -50,8 +50,8 @@ Audio 4xx, Connectors 5xx (front panel and USB-C board: 6xx, 7xx).
 | Board | KiCad project | Carries |
 |---|---|---|
 | Main | [`main/`](main/) | ESP32-A1S, amps, charger and protection, regulators, CH340C, Boot/Reset, headphone jack, on-board options for switch and charge LEDs, all connectors below |
-| Front panel | [`ui/`](ui/) | display header (SPI and I²C module pinouts), buttons 1, 3, 4, 5, 6 |
-| USB-C | [`usb/`](usb/) | USB-C receptacle, CC resistors, USBLC6-2SC6 |
+| Front panel | [`ui/`](ui/) | buttons 1, 3, 4, 5, 6 and headers only (SPI and I²C display, status LED): any panel wiring can replace it |
+| USB-C | [`usb/`](usb/) | USB-C receptacle only: any USB-C breakout or panel socket can replace it |
 
 ## Connectors (main board)
 
@@ -59,10 +59,10 @@ JST XH (2.5 mm) unless noted. Pin 1 first.
 
 | Ref | To | Pins | Signals |
 |---|---|---|---|
-| J_UI | front panel | XH 12 | 3V3, GND, SCK/SCL (14), MOSI/SDA (13), CS (15), DC (22), BTN1 (36), BTN3 (19), BTN4 (23), BTN5 (18), BTN6 (5), LED (12) |
-| J_USB | USB-C board | XH 4 | VBUS, D−, D+, GND |
+| J_UI | front panel | XH 12 | 3V3, GND, SCK/SCL (14), MOSI/SDA (13), CS (15), DC (22), BTN1 (36), BTN3 (19), BTN4 (23), BTN5 (18), BTN6 (5), LED (12, through R501 330 Ω) |
+| J_USB | USB-C board | XH 6 | VBUS, D−, D+, CC1, CC2, GND |
 | USB1 | — | USB-C 16-pin | the on-board option, in parallel with J_USB |
-| J_BAT | LiPo cell | **PH 2.0, 2** | BAT+, BAT− |
+| J_BAT | LiPo cell | XH 2 | BAT+, BAT− |
 | J_SW | on/off switch | XH 2 | VBAT_LS, VBAT_SW (switch in series) |
 | J_CHG | charge LEDs | XH 3 | LED+ (VBUS), CHRG (red cathode), STDBY (green cathode) |
 | J_LED | status LED | XH 3 | VBAT_SW, LED (12) through 330 Ω, GND |
@@ -71,19 +71,20 @@ JST XH (2.5 mm) unless noted. Pin 1 first.
 
 - **Speakers are bridged (BTL)**: neither wire is ground. Never tie a
   speaker wire to GND or share a return between the two speakers.
-- **Battery on JST PH**, since that is what most LiPo cells come with —
-  but cells differ in polarity: check before plugging in. Silkscreen
-  `+`/`−` at the connector.
+- **Battery on JST XH** like every other cable: most cells ship with a PH
+  plug, so crimp an XH plug on (or use an adapter lead). Cells differ in
+  polarity: check before plugging in. Silkscreen `+`/`−` at the connector.
 - **J_UI**: a SPI display uses all four display lines; an I²C OLED only
   SCK/SCL and MOSI/SDA, with the two 4.7 kΩ pull-ups on the main board
   fitted (leave them off for SPI). GPIO36's 10 kΩ pull-up is on the main
-  board too, so the panel has the display header, buttons to GND and a
-  100 nF at the header. Keep the cable short (≤ 20 cm). Small series
-  resistors (~100 Ω) on the button lines are optional ESD protection. The
-  LED pin lets the panel carry the status LED instead of J_LED.
-- **J_USB / USB1**: the CC resistors and the USBLC6-2SC6 belong next to the
-  receptacle, so both the main board (for USB1) and the USB-C board carry
-  them. Fit either USB1 or J_USB, not both. The cable carries charge and
+  board too, so the panel has nothing but buttons to GND and headers.
+  Keep the cable short (≤ 20 cm). The LED pin is GPIO12 after R501
+  (330 Ω), so a panel LED wires straight on.
+- **J_USB / USB1**: the 5.1 kΩ CC resistors (R301/R302) and the USBLC6-2SC6
+  are on the main board and serve both, so the off-board side is a bare
+  receptacle: our USB-C board or any breakout that brings out VBUS, D−, D+,
+  CC1, CC2 and GND (leave R301/R302 off if it has its own 5.1 kΩ). Fit
+  either USB1 or J_USB, not both. The cable carries charge and
   load current (amps on battery through load sharing), so XH's 3 A per pin
   is plenty; keep it short (≤ 15 cm) for USB full speed.
 - **J_SW**: the switch goes in series between load sharing and VBAT_SW.
@@ -126,7 +127,6 @@ library where it has the part; otherwise imported from LCSC into
 | Panel buttons | tactile 6 × 6 mm THT | `Button_Switch_THT:SW_PUSH_6mm` | |
 | Display headers | 1 × 8 (SPI), 1 × 4 (I²C) | `Connector_PinHeader_2.54mm:PinHeader_1x08/1x04_P2.54mm_Vertical` | |
 | JST XH | B*B-XH-A vertical | `Connector_JST:JST_XH_B<n>B-XH-A_1x<n>_P2.50mm_Vertical` | |
-| JST PH | B2B-PH-K vertical | `Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical` | |
 | R, C, LED | | `Resistor_SMD:R_0805_2012Metric`, `Capacitor_SMD:C_0805_2012Metric`, `LED_SMD:LED_0805_2012Metric` | |
 
 LCSC numbers for the KiCad-library parts are filled in when they go into
@@ -154,8 +154,9 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
   the amps stay off while booting.
 - Headphones: HPOUTL/R through 47 µF (0805; the codec's outputs sit at
   VREF), −3 dB around 100 Hz into 32 Ω.
-- Front panel: ST7789 reset by RC (10 kΩ / 1 µF), backlight always on;
-  status LED option D601/R602.
+- Front panel: no parts besides buttons and headers. ST7789 RST tied to
+  3.3 V (the driver sends a software reset), backlight always on; J604
+  takes a status LED directly.
 - Battery sense: 2 × 470 kΩ + 100 nF on the **cell** (VBAT) → GPIO34, ~4.5 µA.
   Not on VBAT_SW: with USB in, load sharing puts ~4.6 V from VBUS there and
   the cell couldn't be measured while charging.
@@ -255,8 +256,9 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
 
 | | Main | Front panel | USB-C |
 |---|---|---|---|
-| Size | 90 × 58 mm | 75 × 45 mm | 32 × 20 mm |
-| Holes | 4 × M3, 3 mm from the corners | 4 × M3 | 2 × M2 |
+| Size | 90 × 58 mm | 75 × 45 mm | 32 × 22 mm |
+| Corners | rounded, r = 3 mm | r = 3 mm | r = 2 mm |
+| Holes | 4 × M3, 4.5 mm in from both edges (screw heads stay on the board) | 4 × M3, same | 2 × M2, 3 mm in |
 | Layers | 2, GND pour on both | 2 | 2 |
 
 - **JLCPCB** 2-layer rules: 0.15 mm track and clearance, 0.3 mm drill,
@@ -270,7 +272,8 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
   and right edges; speakers on top; J_USB, J_UI, J_LED along the bottom;
   battery, J_SW, J_CHG on the right edge.
 - **Front panel**: display headers at the top, buttons at 12 mm pitch,
-  J_UI on the back.
+  LED header J604, J_UI on the back.
+- **USB-C board**: receptacle on the left edge, J_USB (XH 6) on the right.
 
 ## Manufacturing
 

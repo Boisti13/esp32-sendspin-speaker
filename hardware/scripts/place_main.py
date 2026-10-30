@@ -22,15 +22,15 @@ u.SetOrientationDegrees(0)
 u.SetPosition(pcbnew.VECTOR2I(mm(150.0), mm(Y0 + 12.32)))
 
 # edge connectors
-B.place("J401", 107.0, Y0 + 0.5)                          # speakers, top edge
-B.place("J402", 117.0, Y0 + 0.5)
+B.place("J401", 109.5, Y0 + 0.5)                          # speakers, top edge
+B.place("J402", 119.5, Y0 + 0.5)
 B.place("J403", X0 - 0.5, 110.0)                          # headphone jack, left edge
 B.place("USB301", X0 - 0.8, 128.0, 270)                   # USB-C, left edge, mouth outward
-B.place("J301", 107.5, Y0 + H - 7.3)                      # J_USB, bottom edge
-B.place("J501", 123.0, Y0 + H - 7.3)                      # J_UI, bottom edge
-B.place("J502", 159.5, Y0 + H - 7.3)                      # J_LED, bottom edge
-B.place("R501", 172.0, Y0 + H - 5.0)                      # its series resistor
-for ref, y in (("J201", 108.0), ("SW201", 117.0), ("J202", 126.0), ("J203", 136.0)):
+B.place("J301", 109.5, Y0 + H - 7.3)                      # J_USB, bottom edge
+B.place("J501", 129.5, Y0 + H - 7.3)                      # J_UI, bottom edge
+B.place("J502", 164.5, Y0 + H - 7.3)                      # J_LED, bottom edge
+B.place("R501", 176.5, Y0 + H - 5.0)                      # its series resistor
+for ref, y in (("J201", 109.5), ("SW201", 119.0), ("J202", 127.5), ("J203", 137.0)):
     w, _ = B.size(ref, 90)
     B.place(ref, X0 + W - w - 0.5, y, 90)                 # battery, switch, J_SW, J_CHG: right edge
 
@@ -50,9 +50,8 @@ left += B.pack(["U201", "U202", "Q201", "Q202", "D205", "U203", "D203", "D204", 
                141.5, 130.5, 181.0, 149.5)                                    # power
 print("did not fit:", left)
 
-B.outline()
-B.holes("MountingHole_3.2mm_M3", ((X0 + 3, Y0 + 3), (X0 + W - 3, Y0 + 3),
-                                  (X0 + 3, Y0 + H - 3), (X0 + W - 3, Y0 + H - 3)))
+B.outline(radius=3.0)                                        # rounded corners
+B.holes("MountingHole_3.2mm_M3", B.corners(4.5))   # 4.5 mm in: a 6 mm screw head stays on the board
 B.gnd_pour()
 B.save()
 print("saved")
