@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Under the hood
+
+- `hardware/`: empty KiCad 10 project for a custom battery-powered PCB
+  (Rev A), with project-local libraries, the parts list and pin plan in
+  `hardware/README.md`, and CERN-OHL-P-2.0 for the hardware.
+
 ## v0.7.0 — 2026-10-29
 
 ### Changed

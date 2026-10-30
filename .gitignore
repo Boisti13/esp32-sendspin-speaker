@@ -21,3 +21,13 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+
+# KiCad: backups, caches, locks (production files go on GitHub releases)
+hardware/**/*-backups/
+hardware/**/fp-info-cache
+hardware/**/*.lck
+hardware/**/_autosave-*
+hardware/**/~*
+hardware/**/*.kicad_prl
+hardware/production/
+hardware/**/*.bak

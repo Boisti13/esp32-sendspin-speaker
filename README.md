@@ -68,6 +68,14 @@ The numbers are the ones printed on the board (KEY1–KEY6).
 GPIO12 (screen reset) is a strapping pin: if it is high at power-on the
 ESP32 picks 1.8 V flash and doesn't boot. Worth moving if boot is flaky.
 
+### Custom PCB (in design)
+
+A battery-powered board of its own is being designed in KiCad in
+[`hardware/`](hardware/README.md): the same ESP32-A1S module, two 3 W
+amplifiers, a 1S LiPo charger, one USB-C port for charging and flashing,
+and an I²C OLED. It keeps the pins above, so it will get its own
+`speaker-diy.yaml` with few changes. Not built yet.
+
 ## Install
 
 | Step | |
@@ -98,6 +106,7 @@ fonts/                 Ubuntu Medium and Material Design Icons for the screen
 sounds/boot.wav        the boot chime (1.5 s, 22 kHz mono)
 scripts/make-boot-sound.py  makes sounds/boot.wav (synthesised, MIT like the rest)
 secrets.example.yaml   the secrets the config expects
+hardware/              KiCad 10 project for the custom PCB (CERN-OHL-P-2.0)
 ```
 
 ## Development
@@ -115,5 +124,6 @@ secrets.example.yaml   the secrets the config expects
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Fonts: see
+MIT, see [LICENSE](LICENSE). The hardware in `hardware/` is under
+CERN-OHL-P-2.0, see [hardware/LICENSE](hardware/LICENSE). Fonts: see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

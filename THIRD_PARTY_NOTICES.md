@@ -1,7 +1,9 @@
 # Third-Party Notices
 
-The project's own files are under the MIT License. These parts come from
-others and keep their own licenses.
+The project's own files are under the MIT License, except the hardware
+design in `hardware/`, which is under CERN-OHL-P-2.0
+([hardware/LICENSE](hardware/LICENSE)). These parts come from others and
+keep their own licenses.
 
 ## Ubuntu Font
 

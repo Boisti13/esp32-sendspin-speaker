@@ -44,6 +44,32 @@ whose compile check passed (no need to ask): back up the old file to
 `git show <commit>:speaker.yaml` (and `sounds/` if it changed), check the
 files match.
 
+## Hardware (`hardware/`)
+
+KiCad 10 project for the custom PCB (`sendspin-speaker.kicad_*`); parts
+and pin plan in [hardware/README.md](hardware/README.md), kept current
+with every change.
+
+- **KiCad runs on HX99G-BKG only** (KiCad 10 and the `kicad` MCP are
+  there), not on the dev box. Push a `wip/` branch before switching PCs.
+- **Pins are shared with the firmware.** A pin change goes into the
+  schematic, `hardware/README.md` and `speaker-diy.yaml` in the same
+  commit. GPIO12, 16, 17 and 35 stay unused.
+- **Libraries are project-local** (`hardware/lib/`, tables use
+  `${KIPRJMOD}`). Only our own parts or ones with a compatible licence;
+  note any third-party part in `THIRD_PARTY_NOTICES.md`.
+- **Don't commit production files** (Gerbers, BOM, CPL; `hardware/production/`
+  is ignored). They go on a GitHub release tagged `hw-rev-a`, … — the owner
+  says when. The revision is also on the silkscreen and in the title block.
+- **Don't use the MCP's `vcs_commit_checkpoint`**: commits are made by
+  hand, one per change, like the firmware.
+- Check before committing: `kicad-cli sch erc` and `kicad-cli pcb drc`
+  (`D:\Programs\KiCad\10.0\bin\kicad-cli.exe`). Hardware-only changes need
+  no ESPHome check and no firmware version bump; they go into
+  `## Unreleased` → *Under the hood* until a board revision is released.
+- Hardware licence CERN-OHL-P-2.0 (`hardware/LICENSE`); the firmware stays
+  MIT.
+
 ## Versions to bump
 
 | Change | Bump |
