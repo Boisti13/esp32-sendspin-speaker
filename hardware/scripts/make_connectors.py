@@ -26,7 +26,7 @@ def net(pin, name, stub=2.54):
 
 # J_UI: the front panel. Pin order is the contract with ui/ (hardware/README.md).
 J_UI = ["+3V3", "GND", "DISP_SCK", "DISP_MOSI", "DISP_CS", "DISP_DC",
-        "BTN1", "BTN3", "BTN4", "BTN5", "BTN6", "LED"]
+        "BTN1", "BTN3", "BTN4", "BTN5", "BTN6", "LED_EXT"]   # LED through R501: the panel has no parts
 j = s.part("Connector_Generic", "Conn_01x12", "J501", "J_UI", 101.6, 88.9,
            footprint="Connector_JST:JST_XH_B12B-XH-A_1x12_P2.50mm_Vertical")
 for i, n in enumerate(J_UI, start=1):
@@ -42,8 +42,8 @@ net(r["1"], "LED"); s.attach(r["2"], "LED_EXT", kind="label", bend=(5.08, 0))
 s.text("Connectors\n"
        "J_UI (XH 12) to the front panel: SPI display uses SCK/MOSI/CS/DC; an I2C OLED only\n"
        "SCK = SCL and MOSI = SDA (fit R105/R106 on the MCU sheet). Buttons pull to GND on the panel.\n"
-       "J_LED (XH 3): status LED off board through R501 330R: a plain LED straight to LED/GND,\n"
-       "or an SK6812 (data through R501, power from VBAT_SW).\n"
+       "J_UI pin 12 and J_LED (XH 3) carry the status LED through R501 330R: a plain LED wires\n"
+       "straight to LED/GND (panel header or J_LED), or an SK6812 on J_LED (power from VBAT_SW).\n"
        "Pin orders are the contract with the front panel (hardware/README.md).", 38.1, 30.48)
 
 s.write(OUT, FILE_UUID, TITLE)

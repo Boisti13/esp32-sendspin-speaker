@@ -723,7 +723,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector_Generic:Conn_01x04"
+		(symbol "Connector_Generic:Conn_01x06"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -734,7 +734,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 0 5.08 0)
+				(at 0 7.62 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -743,8 +743,8 @@
 					)
 				)
 			)
-			(property "Value" "Conn_01x04"
-				(at 0 -7.62 0)
+			(property "Value" "Conn_01x06"
+				(at 0 -10.16 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -775,7 +775,7 @@
 					)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -808,16 +808,27 @@
 					)
 				)
 			)
-			(symbol "Conn_01x04_1_1"
+			(symbol "Conn_01x06_1_1"
 				(rectangle
-					(start -1.27 3.81)
-					(end 1.27 -6.35)
+					(start -1.27 6.35)
+					(end 1.27 -8.89)
 					(stroke
 						(width 0.254)
 						(type default)
 					)
 					(fill
 						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 5.207)
+					(end 0 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 				(rectangle
@@ -864,8 +875,19 @@
 						(type none)
 					)
 				)
+				(rectangle
+					(start -1.27 -7.493)
+					(end 0 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(pin passive line
-					(at -5.08 2.54 0)
+					(at -5.08 5.08 0)
 					(length 3.81)
 					(name "Pin_1"
 						(effects
@@ -883,7 +905,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at -5.08 2.54 0)
 					(length 3.81)
 					(name "Pin_2"
 						(effects
@@ -901,7 +923,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -2.54 0)
+					(at -5.08 0 0)
 					(length 3.81)
 					(name "Pin_3"
 						(effects
@@ -919,7 +941,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -5.08 0)
+					(at -5.08 -2.54 0)
 					(length 3.81)
 					(name "Pin_4"
 						(effects
@@ -929,6 +951,42 @@
 						)
 					)
 					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2910,7 +2968,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "USB\nFit USB301 (on board) or J301 + the USB-C board, not both. The USB-C board has its own\n5.1k CC resistors and USBLC6-2SC6.\nCH340C runs from its own XC6206 (3.3 V from VBUS): no battery drain without USB.\nV3 tied to VCC (3.3 V supply); R232 low; CTS/DSR/RI/DCD unused (internal pull-ups).\nTX/RX through 470R. Auto-reset: DTR/RTS both low or both high = idle; the usual\nesptool sequence pulls EN or IO0 low (GPIO0 is also the codec's MCLK, as on the Audio Kit)."
+	(text "USB\nFit USB301 (on board) or J301 + an off-board USB-C receptacle, not both. J301 carries\nVBUS, D-, D+, CC1, CC2, GND: the off-board part is a bare connector (our usb/ board or any\nbreakout). R301/R302 (5.1k) and U301 (ESD) here serve both; leave R301/R302 off if the\nbreakout already has its own 5.1k.\nCH340C runs from its own XC6206 (3.3 V from VBUS): no battery drain without USB.\nV3 tied to VCC (3.3 V supply); R232 low; CTS/DSR/RI/DCD unused (internal pull-ups).\nTX/RX through 470R. Auto-reset: DTR/RTS both low or both high = idle; the usual\nesptool sequence pulls EN or IO0 low (GPIO0 is also the codec's MCLK, as on the Audio Kit)."
 		(exclude_from_sim no)
 		(at 38.1 190.5 0)
 		(effects
@@ -2919,79 +2977,39 @@
 			)
 			(justify left top)
 		)
-		(uuid "c6b657d3-13ee-44e1-82d5-c3f02e4e8700")
-	)
-	(no_connect
-		(at 238.76 101.6)
-		(uuid "3366e899-bc28-4df8-b688-936efc1c665c")
-	)
-	(no_connect
-		(at 76.2 104.14)
-		(uuid "6e9bcae3-c1e7-4c78-9526-20789711c4a9")
-	)
-	(no_connect
-		(at 238.76 104.14)
-		(uuid "83428210-25b9-436b-9fa2-765d6622b74b")
-	)
-	(no_connect
-		(at 220.98 109.22)
-		(uuid "865ae241-4c7d-4f7f-9a6e-264c602cfadb")
-	)
-	(no_connect
-		(at 220.98 106.68)
-		(uuid "91537057-2415-4577-8256-56ea4de08e08")
-	)
-	(no_connect
-		(at 238.76 99.06)
-		(uuid "b04a1e78-2c0b-44b3-ab45-c3cc9fffdd1c")
-	)
-	(no_connect
-		(at 238.76 106.68)
-		(uuid "c3690b66-4933-4c78-b1f4-223820b64bf4")
+		(uuid "8334c080-5480-4cbc-8446-d07c22c32fce")
 	)
 	(no_connect
 		(at 76.2 101.6)
-		(uuid "f9c1c000-8a03-41e7-bf0d-f27ecc1ac461")
+		(uuid "283b51f0-cafa-4c00-bb45-401538993f44")
 	)
-	(wire
-		(pts
-			(xy 321.31 88.9) (xy 318.77 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0a7edd94-de5d-460d-a982-0bad386fb495")
+	(no_connect
+		(at 238.76 104.14)
+		(uuid "7c642a73-41e6-4a23-b63b-fd8365b2224a")
 	)
-	(wire
-		(pts
-			(xy 139.7 147.32) (xy 137.16 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1217c4b7-917c-4328-a763-757247d0d95d")
+	(no_connect
+		(at 220.98 106.68)
+		(uuid "896ef9d7-db37-4fd4-9732-11fd72396dc9")
 	)
-	(wire
-		(pts
-			(xy 331.47 132.08) (xy 336.55 132.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1c0dc5e7-e05c-466d-a950-e45b1e956e57")
+	(no_connect
+		(at 76.2 104.14)
+		(uuid "b30a859b-bb26-4d11-9601-e7bce6183983")
 	)
-	(wire
-		(pts
-			(xy 271.78 95.25) (xy 276.86 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f76fd14-97bd-4716-9dd5-51d53751b47f")
+	(no_connect
+		(at 238.76 106.68)
+		(uuid "d22fecdb-fb01-4c09-9b89-c56cffd927ec")
+	)
+	(no_connect
+		(at 238.76 101.6)
+		(uuid "d23c98d4-5419-42aa-b12b-60fdd58a32cd")
+	)
+	(no_connect
+		(at 238.76 99.06)
+		(uuid "e4da7e19-fede-4d50-91f3-52d6f9b70bd8")
+	)
+	(no_connect
+		(at 220.98 109.22)
+		(uuid "e4dac93f-4da4-430e-92da-4fefebd4feef")
 	)
 	(wire
 		(pts
@@ -3001,257 +3019,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "21cf7469-695f-4465-9ef1-25204abf903e")
-	)
-	(wire
-		(pts
-			(xy 55.88 154.94) (xy 50.8 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "251ed057-12a1-4309-96ab-00930de8a617")
-	)
-	(wire
-		(pts
-			(xy 218.44 99.06) (xy 213.36 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "28c333fb-ce82-4578-9f57-c8087287c221")
-	)
-	(wire
-		(pts
-			(xy 238.76 91.44) (xy 243.84 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2cbbe659-55ce-4aa1-8f69-b2a3e1f4c97d")
-	)
-	(wire
-		(pts
-			(xy 142.24 91.44) (xy 139.7 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34891b11-37b8-4fc7-9c98-2bc2d34aa4a3")
-	)
-	(wire
-		(pts
-			(xy 147.32 81.28) (xy 152.4 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34acc5e8-627c-431a-9e0e-b507709da8dd")
-	)
-	(wire
-		(pts
-			(xy 218.44 101.6) (xy 213.36 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "41084ebe-7e4d-444d-b400-0d9afb641edb")
-	)
-	(wire
-		(pts
-			(xy 331.47 83.82) (xy 331.47 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "42437384-9fb4-48da-bff6-4aba46e97ce4")
-	)
-	(wire
-		(pts
-			(xy 55.88 149.86) (xy 53.34 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4680c62a-b36d-4052-8eb2-5b822e65c230")
-	)
-	(wire
-		(pts
-			(xy 76.2 73.66) (xy 81.28 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "554369fc-e28e-4b93-b271-32e4e250363d")
-	)
-	(wire
-		(pts
-			(xy 152.4 88.9) (xy 154.94 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "561b7fbf-666a-4ff0-bc44-b175af4919e2")
-	)
-	(wire
-		(pts
-			(xy 76.2 91.44) (xy 81.28 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5842224a-f737-46f0-8ba6-9eaec0194004")
-	)
-	(wire
-		(pts
-			(xy 147.32 83.82) (xy 147.32 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "60aff0cd-01a4-4e32-9561-c277de99afdb")
-	)
-	(wire
-		(pts
-			(xy 228.6 86.36) (xy 228.6 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6680446f-57a7-4b3a-81da-94cabe4ab669")
-	)
-	(wire
-		(pts
-			(xy 271.78 92.71) (xy 271.78 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6baa12ca-152b-467f-88bb-14449bcbca7c")
-	)
-	(wire
-		(pts
-			(xy 76.2 86.36) (xy 81.28 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c3321c6-ef36-47fc-a3cd-93d8dd8ff954")
-	)
-	(wire
-		(pts
-			(xy 76.2 88.9) (xy 81.28 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6f7b4d9d-4fb7-47ec-852c-f4b5de809577")
-	)
-	(wire
-		(pts
-			(xy 271.78 82.55) (xy 276.86 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7126810b-e468-48b6-8476-5d6da0e0db8d")
-	)
-	(wire
-		(pts
-			(xy 76.2 93.98) (xy 81.28 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f39039c-ec90-4f0d-9af2-37c833292c71")
-	)
-	(wire
-		(pts
-			(xy 154.94 147.32) (xy 157.48 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f7f74c3-633b-4c60-a635-303860940468")
-	)
-	(wire
-		(pts
-			(xy 218.44 93.98) (xy 215.9 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "814c4318-f3ed-4199-b4e6-c8c87164956f")
-	)
-	(wire
-		(pts
-			(xy 119.38 105.41) (xy 119.38 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82e00244-4a70-4827-9a54-9eeca9619d83")
-	)
-	(wire
-		(pts
-			(xy 331.47 81.28) (xy 336.55 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "842afa2a-d1dc-4866-83a0-38560a96f469")
-	)
-	(wire
-		(pts
-			(xy 228.6 83.82) (xy 226.06 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8790fd40-bc0b-40d0-9229-f48f10df8950")
-	)
-	(wire
-		(pts
-			(xy 331.47 129.54) (xy 331.47 132.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c4bf740-be18-4ec4-a9e4-01d701c55ba8")
-	)
-	(wire
-		(pts
-			(xy 152.4 91.44) (xy 154.94 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9444515b-7344-4fd3-93da-069ecef2b956")
+		(uuid "149e033b-f437-4048-96c6-35435199ce63")
 	)
 	(wire
 		(pts
@@ -3261,27 +3029,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "95f487c1-e149-468e-ab2a-e344b97646ff")
-	)
-	(wire
-		(pts
-			(xy 238.76 93.98) (xy 243.84 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98b0c3fb-5bc7-43dc-ab05-dddbe0aec182")
-	)
-	(wire
-		(pts
-			(xy 101.6 102.87) (xy 106.68 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a202e24e-b7df-4bf5-b4be-9210253f1080")
+		(uuid "1eda87a2-d46a-4d4e-b1f1-1a31b45a66ee")
 	)
 	(wire
 		(pts
@@ -3291,117 +3039,47 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a37d2f88-5b4d-4885-b798-b7356d0b2fa8")
+		(uuid "2bc776cc-cf19-4198-b661-16649fea80b8")
 	)
 	(wire
 		(pts
-			(xy 76.2 78.74) (xy 81.28 78.74)
+			(xy 228.6 86.36) (xy 228.6 83.82)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a6f7b60f-274e-4fab-b811-057e9fad2a16")
+		(uuid "2fd3a35a-a547-4769-9ff5-711cb46c7369")
 	)
 	(wire
 		(pts
-			(xy 127 156.21) (xy 132.08 156.21)
+			(xy 228.6 83.82) (xy 226.06 83.82)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "aa1925a4-95de-43b2-b547-42b35c9d1e66")
+		(uuid "31ab4b41-ec7a-4035-a7a2-2d09b50d6f34")
 	)
 	(wire
 		(pts
-			(xy 127 158.75) (xy 127 156.21)
+			(xy 238.76 91.44) (xy 243.84 91.44)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b057895b-589b-4e53-bb41-7e1055978979")
+		(uuid "33b6047f-1123-495e-9f17-8b4023e44133")
 	)
 	(wire
 		(pts
-			(xy 76.2 81.28) (xy 81.28 81.28)
+			(xy 321.31 88.9) (xy 318.77 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b4653b50-1fdf-43a3-bdec-cbcec850e91e")
-	)
-	(wire
-		(pts
-			(xy 331.47 116.84) (xy 336.55 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bafe169e-8275-41e2-8170-352a9c47cd7f")
-	)
-	(wire
-		(pts
-			(xy 271.78 107.95) (xy 271.78 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c5f37c87-7ccb-4e78-b267-4c8912e8aa8f")
-	)
-	(wire
-		(pts
-			(xy 226.06 83.82) (xy 226.06 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cb42adea-05fc-46eb-a5bd-4c5fc01596ec")
-	)
-	(wire
-		(pts
-			(xy 55.88 152.4) (xy 53.34 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d066bf46-5431-4a5a-99d2-ba36cb1d935b")
-	)
-	(wire
-		(pts
-			(xy 38.1 63.5) (xy 38.1 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d1ce8f4a-d0c8-488e-a8a6-eda038ac4927")
-	)
-	(wire
-		(pts
-			(xy 101.6 105.41) (xy 101.6 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d2a0e7ee-6fcd-4bc7-8bca-ea2ec663e541")
-	)
-	(wire
-		(pts
-			(xy 271.78 115.57) (xy 271.78 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3f73448-0edd-45dc-9a0c-6ad4deeb97c9")
+		(uuid "341223b3-2209-43d6-99d5-d45101165eac")
 	)
 	(wire
 		(pts
@@ -3411,57 +3089,77 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d53c25c9-cf18-4a50-a206-ada0761457f2")
+		(uuid "3a68adfd-80f0-4b81-95e0-7402d0aaad98")
 	)
 	(wire
 		(pts
-			(xy 271.78 118.11) (xy 276.86 118.11)
+			(xy 271.78 95.25) (xy 276.86 95.25)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e18e0466-eb5f-44c0-8c42-bea144eba3fa")
+		(uuid "3d113ea0-a925-43b3-8c44-d0ab6192a355")
 	)
 	(wire
 		(pts
-			(xy 238.76 111.76) (xy 243.84 111.76)
+			(xy 76.2 88.9) (xy 81.28 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e3d51090-555a-4bf8-94a4-241d58c08191")
+		(uuid "409a4114-6a42-47c9-86ba-0e9e95cbcb09")
 	)
 	(wire
 		(pts
-			(xy 331.47 93.98) (xy 331.47 96.52)
+			(xy 38.1 63.5) (xy 38.1 68.58)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e706ab24-474c-496e-8172-99c3f49a8ab2")
+		(uuid "42799efb-2554-4f62-9e7c-0817d71421b2")
 	)
 	(wire
 		(pts
-			(xy 119.38 102.87) (xy 124.46 102.87)
+			(xy 152.4 88.9) (xy 154.94 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e7ba2ed5-c63a-41fe-8c2b-58d57391936a")
+		(uuid "4339bfda-f5fc-435b-986e-e6db5b7880cb")
 	)
 	(wire
 		(pts
-			(xy 271.78 105.41) (xy 276.86 105.41)
+			(xy 218.44 93.98) (xy 215.9 93.98)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e8f7f2c0-0465-44be-9c72-bd8097ca0340")
+		(uuid "43c858a3-5c38-4fa4-94c2-a2e4630f2880")
+	)
+	(wire
+		(pts
+			(xy 76.2 81.28) (xy 81.28 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46c1084a-909d-43e9-94ef-35f1f6e4c0c3")
+	)
+	(wire
+		(pts
+			(xy 218.44 99.06) (xy 213.36 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "489ea10e-fb89-48d5-8f83-bae3d30a7a45")
 	)
 	(wire
 		(pts
@@ -3471,7 +3169,77 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f1155775-b0a8-46f3-bae5-a313fcd0092f")
+		(uuid "48f91a5c-48d5-4a4a-97d1-fadf46ab2cc5")
+	)
+	(wire
+		(pts
+			(xy 139.7 147.32) (xy 137.16 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d2e135c-cd28-4e90-8454-560d461c2caa")
+	)
+	(wire
+		(pts
+			(xy 331.47 129.54) (xy 331.47 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "511e850e-c26b-4e61-9638-ae069ba25667")
+	)
+	(wire
+		(pts
+			(xy 238.76 111.76) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5aea1e69-7e4d-48c3-af9b-95346265bed8")
+	)
+	(wire
+		(pts
+			(xy 147.32 81.28) (xy 152.4 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c1b3c99-cb8f-4a09-8146-3c144c192abe")
+	)
+	(wire
+		(pts
+			(xy 238.76 93.98) (xy 243.84 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61df0aa8-46c0-4ba8-b0a9-79a1ac38fd56")
+	)
+	(wire
+		(pts
+			(xy 127 158.75) (xy 127 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64eef6dc-b61b-46c2-adab-38ed2d3b33cc")
+	)
+	(wire
+		(pts
+			(xy 127 156.21) (xy 132.08 156.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a6bc0d5-fd39-4005-b461-1ff071b6eb79")
 	)
 	(wire
 		(pts
@@ -3481,7 +3249,67 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f52d1fef-0ae2-4534-8937-253b404c9db2")
+		(uuid "6d15d7e8-bae2-4b52-907e-31a7baf2f41f")
+	)
+	(wire
+		(pts
+			(xy 331.47 93.98) (xy 331.47 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d501a7b-4824-4305-b99e-c639610f1726")
+	)
+	(wire
+		(pts
+			(xy 76.2 93.98) (xy 81.28 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fb324ad-b26e-4a63-b2a6-c674b1a89b9a")
+	)
+	(wire
+		(pts
+			(xy 101.6 102.87) (xy 106.68 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71998831-cf67-499e-ae29-02cee3ad9a60")
+	)
+	(wire
+		(pts
+			(xy 76.2 91.44) (xy 81.28 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7211879c-beb9-4225-89c3-93bad81630dd")
+	)
+	(wire
+		(pts
+			(xy 271.78 115.57) (xy 271.78 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79df90b1-7183-4934-9b91-8009d656c806")
+	)
+	(wire
+		(pts
+			(xy 76.2 73.66) (xy 81.28 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81140584-2c49-475b-b842-96e0b6ab5a1d")
 	)
 	(wire
 		(pts
@@ -3491,17 +3319,257 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f9e1a867-bae0-4b2f-be76-6fcd93ee5742")
+		(uuid "81a53584-c1e1-4ccd-ba84-ab523d066d75")
 	)
-	(label "RTS"
-		(at 336.55 96.52 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 76.2 86.36) (xy 81.28 86.36)
 		)
-		(uuid "0d61ffbb-58ce-434d-abfd-6f896172dc15")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87afd40b-d79d-4d2f-a3eb-36b9bd298a6f")
+	)
+	(wire
+		(pts
+			(xy 152.4 91.44) (xy 154.94 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8883deba-dd10-4f7a-b388-24228801bae8")
+	)
+	(wire
+		(pts
+			(xy 101.6 105.41) (xy 101.6 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c38ba1c-a42f-49f9-bbb8-6e550a1cf912")
+	)
+	(wire
+		(pts
+			(xy 142.24 91.44) (xy 139.7 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c775844-d99a-47b6-9fee-05b4fc88a698")
+	)
+	(wire
+		(pts
+			(xy 331.47 83.82) (xy 331.47 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a560f120-6a8f-48a6-a880-48e300d60451")
+	)
+	(wire
+		(pts
+			(xy 55.88 149.86) (xy 53.34 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaa6f9c3-2d12-4bd8-b1c1-c1e355da8f23")
+	)
+	(wire
+		(pts
+			(xy 218.44 101.6) (xy 213.36 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "accbc662-9877-45b2-80c1-1f2242a33d1d")
+	)
+	(wire
+		(pts
+			(xy 331.47 81.28) (xy 336.55 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0719d28-5c49-49c2-8241-62d2169be6c7")
+	)
+	(wire
+		(pts
+			(xy 331.47 132.08) (xy 336.55 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1f52d9c-2920-4e68-988e-da0e0398c6fd")
+	)
+	(wire
+		(pts
+			(xy 55.88 144.78) (xy 53.34 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2b29e2b-ee75-4eea-8f75-3f183c610887")
+	)
+	(wire
+		(pts
+			(xy 55.88 154.94) (xy 53.34 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c1119e35-7686-4c73-9f53-dbf9a6b18516")
+	)
+	(wire
+		(pts
+			(xy 55.88 152.4) (xy 53.34 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7808640-f2a7-436a-aa66-e10a60e3431e")
+	)
+	(wire
+		(pts
+			(xy 119.38 102.87) (xy 124.46 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4aadde0-c442-403e-bfc1-a6e00634e634")
+	)
+	(wire
+		(pts
+			(xy 331.47 116.84) (xy 336.55 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6956291-9d08-4565-9857-706c4fc66cc7")
+	)
+	(wire
+		(pts
+			(xy 147.32 83.82) (xy 147.32 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d90f578e-7417-4641-927d-fd79a49bf35e")
+	)
+	(wire
+		(pts
+			(xy 271.78 107.95) (xy 271.78 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de621105-2c21-4453-a813-cbb4f85dd5b7")
+	)
+	(wire
+		(pts
+			(xy 271.78 118.11) (xy 276.86 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df6d8c62-a42c-48ed-84c2-8f8b83d762a3")
+	)
+	(wire
+		(pts
+			(xy 119.38 105.41) (xy 119.38 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec0b64e9-3c8e-4988-96a4-e6f4bda885a8")
+	)
+	(wire
+		(pts
+			(xy 226.06 83.82) (xy 226.06 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec2ea298-1522-4000-befe-0e8d31a429ac")
+	)
+	(wire
+		(pts
+			(xy 271.78 92.71) (xy 271.78 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f117e847-fa4a-4957-84f3-a797ce1c077c")
+	)
+	(wire
+		(pts
+			(xy 55.88 157.48) (xy 50.8 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8c90dac-5682-49f4-b0f8-bcd611d876a2")
+	)
+	(wire
+		(pts
+			(xy 271.78 105.41) (xy 276.86 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9709bf3-1ae8-4303-8340-fb06d233d904")
+	)
+	(wire
+		(pts
+			(xy 76.2 78.74) (xy 81.28 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb76cee8-5efe-45fe-8167-f7a6a2899bb0")
+	)
+	(wire
+		(pts
+			(xy 154.94 147.32) (xy 157.48 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fcda5657-0030-479a-b1f3-b65eaf92cd75")
+	)
+	(wire
+		(pts
+			(xy 271.78 82.55) (xy 276.86 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd774ec7-1018-42a5-aa94-1f01f589efde")
 	)
 	(label "DTR"
 		(at 336.55 132.08 0)
@@ -3511,87 +3579,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1003108f-9ef0-477e-8811-89cb675d23dd")
-	)
-	(label "CC2"
-		(at 81.28 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1905df43-7a37-48dc-91ac-23e1c827bdec")
-	)
-	(label "USB_DP"
-		(at 81.28 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "221baead-9e28-47c6-a6b5-29ef5f6442b0")
-	)
-	(label "USB_DP"
-		(at 213.36 99.06 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "22dda0cd-3b7e-4c41-befe-08b1c599479f")
-	)
-	(label "USB_DP"
-		(at 81.28 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "347e0869-aefc-4dc8-8657-d53784ebe541")
-	)
-	(label "CC1"
-		(at 106.68 102.87 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3b10c956-071e-4c15-9b03-ae4be68bbda0")
-	)
-	(label "RTS"
-		(at 243.84 111.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4158f26b-c98f-44da-a00d-5e5ec8ecbb13")
-	)
-	(label "USB_DP"
-		(at 53.34 152.4 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "43681cc7-ae35-40d8-947f-bd40b8de2861")
-	)
-	(label "CH_TXD"
-		(at 243.84 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4ffdc83c-e7ca-458d-8795-5426bfd83932")
+		(uuid "02de88fb-0f09-4f39-a4ad-05e88092ab30")
 	)
 	(label "USB_DN"
 		(at 81.28 86.36 0)
@@ -3601,37 +3589,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5238a25b-54fa-4b60-bd35-91ec5d4732b5")
-	)
-	(label "USB_DN"
-		(at 53.34 149.86 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "602952ad-3259-4c63-a702-cfde0f5cdfbc")
-	)
-	(label "USB_DP"
-		(at 154.94 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "77c0005c-4160-4ec3-a85f-3fc9d41db27e")
-	)
-	(label "USB_DN"
-		(at 154.94 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8023b51a-9f51-4b91-aaeb-75d6e3cf27e9")
+		(uuid "104a30ea-4f6e-4458-ae4d-4812bb7c26a7")
 	)
 	(label "CC2"
 		(at 124.46 102.87 0)
@@ -3641,107 +3599,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9d545b90-5cab-4936-9f87-f3da0a7b8f9f")
-	)
-	(label "USB_DN"
-		(at 213.36 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9e8fa8be-4322-44f1-af0c-c57368ebbf48")
-	)
-	(label "USB_DN"
-		(at 139.7 91.44 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b068888e-c6ce-4365-855d-026e50fcfd74")
-	)
-	(label "CH_TXD"
-		(at 276.86 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b3b4e912-9499-4575-af28-f50c0ef39099")
-	)
-	(label "USB_DN"
-		(at 81.28 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "caca83d1-98bb-4c03-9da2-6fbca48ebf5e")
-	)
-	(label "CH_RXD"
-		(at 243.84 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d5e585eb-7e98-4051-a83a-cfa681c0723e")
-	)
-	(label "CC1"
-		(at 81.28 78.74 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d653feeb-ef45-47d6-972f-d341cfa1f7e7")
-	)
-	(label "DTR"
-		(at 243.84 109.22 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ddcff81d-8dc6-49fb-b9b5-f857cdf26141")
-	)
-	(label "RTS"
-		(at 318.77 124.46 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e49e3c11-45da-480a-ba49-5c20f9c373e8")
+		(uuid "148e75c1-804e-435f-833c-d0fd295f3e01")
 	)
 	(label "USB_DP"
-		(at 139.7 88.9 180)
+		(at 53.34 149.86 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "ea039d28-e48f-4ed2-8ff8-7d2149a05b1c")
-	)
-	(label "CH_RXD"
-		(at 276.86 118.11 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f824333c-ec1f-43c3-a388-bbea1500f240")
+		(uuid "21376c1c-d5db-40be-b317-1b3f130b31fb")
 	)
 	(label "DTR"
 		(at 318.77 88.9 180)
@@ -3751,29 +3619,237 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fe4a6e59-c904-48fe-acec-ad5d7616a2e6")
+		(uuid "27883c75-509e-427e-8513-04d66cdfaa47")
 	)
-	(hierarchical_label "VBUS"
-		(shape output)
+	(label "DTR"
+		(at 243.84 109.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2e72bcc6-29e6-4eff-b127-f48dfbd6bd3e")
+	)
+	(label "CH_TXD"
+		(at 276.86 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "332cb7e8-ec42-4cc5-8e4a-76e847980710")
+	)
+	(label "USB_DP"
+		(at 139.7 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3d79fad4-08cb-4c7c-aeb2-e8780b1b33d4")
+	)
+	(label "RTS"
+		(at 243.84 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3f87795b-f55e-453c-9b5f-a45c55b8f78b")
+	)
+	(label "CH_TXD"
+		(at 243.84 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "48f37ed7-776c-4db0-8fdd-26a89f226a48")
+	)
+	(label "USB_DP"
+		(at 213.36 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "56302c32-ff72-4530-b671-964b79ca3661")
+	)
+	(label "CC1"
+		(at 53.34 152.4 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5d52a700-1801-4ca8-8691-0ca34ec86346")
+	)
+	(label "USB_DN"
 		(at 53.34 147.32 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify right bottom)
 		)
-		(uuid "0955966a-30ed-4727-9392-ba86382d5b95")
+		(uuid "5df552c0-671c-42d9-8782-405b0f1a0142")
 	)
-	(hierarchical_label "VBUS"
-		(shape output)
-		(at 38.1 68.58 0)
+	(label "CC1"
+		(at 81.28 78.74 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify left bottom)
 		)
-		(uuid "30392d36-1c65-452e-8fb0-835b2532d37c")
+		(uuid "64246aae-ec58-4d1b-8e60-bb81ae5131d2")
+	)
+	(label "RTS"
+		(at 318.77 124.46 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "65684c28-a98b-42e2-89ac-2b58c393318b")
+	)
+	(label "USB_DN"
+		(at 81.28 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "65743354-cfeb-40f3-8cab-0eb03867eb2d")
+	)
+	(label "USB_DN"
+		(at 213.36 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "71f4c214-a337-4a69-bac8-1e9da434df76")
+	)
+	(label "CC1"
+		(at 106.68 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8fa71847-0eb3-4b65-bae2-9a8d0e0c96a9")
+	)
+	(label "CC2"
+		(at 81.28 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "90afd7f5-7529-4bef-998b-4d66216103ae")
+	)
+	(label "CH_RXD"
+		(at 243.84 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9cee2980-cb65-40b2-a1c6-04661a3f3d2b")
+	)
+	(label "USB_DN"
+		(at 139.7 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a93b6eb4-eeac-42e1-89b3-37965616f2dd")
+	)
+	(label "CC2"
+		(at 53.34 154.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bc73bdf4-ddc1-49a5-a777-ef3d8deff196")
+	)
+	(label "RTS"
+		(at 336.55 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ca86dda2-957c-4002-b845-3f0849ed1af9")
+	)
+	(label "USB_DN"
+		(at 154.94 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d3c1f9c1-656c-4a18-b4e8-54f60cd30b7a")
+	)
+	(label "CH_RXD"
+		(at 276.86 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "db6fa6e0-bcf4-4e33-b01f-a2350a1eb940")
+	)
+	(label "USB_DP"
+		(at 81.28 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e8feb336-1d1d-4900-9f96-8189a215b659")
+	)
+	(label "USB_DP"
+		(at 154.94 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ef6c0c3c-0f5d-48ae-ad9c-c65efb132fec")
+	)
+	(label "USB_DP"
+		(at 81.28 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f63a70f4-1bf0-4314-af42-310b6a2814cf")
 	)
 	(hierarchical_label "VBUS"
 		(shape output)
@@ -3784,73 +3860,7 @@
 			)
 			(justify left)
 		)
-		(uuid "540dd144-481e-4c52-a7d9-cfc957099581")
-	)
-	(hierarchical_label "EN"
-		(shape output)
-		(at 336.55 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5af83794-0b1d-4d9d-997f-1a71048b9933")
-	)
-	(hierarchical_label "VBUS"
-		(shape output)
-		(at 137.16 147.32 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "606701e5-0bd6-4260-b964-080e0011c560")
-	)
-	(hierarchical_label "U0TXD"
-		(shape input)
-		(at 276.86 105.41 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "91532f99-e84c-4adf-b1c1-73f1068c75db")
-	)
-	(hierarchical_label "IO0"
-		(shape output)
-		(at 336.55 116.84 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9a482d97-66ae-42e0-866d-1645c1a94ad2")
-	)
-	(hierarchical_label "VBUS"
-		(shape output)
-		(at 81.28 73.66 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bf3c4e9c-6cb8-4ede-8c24-debb62aee5dc")
-	)
-	(hierarchical_label "U0RXD"
-		(shape output)
-		(at 276.86 95.25 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d2aee3ba-d4ca-4d0c-a55c-b6cc0337e852")
+		(uuid "00b60c52-0b7a-4da1-a4a8-1e22482628c8")
 	)
 	(hierarchical_label "VBUS"
 		(shape output)
@@ -3861,2193 +3871,95 @@
 			)
 			(justify left)
 		)
-		(uuid "d48a9018-eaf8-4b4d-b1b5-56d00bd20996")
+		(uuid "1ba86782-91ba-4d50-878c-69e89345604d")
 	)
-	(symbol
-		(lib_id "Device:C")
-		(at 170.18 162.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "0548a956-b988-4d1d-a281-7aa4f4789c10")
-		(property "Reference" "C302"
-			(at 172.72 161.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+	(hierarchical_label "VBUS"
+		(shape output)
+		(at 81.28 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Value" "1u"
-			(at 172.72 163.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 170.18 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 170.18 162.56 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "24fba54e-9061-4057-8ecf-1fcbe5fb93f1")
-		)
-		(pin "2"
-			(uuid "92b04b61-4aa4-49c8-8929-210ebc0082e1")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "C302")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "3ce7bf98-d951-45bf-8d98-71a6efb71403")
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 215.9 93.98 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1a42df91-f1f8-4833-ae4b-60e839c79257")
-		(property "Reference" "#PWR0314"
-			(at 215.9 87.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(hierarchical_label "VBUS"
+		(shape output)
+		(at 38.1 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Value" "GND"
-			(at 215.9 97.79 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 215.9 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 215.9 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 215.9 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "36b87b2e-5266-46d5-82db-eaba8183946f")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0314")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "6dd306d4-a889-4222-808d-946fa2fa3503")
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 147.32 154.94 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1ca47815-a6f8-47b8-a48a-0d8b644c866f")
-		(property "Reference" "#PWR0308"
-			(at 147.32 148.59 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(hierarchical_label "VBUS"
+		(shape output)
+		(at 137.16 147.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right)
 		)
-		(property "Value" "GND"
-			(at 147.32 158.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 147.32 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 147.32 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 147.32 154.94 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "dcdbec84-5afc-4f08-aabb-e78ea11eae51")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0308")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "86550dee-3afc-4906-8db8-21178f24a06e")
 	)
-	(symbol
-		(lib_id "Device:R")
-		(at 271.78 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1ec41c6f-cf77-4f33-9efe-8ce78d215a10")
-		(property "Reference" "R303"
-			(at 274.32 87.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+	(hierarchical_label "U0RXD"
+		(shape output)
+		(at 276.86 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Value" "470"
-			(at 274.32 90.17 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 271.78 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 271.78 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 271.78 88.9 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1f49b0ec-b70b-4f73-a01c-9bacb95049d5")
-		)
-		(pin "2"
-			(uuid "c6ba95d3-3e3c-4259-8e92-69085b2786a4")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "R303")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "d7b9409f-35d3-4db8-a504-96e32e56e946")
 	)
-	(symbol
-		(lib_id "Device:R")
-		(at 101.6 109.22 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "23d76bb5-31b4-4e2c-903e-946199a9cba7")
-		(property "Reference" "R301"
-			(at 104.14 107.95 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
+	(hierarchical_label "VBUS"
+		(shape output)
+		(at 53.34 144.78 180)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right)
 		)
-		(property "Value" "5.1k"
-			(at 104.14 110.49 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 101.6 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 101.6 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b9e63f4f-b9b7-45b5-b319-94e6f3feeda3")
-		)
-		(pin "2"
-			(uuid "71076c51-12f0-4de4-a689-6b0fa6be7212")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "R301")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "d87968d5-b845-4150-a663-f0f8b4b44e34")
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 228.6 116.84 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "29a8b9ce-9f94-4fa3-ae60-82585c05bce0")
-		(property "Reference" "#PWR0313"
-			(at 228.6 110.49 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(hierarchical_label "EN"
+		(shape output)
+		(at 336.55 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Value" "GND"
-			(at 228.6 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 228.6 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 228.6 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 228.6 116.84 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f4e621f5-5933-435a-b701-9d7fbcf4f29b")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0313")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "ddc4a6e5-bd70-4a12-bb75-2d47c44d713e")
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 119.38 113.03 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "2aced0e1-b216-4f40-a898-1719232f44a5")
-		(property "Reference" "#PWR0304"
-			(at 119.38 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
+	(hierarchical_label "U0TXD"
+		(shape input)
+		(at 276.86 105.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left)
 		)
-		(property "Value" "GND"
-			(at 119.38 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 119.38 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 119.38 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 119.38 113.03 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "35f7b881-3b30-4ca8-b371-469f48ac44a2")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0304")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "e0bf17b2-185a-4e7d-b24d-8d77798ccd66")
 	)
-	(symbol
-		(lib_id "Device:C")
-		(at 127 162.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "381582b4-2e7b-43ab-9ea9-929bd4468715")
-		(property "Reference" "C301"
-			(at 129.54 161.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1u"
-			(at 129.54 163.83 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 127 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 127 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 127 162.56 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "97aafe83-5c99-414a-8f68-e2c862e3ee97")
-		)
-		(pin "2"
-			(uuid "2de8c644-7ef9-4ba7-9080-a20756cecc8c")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "C301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 60.96 111.76 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "3819836a-fc00-40ab-a959-49cc95318221")
-		(property "Reference" "#PWR0301"
-			(at 60.96 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 60.96 115.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 60.96 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 60.96 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 60.96 111.76 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7df44847-40c6-43a5-bef8-ed2b746e5188")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 157.48 147.32 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "526e2898-b3cd-42d9-9e87-701988d74e6f")
-		(property "Reference" "#PWR0307"
-			(at 157.48 153.67 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3_USB"
-			(at 157.48 143.51 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 157.48 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 157.48 147.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 157.48 147.32 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "36da12ab-5ac5-4b58-ac99-87b9bb90014f")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0307")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Power_Protection:USBLC6-2SC6")
-		(at 147.32 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "52accae2-bdb9-4d7a-a612-4ddbb490b7ad")
-		(property "Reference" "U301"
-			(at 147.95 83.19 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "USBLC6-2SC6"
-			(at 147.95 85.09 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-			(at 147.32 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 147.32 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 147.32 88.9 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "28d9dab0-4c72-46e4-b0d8-351cbee2e5bd")
-		)
-		(pin "2"
-			(uuid "251cd89a-417d-4ccc-a857-a81a978c2404")
-		)
-		(pin "3"
-			(uuid "e4940af4-b10a-44ad-bab9-cdde2d201751")
-		)
-		(pin "4"
-			(uuid "f122c907-c211-42a2-bc0f-3df5c7e1d101")
-		)
-		(pin "5"
-			(uuid "d76c75b9-2439-41b0-a70c-fd6a35d41226")
-		)
-		(pin "6"
-			(uuid "9106e5e8-737a-4176-91dc-79061e17af89")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "U301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:USB_C_Receptacle_USB2.0_16P")
-		(at 60.96 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "5885691b-aa30-497b-bb8d-1d6174d9e184")
-		(property "Reference" "USB301"
-			(at 60.96 66.68 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "USB-C"
-			(at 60.96 69.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
-			(at 60.96 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 60.96 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 60.96 88.9 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "A1"
-			(uuid "18acf541-e757-4b2a-a25b-2901c5344d2b")
-		)
-		(pin "A4"
-			(uuid "6444477b-c7d5-49a8-9123-6b5b2095e857")
-		)
-		(pin "A5"
-			(uuid "84f24083-522f-405f-afe3-82e97b25afeb")
-		)
-		(pin "A6"
-			(uuid "6c8b63a7-9cb2-4710-838d-2fdf0f0e1a35")
-		)
-		(pin "A7"
-			(uuid "a0a079a9-1f49-4fed-b25b-0af3cf23a77f")
-		)
-		(pin "A8"
-			(uuid "7c1baa0a-6087-4ef3-ada4-01e9f0d1f693")
-		)
-		(pin "A9"
-			(uuid "3f413a98-90c9-4b2c-a8f4-499fc2a5bbde")
-		)
-		(pin "A12"
-			(uuid "e0353da2-bf48-47a7-a82d-0ef07a924f56")
-		)
-		(pin "B1"
-			(uuid "99132eee-7b5c-4a78-8362-44428cba1172")
-		)
-		(pin "B4"
-			(uuid "fabb88cb-5f30-4064-9562-5169aaf1ef1f")
-		)
-		(pin "B5"
-			(uuid "58ca7387-8062-4c64-98b4-d4e49805f2e1")
-		)
-		(pin "B6"
-			(uuid "179482c9-0cfe-46e2-82d6-39e3b866663c")
-		)
-		(pin "B7"
-			(uuid "e9f59689-62d8-4623-82ab-18e8a7229044")
-		)
-		(pin "B8"
-			(uuid "508f4211-4a49-40af-a84f-ac32a812fee3")
-		)
-		(pin "B9"
-			(uuid "10063bf9-66e8-4fa2-83e4-4fec3cd52569")
-		)
-		(pin "B12"
-			(uuid "96411519-7cf6-4da9-876d-a5ead9bab2ea")
-		)
-		(pin "SH"
-			(uuid "2ee4c7d3-48c4-4093-92a4-93a74d13fd8f")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "USB301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 53.34 111.76 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "680fa7f6-76fe-40af-a14c-3a6fe279454f")
-		(property "Reference" "#PWR0302"
-			(at 53.34 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 53.34 115.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 53.34 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 53.34 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 53.34 111.76 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "40b3fb0e-f5ea-4f94-a10d-5a94ef6a919e")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0302")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 200.66 69.85 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6e68d6bb-e845-47cc-8bee-291c866a07d8")
-		(property "Reference" "#PWR0315"
-			(at 200.66 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3_USB"
-			(at 200.66 66.04 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 200.66 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 200.66 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 200.66 69.85 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "9271bea1-aa70-4c00-ab4d-6197141e8c93")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0315")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:UMH3N")
-		(at 330.2 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "779dd759-1a2c-4056-9598-3b3fda612c4d")
-		(property "Reference" "Q301"
-			(at 337.82 87.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "UMH3N"
-			(at 337.82 90.17 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
-			(at 330.2 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 330.2 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 330.2 88.9 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "91556113-a7c8-4787-ae3e-034731904d6d")
-		)
-		(pin "2"
-			(uuid "f70c9ed3-e2c2-4ad5-a62b-3b4c97b69eef")
-		)
-		(pin "6"
-			(uuid "d079a82b-5c80-4a4c-b9ea-5fcd04a59e47")
-		)
-		(pin "3"
-			(uuid "688e2086-c1e0-46e9-b551-e029eeb00c3b")
-		)
-		(pin "4"
-			(uuid "88b6357e-8656-4d99-ba2e-52dea183967c")
-		)
-		(pin "5"
-			(uuid "af4eeda7-92ae-4e3e-b68b-c610e4dcb071")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "Q301")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 170.18 166.37 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "7a0d89af-cb16-4998-beca-7c2faad01bca")
-		(property "Reference" "#PWR0311"
-			(at 170.18 160.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 170.18 170.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 170.18 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 170.18 166.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "9f03c593-ef17-4240-9285-7c4a23cd574e")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0311")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 119.38 109.22 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "9378529c-f10d-4992-99d0-797c0bd8cc93")
-		(property "Reference" "R302"
-			(at 121.92 107.95 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "5.1k"
-			(at 121.92 110.49 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 119.38 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 119.38 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 119.38 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "17e22d97-cd35-47e7-b35f-02b0282f0953")
-		)
-		(pin "2"
-			(uuid "75eee921-6064-488d-ac15-2cdc3ab87aa6")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "R302")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 101.6 113.03 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "93e2d9d4-17e0-46df-9199-9d8cc53ba9c3")
-		(property "Reference" "#PWR0303"
-			(at 101.6 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 101.6 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 101.6 113.03 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "29f72e75-99d4-4ea8-99de-3baeae5d382b")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0303")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:UMH3N")
-		(at 330.2 124.46 0)
-		(unit 2)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "95a66e03-6097-42fb-916e-573554d15b25")
-		(property "Reference" "Q301"
-			(at 337.82 123.19 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "UMH3N"
-			(at 337.82 125.73 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
-			(at 330.2 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 330.2 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 330.2 124.46 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "06b00cdf-eea3-4fac-9725-70d9889f9862")
-		)
-		(pin "4"
-			(uuid "d5fd7517-bf1b-402a-9c3b-99d9bfcb19e0")
-		)
-		(pin "5"
-			(uuid "7133b4f2-fdf3-429a-b06f-b18cb939dd07")
-		)
-		(pin "6"
-			(uuid "2910898b-aa66-4adf-9ac3-f9e0c2c29203")
-		)
-		(pin "2"
-			(uuid "9a7f87c9-c9e9-4678-b96d-6aca965cd3b1")
-		)
-		(pin "1"
-			(uuid "47f55f10-29dd-46e1-affc-7169983c84c1")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "Q301")
-					(unit 2)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 50.8 154.94 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "9acb6ae0-0338-4177-b803-9fb6cc6802bb")
-		(property "Reference" "#PWR0305"
-			(at 50.8 148.59 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 50.8 158.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 50.8 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 50.8 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 50.8 154.94 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "933a4936-ad05-476d-bf57-56c5b1334985")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0305")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 38.1 63.5 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a01a60f7-a35f-4546-9523-aa36ea1c9446")
-		(property "Reference" "#FLG0317"
-			(at 38.1 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 38.1 59.69 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 38.1 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 38.1 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 38.1 63.5 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "655c2190-3ff1-4068-b74a-a704d3842cfd")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#FLG0317")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 170.18 158.75 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a113fe15-b2a9-4eab-a7f5-8a4c6de1c836")
-		(property "Reference" "#PWR0310"
-			(at 170.18 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3_USB"
-			(at 170.18 154.94 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 170.18 158.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 158.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 170.18 158.75 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "30d74b0f-078e-41cb-98c4-3fbd8b6e8570")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0310")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 200.66 77.47 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "bc0c5aeb-5437-4d34-a930-36d1475ce6e4")
-		(property "Reference" "#PWR0316"
-			(at 200.66 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 200.66 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 200.66 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 200.66 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 200.66 77.47 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "157132bc-81cc-4b9b-8bbe-8829b8f5c447")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0316")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 147.32 96.52 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c1d703f9-2f69-47c4-8430-c07dc2e46fd5")
-		(property "Reference" "#PWR0306"
-			(at 147.32 90.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 147.32 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 147.32 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 147.32 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 147.32 96.52 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a1b99032-4d34-4f78-b738-b3b85c08251c")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0306")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 271.78 111.76 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c7ef3729-e6ba-4db2-97fa-d3dd47750520")
-		(property "Reference" "R304"
-			(at 274.32 110.49 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "470"
-			(at 274.32 113.03 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 271.78 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 271.78 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 271.78 111.76 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7404965a-edab-43dd-a1eb-17248a1ca3f5")
-		)
-		(pin "2"
-			(uuid "78042675-7357-4c90-b1d1-1698aa3aa687")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "R304")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 226.06 86.36 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c8b67b46-ed9b-4863-8d33-99075dd850a6")
-		(property "Reference" "#PWR0312"
-			(at 226.06 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3_USB"
-			(at 226.06 82.55 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 226.06 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 226.06 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 226.06 86.36 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4f4c0417-bef8-44ae-a490-28935999d8d2")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "#PWR0312")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 200.66 73.66 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "d02808b9-7e27-4aac-b96d-8ef42c0b0719")
-		(property "Reference" "C303"
-			(at 203.2 72.39 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 203.2 74.93 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 200.66 73.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 200.66 73.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 200.66 73.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4d4a2b4c-48ae-4786-8ce4-31170a66eb69")
-		)
-		(pin "2"
-			(uuid "4bb4b035-b32e-4226-a99e-42abe08be32f")
-		)
-		(instances
-			(project "sendspin-speaker-main"
-				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "C303")
-					(unit 1)
-				)
-			)
-		)
+	(hierarchical_label "IO0"
+		(shape output)
+		(at 336.55 116.84 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f2a5faed-b2f0-4d6a-b705-a9c2620f5038")
 	)
 	(symbol
 		(lib_id "sendspin-speaker:CH340C")
@@ -6059,7 +3971,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "d65895b4-5a94-4aa9-b132-8e3a2d985801")
+		(uuid "00215719-538d-5bb2-b436-d0b54ea39a64")
 		(property "Reference" "U302"
 			(at 223.52 87.63 0)
 			(show_name no)
@@ -6115,52 +4027,52 @@
 			)
 		)
 		(pin "1"
-			(uuid "4ba0c357-8ae7-4601-b500-3a34ddb4dbe8")
+			(uuid "8ee0fba7-3e43-4966-b6f4-43f5ad23d482")
 		)
 		(pin "2"
-			(uuid "6788b41a-909c-4024-9422-9ce13869263c")
+			(uuid "050b838f-5062-4a28-a4e4-8dacba95042f")
 		)
 		(pin "3"
-			(uuid "b9d4a682-b4fb-43c9-a1f4-6508f39fef97")
+			(uuid "f7f3bda0-a739-4591-b0d1-13b6a5a1adb0")
 		)
 		(pin "4"
-			(uuid "590522e2-d063-418b-9026-6572b2172a01")
+			(uuid "223dabe9-53dc-4b93-85cc-583986162954")
 		)
 		(pin "5"
-			(uuid "1cc4e0ff-49ec-4d24-be8d-d6313171bdbd")
+			(uuid "4729a17b-2407-431a-8a29-9964590d3494")
 		)
 		(pin "6"
-			(uuid "a7f4f809-9497-44b2-bc09-0a7c3c78c3d8")
+			(uuid "08eb94eb-bc8e-4719-80fc-1c770b4066e2")
 		)
 		(pin "7"
-			(uuid "5b812bd3-6f30-4076-9408-8c642c72124a")
+			(uuid "97d34795-1629-4cbf-958b-a012f53ad54b")
 		)
 		(pin "8"
-			(uuid "a40d971b-f2da-49a4-8b39-421e1b08d72e")
+			(uuid "5af85cac-ca78-4949-8f8e-b2cdc1be3dd7")
 		)
 		(pin "9"
-			(uuid "8efec0e5-e726-4761-9f3b-e9d9dcbc7579")
+			(uuid "3ec62d55-a98b-442e-abb1-734e421c105a")
 		)
 		(pin "10"
-			(uuid "b380bdc2-38de-41f4-b8de-d1917c9ea307")
+			(uuid "7db83108-47ad-4d2b-bded-b70c685b8ac3")
 		)
 		(pin "11"
-			(uuid "f5c46a31-97af-4bd0-a3a1-2383057ec0ff")
+			(uuid "2914b097-b2e8-48f8-9cb4-c649d3283d06")
 		)
 		(pin "12"
-			(uuid "e91921fa-b624-4a21-ac61-5057ca10d164")
+			(uuid "99e92828-c331-4c23-add4-1b14301257cf")
 		)
 		(pin "13"
-			(uuid "fd6a4054-0ff7-408a-bb17-1f04c2fa6127")
+			(uuid "f3f8529d-8753-4406-bbac-104153243a11")
 		)
 		(pin "14"
-			(uuid "3cf601c9-70cf-4ec7-adff-239bf6726e46")
+			(uuid "40709d14-b37a-4f7b-aea7-040a7bf81401")
 		)
 		(pin "15"
-			(uuid "50042abc-a835-45d0-8c45-6cb2b9a55c9a")
+			(uuid "1f24598d-b27b-4059-a9b8-b79ff40d6974")
 		)
 		(pin "16"
-			(uuid "573d7159-0519-44c6-9211-5b9c1a6cd9c8")
+			(uuid "6d97d2b2-b815-4f90-8b3d-7d40bc40073f")
 		)
 		(instances
 			(project "sendspin-speaker-main"
@@ -6172,7 +4084,1113 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x04")
+		(lib_id "power:GND")
+		(at 170.18 166.37 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "072193c0-8018-45d2-b48c-1cfad23809b5")
+		(property "Reference" "#PWR0311"
+			(at 170.18 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 170.18 170.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 170.18 166.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.18 166.37 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 170.18 166.37 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e79da357-1e40-4074-96a9-bddb33bfedb0")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0311")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 228.6 116.84 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "10bc87db-36ba-4d05-a288-05185bddb073")
+		(property "Reference" "#PWR0313"
+			(at 228.6 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 228.6 120.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 228.6 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 228.6 116.84 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "97ed82ea-4f24-465f-b156-6bcacd11fb4f")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0313")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 119.38 109.22 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1626f9e1-057e-5d8b-a540-3929c13447db")
+		(property "Reference" "R302"
+			(at 121.92 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5.1k"
+			(at 121.92 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 119.38 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 119.38 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 119.38 109.22 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "37a135f3-612f-4f5c-8b57-ea676fbb29b2")
+		)
+		(pin "2"
+			(uuid "7b82626f-a70a-4b93-8711-ded27ae0f9e8")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "R302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:UMH3N")
+		(at 330.2 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "17c82368-b053-590f-a381-1d545a16f79d")
+		(property "Reference" "Q301"
+			(at 337.82 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "UMH3N"
+			(at 337.82 90.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+			(at 330.2 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 330.2 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 330.2 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9aa62af9-9bc8-48f6-b49d-1c235b6d6f4f")
+		)
+		(pin "2"
+			(uuid "0b3ddc33-9699-4102-8b80-63c150ab637d")
+		)
+		(pin "6"
+			(uuid "09403a24-bc63-4202-bf95-c46267d5e2c7")
+		)
+		(pin "4"
+			(uuid "4f531d70-d563-4940-abc5-dd5a8e261558")
+		)
+		(pin "5"
+			(uuid "983c259c-139e-478d-bd7e-25cb757326b4")
+		)
+		(pin "3"
+			(uuid "2900a40c-80a0-4010-bfce-78f0e2ab0414")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "Q301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 147.32 96.52 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "268d5fba-af56-4205-8ade-692acbcd2376")
+		(property "Reference" "#PWR0306"
+			(at 147.32 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 147.32 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 96.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4b2bb615-27f0-49c8-be20-b1f662ad17ee")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0306")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 60.96 111.76 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "28235d95-70eb-47ce-80c8-08f1448c5199")
+		(property "Reference" "#PWR0301"
+			(at 60.96 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 60.96 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 60.96 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 60.96 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 60.96 111.76 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "47f5cb03-9d93-4115-871e-e17e98eb905f")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 215.9 93.98 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2d7f0e52-c2a3-4b5f-a071-0ef67ba6827d")
+		(property "Reference" "#PWR0314"
+			(at 215.9 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 215.9 97.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 215.9 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2b9fc431-5af2-4edb-aec9-a5da849002b6")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0314")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Linear:XC6206PxxxMR")
+		(at 147.32 147.32 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "319338b9-8c60-5672-a229-70a6075532bc")
+		(property "Reference" "U303"
+			(at 143.51 144.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "XC6206P332MR"
+			(at 147.32 144.14 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
+			(at 147.32 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b5d8ced4-f8e7-4e02-bbb0-367eab66bf75")
+		)
+		(pin "2"
+			(uuid "f9b295c6-2719-442c-81da-8c35943cc03d")
+		)
+		(pin "3"
+			(uuid "e49d147c-8be2-47fc-97e0-a58a649453e1")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "U303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 109.22 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3303fd24-e709-566c-8afb-f55e8850ab0a")
+		(property "Reference" "R301"
+			(at 104.14 107.95 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5.1k"
+			(at 104.14 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 101.6 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 109.22 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1d658c4e-8c3a-442a-89e2-578c1afa9ea3")
+		)
+		(pin "2"
+			(uuid "033b791d-574c-40b8-97eb-af70ff079488")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "R301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 119.38 113.03 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "414c6863-85b9-42b7-94e3-d93be6494e80")
+		(property "Reference" "#PWR0304"
+			(at 119.38 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 119.38 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 119.38 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 119.38 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 119.38 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9f3f4b81-621b-4058-b6a9-234f47d7dd21")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0304")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 226.06 86.36 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4c94d5c2-9ecf-4398-8af1-0e0fe57dce2c")
+		(property "Reference" "#PWR0312"
+			(at 226.06 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3_USB"
+			(at 226.06 82.55 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 226.06 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 226.06 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 226.06 86.36 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8303397f-08d3-4ddd-a52b-b42402d43eac")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0312")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 53.34 111.76 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "50f7bd38-00e1-42ba-b2cc-82698e52eca4")
+		(property "Reference" "#PWR0302"
+			(at 53.34 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 53.34 115.57 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 53.34 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 53.34 111.76 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fc8d0b07-e22e-4700-9d37-1831499a184b")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 271.78 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "55422334-c132-5516-9e58-c9079e1b93e5")
+		(property "Reference" "R303"
+			(at 274.32 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "470"
+			(at 274.32 90.17 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 271.78 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 271.78 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 271.78 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "48694ed5-911c-457a-bdb5-2dd24cec0ba2")
+		)
+		(pin "2"
+			(uuid "dfe83860-89b6-463e-933d-d70fc5928ddf")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "R303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 101.6 113.03 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "5f0ee1c1-2a31-4e08-b037-843191abe878")
+		(property "Reference" "#PWR0303"
+			(at 101.6 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 101.6 116.84 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5e056506-405b-4474-aec0-de427d411643")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x06")
 		(at 60.96 149.86 0)
 		(unit 1)
 		(body_style 1)
@@ -6181,9 +5199,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "d683bdbb-2014-4271-881f-f41a213ad738")
+		(uuid "6a4f703d-a8f8-5bc8-b8f5-fb81a843f339")
 		(property "Reference" "J301"
-			(at 60.96 144.78 0)
+			(at 60.96 142.24 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6193,7 +5211,7 @@
 			)
 		)
 		(property "Value" "J_USB"
-			(at 60.96 157.48 0)
+			(at 60.96 160.02 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6202,7 +5220,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical"
 			(at 60.96 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -6235,21 +5253,741 @@
 			)
 		)
 		(pin "1"
-			(uuid "93dfb11b-3acc-4418-9b0d-0abd3b0230c2")
+			(uuid "08f9c47f-7977-48fd-b874-ef1ad3a93703")
 		)
 		(pin "2"
-			(uuid "6ec39dca-6606-4563-bb93-243cc024906d")
+			(uuid "6f3826a8-1170-4d34-979a-017c13456ef0")
 		)
 		(pin "3"
-			(uuid "4464c0da-e610-44d7-9e81-0a6e3aeeb249")
+			(uuid "a0d4d0e1-6e0f-4067-8752-463c224404de")
 		)
 		(pin "4"
-			(uuid "20e5cb0f-74f0-4ae4-8729-0ad8ce52a09f")
+			(uuid "d2031fff-671e-4562-ba08-ccb77bc5a5ca")
+		)
+		(pin "5"
+			(uuid "6a21a931-6a46-487e-9248-dd9feb6d8f4e")
+		)
+		(pin "6"
+			(uuid "e5eacf78-a826-46b2-91ce-3e19df431b4d")
 		)
 		(instances
 			(project "sendspin-speaker-main"
 				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
 					(reference "J301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 127 162.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "701f7935-5d1a-5d96-872d-7b730e94deea")
+		(property "Reference" "C301"
+			(at 129.54 161.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 129.54 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 127 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 127 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "73422384-4b64-4cd0-8c6f-f4d08246ca9a")
+		)
+		(pin "2"
+			(uuid "7aaeb00f-ea30-453c-9728-98b61a94fb28")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "C301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 147.32 154.94 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "77918fb0-08ef-4397-944e-116d41645c55")
+		(property "Reference" "#PWR0308"
+			(at 147.32 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 147.32 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 154.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d59080dd-a7bd-47b7-a36c-bf6f946e094e")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0308")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Power_Protection:USBLC6-2SC6")
+		(at 147.32 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7dc7f147-8eb7-5008-80b2-f2e9eb2c9baf")
+		(property "Reference" "U301"
+			(at 147.95 83.19 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "USBLC6-2SC6"
+			(at 147.95 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 147.32 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2e349561-6a79-448d-bc47-942688ab6bac")
+		)
+		(pin "2"
+			(uuid "5a5e5294-8d3c-449e-8955-f568b3efc372")
+		)
+		(pin "3"
+			(uuid "5e089e16-0264-40e9-85dd-30c831d605c7")
+		)
+		(pin "4"
+			(uuid "4b1bce27-e7f3-425f-9571-d42e5ad9bda0")
+		)
+		(pin "5"
+			(uuid "efc2ba7f-52e4-4a15-aad2-1fcfbd58ddc4")
+		)
+		(pin "6"
+			(uuid "f85ccf41-796e-498b-ba49-9fa9944883bd")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "U301")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 170.18 162.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "94276418-d966-55fb-82cb-7729804ac0db")
+		(property "Reference" "C302"
+			(at 172.72 161.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 172.72 163.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 170.18 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.18 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 170.18 162.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "291aab95-dcac-4fc1-a16b-f80f50850f4c")
+		)
+		(pin "2"
+			(uuid "ddde15df-9d65-4c2c-8d1f-5783213d47a2")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "C302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 200.66 73.66 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "99e40d8e-f814-5393-8b1a-18d09e757aee")
+		(property "Reference" "C303"
+			(at 203.2 72.39 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 203.2 74.93 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 200.66 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 73.66 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 200.66 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ad238af3-449f-4cc7-9034-eb17c2f66221")
+		)
+		(pin "2"
+			(uuid "e86141cb-12fc-4f44-9033-010c9048b14d")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "C303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 157.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b7e2c463-93f8-4d33-8134-3e00a725f8cb")
+		(property "Reference" "#PWR0305"
+			(at 50.8 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 50.8 161.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 50.8 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.8 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 50.8 157.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ff9045fe-0e67-4781-a0b6-daacd41ef36b")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0305")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 38.1 63.5 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cbe505f6-833e-4d43-8366-73d0ae655429")
+		(property "Reference" "#FLG0317"
+			(at 38.1 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 38.1 59.69 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 38.1 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 38.1 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 38.1 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "097f7236-5496-45ec-a4de-66ee7b601148")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#FLG0317")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 157.48 147.32 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cbfc8b00-15b1-462b-b896-e618911588c9")
+		(property "Reference" "#PWR0307"
+			(at 157.48 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3_USB"
+			(at 157.48 143.51 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 157.48 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 157.48 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 157.48 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3e256114-687d-43bc-aac4-ac1eb39ecdba")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0307")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 200.66 69.85 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d707760a-2fe1-45ff-ba90-69632fac9b5e")
+		(property "Reference" "#PWR0315"
+			(at 200.66 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3_USB"
+			(at 200.66 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 200.66 69.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ebcfb639-9793-47de-ad45-1535f292f19c")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0315")
 					(unit 1)
 				)
 			)
@@ -6265,7 +6003,7 @@
 		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "fad9deb1-ed76-47ce-84cd-7c234d37e240")
+		(uuid "dba325f0-686c-4e7c-baa4-5ecda724c2ce")
 		(property "Reference" "#PWR0309"
 			(at 127 160.02 0)
 			(hide yes)
@@ -6321,7 +6059,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "d426671d-87ac-4019-9b6a-2b29478f11c5")
+			(uuid "ca525981-140c-4c32-8e3f-d813a14e3b74")
 		)
 		(instances
 			(project "sendspin-speaker-main"
@@ -6333,18 +6071,19 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:XC6206PxxxMR")
-		(at 147.32 147.32 0)
+		(lib_id "power:+3V3")
+		(at 170.18 158.75 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "fec9513d-f7aa-4c03-860e-dda8fb06dd92")
-		(property "Reference" "U303"
-			(at 143.51 144.14 0)
+		(uuid "dd7852be-9282-493d-9f29-b77e87cc4984")
+		(property "Reference" "#PWR0310"
+			(at 170.18 165.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6353,19 +6092,18 @@
 				)
 			)
 		)
-		(property "Value" "XC6206P332MR"
-			(at 147.32 144.14 0)
+		(property "Value" "+3V3_USB"
+			(at 170.18 154.94 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-3"
-			(at 147.32 147.32 0)
+		(property "Footprint" ""
+			(at 170.18 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6376,7 +6114,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 147.32 0)
+			(at 170.18 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6387,7 +6125,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 147.32 0)
+			(at 170.18 158.75 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6397,18 +6135,384 @@
 			)
 		)
 		(pin "1"
-			(uuid "54243876-4e00-4d03-9706-0d82871c4860")
-		)
-		(pin "2"
-			(uuid "a2d0c8bf-d5ea-46ee-bfd2-108a6596ed8a")
-		)
-		(pin "3"
-			(uuid "9d417804-4aa1-46e8-ad58-0fbd7ce07748")
+			(uuid "b67cf971-fff8-4606-992b-4757438628d6")
 		)
 		(instances
 			(project "sendspin-speaker-main"
 				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
-					(reference "U303")
+					(reference "#PWR0310")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:UMH3N")
+		(at 330.2 124.46 0)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "de8333fd-2ed7-52ca-a40a-11cfe7b3ae29")
+		(property "Reference" "Q301"
+			(at 337.82 123.19 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "UMH3N"
+			(at 337.82 125.73 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+			(at 330.2 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 330.2 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 330.2 124.46 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "33930c6f-ca7a-4925-89a8-272a5eb053a3")
+		)
+		(pin "4"
+			(uuid "f1e49b73-b727-45a7-9544-6ee86708b363")
+		)
+		(pin "5"
+			(uuid "3556d05f-33c4-4d5b-85d0-0ec072190e80")
+		)
+		(pin "2"
+			(uuid "8c535fe2-52ee-447b-bd4b-3e3beec7a06f")
+		)
+		(pin "1"
+			(uuid "f04bbc2b-eb2a-4a64-ba70-fc34971cfc31")
+		)
+		(pin "6"
+			(uuid "da72825f-bfdc-419e-9e33-52b37baf6389")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "Q301")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 271.78 111.76 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "dfb24f7a-677a-58ea-9129-0c6b88f0c9b5")
+		(property "Reference" "R304"
+			(at 274.32 110.49 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "470"
+			(at 274.32 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 271.78 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 271.78 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 271.78 111.76 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "70ce0be6-4029-4b79-a45e-057e818a67ac")
+		)
+		(pin "2"
+			(uuid "8dff7c7a-2dac-40d0-9aba-436690b7a7ec")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "R304")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 200.66 77.47 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ea6ee20a-43e7-4282-9d4f-6d08496bbc36")
+		(property "Reference" "#PWR0316"
+			(at 200.66 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 200.66 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 200.66 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "05a30b9b-8f49-49a1-89ed-a55f8f751317")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "#PWR0316")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:USB_C_Receptacle_USB2.0_16P")
+		(at 60.96 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "fed931d8-99e6-51e7-bb8c-5a84cf15c1af")
+		(property "Reference" "USB301"
+			(at 60.96 66.68 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "USB-C"
+			(at 60.96 69.22 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+			(at 60.96 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 60.96 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 60.96 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "A1"
+			(uuid "5bfac4c6-2f0e-4ef4-8905-1e1e0c3900e2")
+		)
+		(pin "A4"
+			(uuid "6b4cd104-0140-4645-bf65-4c38b6e60555")
+		)
+		(pin "A5"
+			(uuid "c685dcaf-1606-4380-9b8f-9905547e4a85")
+		)
+		(pin "A6"
+			(uuid "26aebf21-82a6-475d-a715-b3e07c81e8b8")
+		)
+		(pin "A7"
+			(uuid "6b14ce70-99d0-416f-bb05-cfcf37eb552a")
+		)
+		(pin "A8"
+			(uuid "e80affcb-84ac-4763-a902-4cd88a7cc8f6")
+		)
+		(pin "A9"
+			(uuid "437e868e-1156-48cf-aaaa-019cc6a7e1cc")
+		)
+		(pin "A12"
+			(uuid "5e46a4c8-6738-4f8d-a6c7-b284c92612ad")
+		)
+		(pin "B1"
+			(uuid "a3d56e4c-34d2-47f3-80b6-4623b4bb1332")
+		)
+		(pin "B4"
+			(uuid "e13b2d2d-c765-44ae-8fac-f875180ca4ee")
+		)
+		(pin "B5"
+			(uuid "b2fe9860-5a75-42f2-8472-7198b01e9c35")
+		)
+		(pin "B6"
+			(uuid "8b9c5e0e-18de-48fe-a14d-b0d0236001c9")
+		)
+		(pin "B7"
+			(uuid "208c76dd-3ef3-4a48-8744-a4b0c8264e80")
+		)
+		(pin "B8"
+			(uuid "954c0bda-d936-43c3-965b-943d073d810b")
+		)
+		(pin "B9"
+			(uuid "2de7525a-031a-45dd-a43f-f237405116c7")
+		)
+		(pin "B12"
+			(uuid "f1d6e0fb-dbbe-4d77-907c-a31c0ca787e8")
+		)
+		(pin "SH"
+			(uuid "cb9d21c8-97fb-4980-8b66-7ccb16d2ac60")
+		)
+		(instances
+			(project "sendspin-speaker-main"
+				(path "/1294b3cd-656f-456e-a4e5-c0aee204737d/b9affbcc-9f38-4a2c-914f-0b930952d8a7"
+					(reference "USB301")
 					(unit 1)
 				)
 			)

@@ -46,6 +46,12 @@
   board 32 × 20 mm, mounting holes, edge connectors, GND pours; renders in
   `hardware/docs/`. TP4056 footprint without 0.2 mm thermal vias; switch
   shell to GND.
+- USB-C board and front panel are bare (connectors and buttons only), so any
+  USB-C breakout or panel wiring can replace them: J_USB is now XH 6 with
+  CC1/CC2 (CC resistors and ESD on the main board); J_UI's LED pin comes
+  through R501; panel RC reset, decoupling and LED removed (ST7789 RST tied
+  high). Schematics only so far: the boards still need Update PCB (F8)
+  and re-placement.
 
 ## v0.7.0 — 2026-10-29
 

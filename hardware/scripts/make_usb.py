@@ -42,10 +42,11 @@ for pad, n in USB_NETS.items():   # stacked pins (VBUS x4, GND x4) share one end
 two("Device", "R", "R301", "5.1k", 101.6, 109.22, "CC1", "GND", R0805)
 two("Device", "R", "R302", "5.1k", 119.38, 109.22, "CC2", "GND", R0805)
 
-# --- or the USB-C board on a cable -----------------------------------------------
-j = s.part("Connector_Generic", "Conn_01x04", "J301", "J_USB", 60.96, 149.86,
-           footprint="Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical")
-net(j["1"], "VBUS"); net(j["2"], "USB_DN"); net(j["3"], "USB_DP"); net(j["4"], "GND", stub=5.08)
+# --- or any USB-C receptacle on a cable (bare breakout): CC goes through the cable too ----
+j = s.part("Connector_Generic", "Conn_01x06", "J301", "J_USB", 60.96, 149.86,
+           footprint="Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
+for i, n in enumerate(("VBUS", "USB_DN", "USB_DP", "CC1", "CC2", "GND"), start=1):
+    net(j[str(i)], n, stub=5.08 if n == "GND" else 2.54)
 
 # --- ESD ---------------------------------------------------------------------------
 e = s.part("Power_Protection", "USBLC6-2SC6", "U301", "USBLC6-2SC6", 147.32, 88.9,
@@ -90,8 +91,10 @@ s.flag(38.1, 63.5); s.wire(38.1, 63.5, 38.1, 68.58)
 s.label("hierarchical_label", "VBUS", 38.1, 68.58, (1, 0), "output")
 
 s.text("USB\n"
-       "Fit USB301 (on board) or J301 + the USB-C board, not both. The USB-C board has its own\n"
-       "5.1k CC resistors and USBLC6-2SC6.\n"
+       "Fit USB301 (on board) or J301 + an off-board USB-C receptacle, not both. J301 carries\n"
+       "VBUS, D-, D+, CC1, CC2, GND: the off-board part is a bare connector (our usb/ board or any\n"
+       "breakout). R301/R302 (5.1k) and U301 (ESD) here serve both; leave R301/R302 off if the\n"
+       "breakout already has its own 5.1k.\n"
        "CH340C runs from its own XC6206 (3.3 V from VBUS): no battery drain without USB.\n"
        "V3 tied to VCC (3.3 V supply); R232 low; CTS/DSR/RI/DCD unused (internal pull-ups).\n"
        "TX/RX through 470R. Auto-reset: DTR/RTS both low or both high = idle; the usual\n"
