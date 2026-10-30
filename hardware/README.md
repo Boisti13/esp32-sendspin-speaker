@@ -218,8 +218,11 @@ so). All pads are in use.
   EasyEDA library with [easyeda2kicad](https://github.com/uPesy/easyeda2kicad.py)
   (symbol, footprint, STEP model). Afterwards: 3D paths point at
   `${KIPRJMOD}/../lib/lcsc.3dshapes/`, the locating pegs of MSK12C02 and
-  PJ-320D are non-plated, and the A1S got an antenna keepout and a
-  courtyard around its pads. See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+  PJ-320D are non-plated, the A1S got an antenna keepout and a courtyard
+  around its pads, the PJ-320D a courtyard (it had none) and its 3D model
+  moved 7.6 mm onto its pads, and MSK12C02 is marked SMD. Check every
+  imported part's courtyard and 3D model before using it.
+  See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 - `lib/sendspin-speaker.*`: parts we draw ourselves (none yet).
 
 To import another part: `easyeda2kicad --full --lcsc_id C… --output
@@ -269,8 +272,18 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
   hand-soldered, as are the THT connectors and panel buttons.
 - **Main board**: the A1S antenna hangs over the top edge (its keepout stays
   off the board). USB-C, headphone jack and slide switch open to the left
-  and right edges; speakers on top; J_USB, J_UI, J_LED along the bottom;
-  battery, J_SW, J_CHG on the right edge.
+  and right edges; J_USB, J_UI, J_LED along the bottom; battery, J_SW,
+  J_CHG on the right edge.
+  - The amps sit right of the module by its speaker outputs (pads 23–26),
+    with the speaker connectors above them on the top edge and the 470 µF
+    bulk cap beside them; DW01A/FS8205A next to J_BAT.
+  - Every passive sits by the pin it serves (decoupling at pad 2, EN RC at
+    pad 35, pull-ups and the battery divider along the module's left
+    pads, input networks at the amps, CC resistors at the USB-C, …).
+    `place_main.py` lists each part's pin; it finds the nearest free spot.
+  - Boot and Reset on the top edge left; CH340C block bottom left, power
+    block bottom middle. Total connection length (GND excluded) went from
+    2472 mm to 1906 mm with this.
 - **Front panel**: display headers at the top, buttons at 12 mm pitch,
   LED header J604, J_UI on the back.
 - **USB-C board**: receptacle on the left edge, J_USB (XH 6) on the right.

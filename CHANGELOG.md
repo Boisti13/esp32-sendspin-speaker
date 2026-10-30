@@ -54,6 +54,10 @@
 - J_BAT is a JST XH 2 like every other connector (was PH 2.0).
 - Mounting holes 4.5 mm in from the edges so M3 screw heads stay on the
   board (M2: 3 mm); rounded board corners (r = 3 mm, USB-C board 2 mm).
+- Main board placement refined: amps and speaker connectors next to the
+  module's speaker outputs, every passive at the pin it serves (`pcbplace.py`
+  finds the nearest free spot), connection length −23 %. PJ-320D footprint
+  got a courtyard and its 3D model moved onto its pads.
 
 ## v0.7.0 — 2026-10-29
 

@@ -57,6 +57,50 @@ class Board:
             row_h = max(row_h, h)
         return left
 
+    # --- placing next to a pin -------------------------------------------------------
+    def pad(self, ref, num):
+        p = next(p for p in self.fp[ref].Pads() if p.GetNumber() == num).GetPosition()
+        return pcbnew.ToMM(p.x), pcbnew.ToMM(p.y)
+
+    def taken(self, refs, margin=0.25):
+        """Start the list of occupied rectangles with these (already placed) parts."""
+        self.occupied = []
+        for ref in refs:
+            self.occupy(ref, margin)
+
+    def occupy(self, ref, margin=0.25):
+        x, y, w, h = self.bbox(ref)
+        self.occupied.append((x - margin, y - margin, x + w + margin, y + h + margin))
+
+    def keepout(self, x0, y0, x1, y1):
+        self.occupied.append((x0, y0, x1, y1))
+
+    def near(self, ref, tx, ty, rot=0, reach=14.0, step=0.5, edge=0.6):
+        """Put a part as close to (tx, ty) as possible without overlapping anything placed
+        so far or leaving the board. Returns the distance it ended up from the target."""
+        self.fp[ref].SetOrientationDegrees(rot)
+        _, _, w, h = self.bbox(ref)
+        best = None
+        n = int(reach / step)
+        for i in range(-n, n + 1):
+            for j in range(-n, n + 1):
+                cx, cy = tx + i * step, ty + j * step
+                d = (i * i + j * j) ** 0.5 * step
+                if best and d >= best[0]:
+                    continue
+                x0, y0, x1, y1 = cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2
+                if (x0 < self.x0 + edge or y0 < self.y0 + edge or
+                        x1 > self.x0 + self.w - edge or y1 > self.y0 + self.h - edge):
+                    continue
+                if any(x0 < b[2] and x1 > b[0] and y0 < b[3] and y1 > b[1] for b in self.occupied):
+                    continue
+                best = (d, x0, y0)
+        if best is None:
+            raise RuntimeError(f"no free spot for {ref} near {tx:.1f}, {ty:.1f}")
+        self.place(ref, best[1], best[2], rot)
+        self.occupy(ref)
+        return best[0]
+
     def outline(self, radius=3.0):
         """Rectangle with rounded corners: four edges and four quarter arcs."""
         for d in list(self.b.GetDrawings()):

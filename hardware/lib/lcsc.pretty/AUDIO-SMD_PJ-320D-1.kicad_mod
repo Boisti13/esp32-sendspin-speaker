@@ -182,6 +182,17 @@
 		(layer "Cmts.User")
 		(uuid "24cda8a9-9f43-48e2-9e52-9d32cb219a78")
 	)
+	(fp_rect
+		(start -9.65 -4.5)
+		(end 5.95 4.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "390092be-7566-457e-b171-650bc15a7264")
+	)
 	(fp_text user "${REFERENCE}"
 		(at 0 0 0)
 		(layer "F.Fab")
@@ -198,7 +209,6 @@
 		(size 1 1)
 		(drill 1)
 		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
 		(uuid "68a1ebf1-c112-4d23-bfc4-11c97bf765cb")
 	)
 	(pad "" np_thru_hole circle
@@ -206,7 +216,6 @@
 		(size 1 1)
 		(drill 1)
 		(layers "*.Cu" "*.Mask")
-		(remove_unused_layers no)
 		(uuid "2a245ac6-ed26-4e15-bffc-0a21a526a278")
 	)
 	(pad "1" smd rect
@@ -236,7 +245,7 @@
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/../lib/lcsc.3dshapes/AUDIO-SMD_PJ-320D-1.step"
 		(offset
-			(xyz 0 0 0)
+			(xyz -7.6 0 0)
 		)
 		(scale
 			(xyz 1 1 1)
