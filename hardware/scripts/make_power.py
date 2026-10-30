@@ -36,7 +36,7 @@ def two(lib, name, ref, value, x, y, top, bottom, fp, **kw):
 
 # --- charger -------------------------------------------------------------------
 u = s.part("Battery_Management", "TP4056-42-ESOP8", "U201", "TP4056", 80.01, 80.01,
-           footprint="Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm_ThermalVias",
+           footprint="Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm",
            datasheet="https://www.lcsc.com/datasheet/C16581.pdf")
 net(u["4"], "VBUS", stub=5.08)           # VCC
 net(u["8"], "VBUS")                      # CE: always enabled
@@ -97,7 +97,7 @@ sw = s.part("lcsc", "MSK12C02", "SW201", "MSK12C02", 287.02, 154.94,
             footprint="lcsc:SW-TH_MSK12C02", lcsc="C431540",
             texts={"Reference": (12.7, -2.54, "left"), "Value": (0, 8.89, "")})
 net(sw["1"], "VBAT_LS", stub=5.08, bend=(-5.08, 0)); net(sw["2"], "VBAT_SW")
-s.no_connect(*sw["3"][:2]); s.no_connect(*sw["4"][:2])
+s.no_connect(*sw["3"][:2]); net(sw["4"], "GND")   # shell/mounting pads to GND
 j = s.part("Connector_Generic", "Conn_01x02", "J202", "J_SW", 287.02, 180.34,
            footprint=XH.format(n=2))
 net(j["1"], "VBAT_LS"); net(j["2"], "VBAT_SW", stub=15.24)  # rail symbol clear of pin 1's label

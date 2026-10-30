@@ -138,7 +138,7 @@ class Sheet:
                      ("Footprint", "", x, y, True), ("Datasheet", "", x, y, True)]
         s = (f'(symbol (lib_id "{lib}:{name}") (at {r2(x)} {r2(y)} 0) (unit {unit}) (exclude_from_sim no) '
              f'(in_bom {"no" if is_pwr or not in_bom else "yes"}) (on_board {"no" if is_pwr else "yes"}) '
-             f'(dnp {"yes" if dnp else "no"}) (uuid "{U()}")\n')
+             f'(dnp {"yes" if dnp else "no"}) (uuid "{self._sym_uuid(ref, unit)}")\n')
         for k, v, px, py, hide in props:
             if k in just_of:
                 just = f" (justify {just_of[k]})" if just_of[k] else ""
@@ -153,6 +153,13 @@ class Sheet:
               f'(reference "{ref}") (unit {unit}))))\n)\n')
         self.items.append(s)
         return {n: (r2(x + px), r2(y - py), a) for n, (px, py, a) in pins.items()}
+
+    def _sym_uuid(self, ref, unit):
+        """Same sheet + reference + unit -> same UUID, so a regenerated sheet keeps the
+        PCB footprints linked to their symbols."""
+        if ref.startswith("#"):
+            return U()
+        return str(uuid.uuid5(uuid.NAMESPACE_URL, f"{self.path}/{ref}/{unit}"))
 
     def power(self, net, x, y):
         """Power symbol; the net is named by its value (rails KiCad has no symbol for
