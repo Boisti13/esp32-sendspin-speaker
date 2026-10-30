@@ -63,16 +63,6 @@
 	)
 	(wire
 		(pts
-			(xy 274.32 55.88) (xy 279.4 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0fda6af0-45e4-4cbb-bb6f-330496b8637f")
-	)
-	(wire
-		(pts
 			(xy 274.32 119.38) (xy 279.4 119.38)
 		)
 		(stroke
@@ -140,16 +130,6 @@
 			(type default)
 		)
 		(uuid "1f0ac3e4-5eb4-4f06-b8ea-50026f7cc7fb")
-	)
-	(wire
-		(pts
-			(xy 274.32 73.66) (xy 279.4 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "25ecbf74-1e15-4253-8051-82366ed67edc")
 	)
 	(wire
 		(pts
@@ -303,26 +283,6 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 71.12) (xy 220.98 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c1b8565-57f2-4068-85a2-1daff47aee2b")
-	)
-	(wire
-		(pts
-			(xy 215.9 86.36) (xy 220.98 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8df92c63-f49a-4bd1-8cb1-721cfd2f915f")
-	)
-	(wire
-		(pts
 			(xy 215.9 81.28) (xy 220.98 81.28)
 		)
 		(stroke
@@ -400,16 +360,6 @@
 			(type default)
 		)
 		(uuid "ba0c2529-0645-482a-aa8e-94319c0bd157")
-	)
-	(wire
-		(pts
-			(xy 215.9 68.58) (xy 220.98 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bc0ed846-0705-45bd-b864-6f9185167501")
 	)
 	(wire
 		(pts
@@ -523,16 +473,6 @@
 	)
 	(wire
 		(pts
-			(xy 274.32 58.42) (xy 279.4 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f3c9f997-8c00-4073-8267-df256fd3dc01")
-	)
-	(wire
-		(pts
 			(xy 274.32 68.58) (xy 279.4 68.58)
 		)
 		(stroke
@@ -620,16 +560,6 @@
 			(justify left bottom)
 		)
 		(uuid "1ab85c88-1b60-4970-9ca0-094645b9ca78")
-	)
-	(label "HP_DET"
-		(at 220.98 86.36 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "20885af1-d36f-408a-bf85-d955d7d66492")
 	)
 	(label "SPORP"
 		(at 220.98 78.74 0)
@@ -760,16 +690,6 @@
 			(justify right bottom)
 		)
 		(uuid "640265b0-bc31-4a70-a056-bc8feb3a8d1b")
-	)
-	(label "HP_DET"
-		(at 274.32 73.66 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "685855c9-c068-490c-ad55-14e0f57b36a2")
 	)
 	(label "DISP_MOSI"
 		(at 220.98 91.44 0)
@@ -921,26 +841,6 @@
 		)
 		(uuid "a711f206-0fbb-4dab-a3fe-9d84451bd521")
 	)
-	(label "HPOUTL"
-		(at 274.32 55.88 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a7da7621-4e83-4ca6-8b6c-41dc650eeb85")
-	)
-	(label "HPOUTR"
-		(at 274.32 58.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a870bac8-99a7-4893-b151-a420a1b13f7a")
-	)
 	(label "DISP_MOSI"
 		(at 274.32 109.22 180)
 		(effects
@@ -960,16 +860,6 @@
 			(justify left bottom)
 		)
 		(uuid "bee183e1-61e4-4faa-9bd3-a13be84281bd")
-	)
-	(label "HPOUTL"
-		(at 220.98 68.58 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c9ef7cbd-b1bc-4b8e-b868-50df49899bc2")
 	)
 	(label "DISP_CS"
 		(at 274.32 111.76 180)
@@ -1020,16 +910,6 @@
 			(justify left bottom)
 		)
 		(uuid "e07d2da2-08d8-41ec-9cf9-51da84327afa")
-	)
-	(label "HPOUTR"
-		(at 220.98 71.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e3798c07-8387-40c1-b751-42bb7caf03ce")
 	)
 	(label "U0RXD"
 		(at 147.32 68.58 180)
@@ -1098,26 +978,6 @@
 				(justify left top)
 			)
 		)
-		(pin "HPOUTL" input
-			(at 279.4 55.88 180)
-			(uuid "c3868b78-8381-4e1f-b6fa-a0f2c880c9a8")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "HPOUTR" input
-			(at 279.4 58.42 180)
-			(uuid "10a209e0-5c6a-495d-b4a1-8110ace3dfb9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "SPOLP" input
 			(at 279.4 60.96 180)
 			(uuid "6ad46d41-b074-4f4d-b62b-97475660eca0")
@@ -1161,16 +1021,6 @@
 		(pin "AMP_EN" input
 			(at 279.4 71.12 180)
 			(uuid "8dbee362-f714-402a-a3b8-c02cc6054e38")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "HP_DET" output
-			(at 279.4 73.66 180)
-			(uuid "7cd810b0-5cbc-4dd9-971c-ef1edd658413")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1293,26 +1143,6 @@
 				(justify left)
 			)
 		)
-		(pin "HPOUTL" output
-			(at 215.9 68.58 0)
-			(uuid "d51257cc-1181-4150-a361-279b946768f9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "HPOUTR" output
-			(at 215.9 71.12 0)
-			(uuid "0cd3e0d5-b8e7-4b70-950f-023eb26091ba")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 		(pin "SPOLP" output
 			(at 215.9 73.66 0)
 			(uuid "9c684426-4ea7-4b82-81e0-74abd4f2e630")
@@ -1356,16 +1186,6 @@
 		(pin "AMP_EN" output
 			(at 215.9 83.82 0)
 			(uuid "ba9b9cf6-80d0-4fb0-a1a4-0da0d2a4725e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "HP_DET" input
-			(at 215.9 86.36 0)
-			(uuid "a6454323-a751-418b-be49-d9fb98073edb")
 			(effects
 				(font
 					(size 1.27 1.27)

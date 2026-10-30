@@ -14,26 +14,27 @@ BUTTON = "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A"
 
 SHAPE = {"U0RXD": "input", "U0TXD": "output", "EN": "input", "IO0": "bidirectional",
          "CHRG": "input", "STDBY": "input", "VBAT_SENSE": "input", "AMP_EN": "output",
-         "HP_DET": "input", "DISP_SCK": "output", "DISP_MOSI": "bidirectional",
+         "DISP_SCK": "output", "DISP_MOSI": "bidirectional",
          "DISP_CS": "output", "DISP_DC": "output", "LED": "output"}
-for n in ("HPOUTL", "HPOUTR", "SPOLP", "SPOLN", "SPORP", "SPORN"):
+for n in ("SPOLP", "SPOLN", "SPORP", "SPORN"):
     SHAPE[n] = "output"
 for n in ("BTN1", "BTN3", "BTN4", "BTN5", "BTN6"):
     SHAPE[n] = "input"
 
 # ESP32-A1S pad -> net (None = not connected)
-PADS = {1: "GND", 2: "+3V3", 3: "HP_DET", 4: "BTN1", 5: "VBAT_SENSE", 6: "IO0",
+PADS = {1: "GND", 2: "+3V3", 3: "GPIO39", 4: "BTN1", 5: "VBAT_SENSE", 6: "IO0",
         7: "DISP_SCK", 8: "LED", 9: "DISP_MOSI", 10: "DISP_CS", 11: "STDBY", 12: "CHRG",
         13: None, 14: None, 15: None, 16: None, 17: None, 18: None, 19: "GND", 20: "GND",
         21: None, 22: None, 23: "SPORP", 24: "SPORN", 25: "SPOLP", 26: "SPOLN",
-        27: "HPOUTL", 28: "HPOUTR", 29: "BTN6", 30: "BTN5", 31: "BTN4", 32: "BTN3",
+        27: None, 28: None, 29: "BTN6", 30: "BTN5", 31: "BTN4", 32: "BTN3",
         33: "DISP_DC", 34: "AMP_EN", 35: "EN", 36: "U0TXD", 37: "U0RXD", 38: "GND"}
 
 s = Sheet("sendspin-speaker-main", f"/{ROOT}/{SHEET}", pwr_base=100)
 
 
 def hl(pin, net, **kw):
-    s.attach(pin, net, shape=SHAPE.get(net, "passive"), **kw)
+    kind = "hierarchical_label" if net in SHAPE else "label"   # GPIO39: local, spare
+    s.attach(pin, net, shape=SHAPE.get(net, "passive"), kind=kind, **kw)
 
 
 # --- module -----------------------------------------------------------------
@@ -63,7 +64,7 @@ hl(sw["1"], "EN"); hl(sw["2"], "GND")
 
 # --- pull-ups: input-only GPIO36/39, display CS (strap 15 high), I2C option -----
 for i, (ref, val, net, dnp) in enumerate((
-        ("R102", "10k", "BTN1", False), ("R103", "10k", "HP_DET", False),
+        ("R102", "10k", "BTN1", False), ("R103", "10k", "GPIO39", False),
         ("R104", "10k", "DISP_CS", False), ("R105", "4.7k", "DISP_SCK", True),
         ("R106", "4.7k", "DISP_MOSI", True))):
     r = s.part("Device", "R", ref, val, 150 + 22 * i, 90, footprint=R0805, dnp=dnp)

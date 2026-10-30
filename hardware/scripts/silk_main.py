@@ -11,7 +11,7 @@ import pcbnew
 from pcbplace import Board, mm
 
 B = Board("D:/dev/esp32-sendspin-speaker/hardware/main/sendspin-speaker-main.kicad_pcb",
-          100.0, 100.0, 100.0, 58.0)
+          120.0, 100.0, 70.0, 60.0)
 CX, CY = B.x0 + B.w / 2, B.y0 + B.h / 2
 MARK = "~"          # every label this script writes ends with a hidden marker: a trailing space
 
@@ -27,7 +27,7 @@ PINS = {   # connector -> pin names, pin 1 first
 }
 WHAT = {   # part -> function label
     "J501": "PANEL", "J301": "USB", "J502": "LED", "J201": "BAT", "J202": "SWITCH",
-    "J203": "CHARGE", "J401": "SPK L", "J402": "SPK R", "J403": "PHONES",
+    "J203": "CHARGE", "J401": "SPK L", "J402": "SPK R",
     "USB301": "USB-C", "SW201": "ON/OFF", "SW101": "RESET", "SW102": "BOOT",
     "D101": "STATUS", "D201": "CHG", "D202": "FULL", "JP201": "BYPASS",
 }
@@ -76,9 +76,9 @@ for ref, names in PINS.items():
             text(n, x0 - 0.5 if left else x0 + w + 0.5, y, just="right" if left else "left")
         text(WHAT[ref], (x0 - 3.0) if left else (x0 + w + 3.0), y0 - 0.8, size=0.9)
 
-for ref in ("J403", "USB301", "SW201", "SW101", "SW102", "D101", "D201", "D202", "JP201"):
+for ref in ("USB301", "SW201", "SW101", "SW102", "D101", "D201", "D202", "JP201"):
     x0, y0, w, h = B.bbox(ref)
-    if ref in ("J403", "USB301"):                         # left edge: label to the right
+    if ref in ("USB301", "SW101", "SW102"):        # left edge: label to the right
         text(WHAT[ref], x0 + w + 0.8, y0 + h / 2, size=1.0, just="left")
     elif ref == "SW201":                                  # right edge: label to the left
         text(WHAT[ref], x0 - 0.8, y0 + h / 2, size=1.0, just="right")

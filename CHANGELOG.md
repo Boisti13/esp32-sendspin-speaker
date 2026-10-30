@@ -62,6 +62,11 @@
   labelled (pin names at every connector, function labels, board name on
   the back), 100 × 58 mm to leave room for the labels. LCSC numbers on all
   SMD parts; `jlc.py` writes JLC's Gerber ZIP, BOM and CPL.
+- Headphone jack removed from the custom PCB (J403, C422, C423): the module's
+  headphone outputs stay open, GPIO39 is spare (pull-up kept).
+- Main board shrunk to 70 × 60 mm: Boot/Reset, USB-C and J_LED on the left
+  edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
+  sub-minimum tracks fixed automatically after Freerouting.
 
 ## v0.7.0 — 2026-10-29
 

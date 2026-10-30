@@ -10,9 +10,10 @@ KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 > Status: all schematics drawn (ERC clean). **Main board placed, routed
 > (Freerouting) and labelled**, DRC without errors, JLC files can be made.
 > Front panel and USB-C board placed, not routed yet. Before ordering: check
-> the PJ-320D pinout (see *Open checks*). Nothing built or tested.
+> the NS4150B values and the part rotations (see *Open checks*). Nothing
+> built or tested.
 
-| Main board, 100 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 22 mm |
+| Main board, 70 × 60 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 22 mm |
 |---|---|---|
 | ![main board](docs/main-top.png) | ![front panel](docs/ui-top.png) | ![USB-C board](docs/usb-top.png) |
 
@@ -49,7 +50,7 @@ Audio 4xx, Connectors 5xx (front panel and USB-C board: 6xx, 7xx).
 
 | Board | KiCad project | Carries |
 |---|---|---|
-| Main | [`main/`](main/) | ESP32-A1S, amps, charger and protection, regulators, CH340C, Boot/Reset, headphone jack, on-board options for switch and charge LEDs, all connectors below |
+| Main | [`main/`](main/) | ESP32-A1S, amps, charger and protection, regulators, CH340C, Boot/Reset, on-board options for switch and charge LEDs, all connectors below |
 | Front panel | [`ui/`](ui/) | buttons 1, 3, 4, 5, 6 and headers only (SPI and I²C display, status LED): any panel wiring can replace it |
 | USB-C | [`usb/`](usb/) | USB-C receptacle only: any USB-C breakout or panel socket can replace it |
 
@@ -108,7 +109,6 @@ library where it has the part; otherwise imported from LCSC into
 | Module | ESP32-A1S (ES8388), hand-soldered | `lcsc:WIRELM-SMD_ESP32-A1S` (+ antenna keepout) | C277945 |
 | Amps | 2 × NS4150B | `lcsc:MSOP-8_L3.0-W3.0-P0.65-LS5.0-BL` | C189961 |
 | Bulk | 470 µF, ≥ 6.3 V | `Capacitor_SMD:CP_Elec_8x10` | |
-| Headphones | PJ-320D | `lcsc:AUDIO-SMD_PJ-320D-1` | C431535 |
 | Charger | TP4056 | `Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm` | |
 | Protection | DW01A | `Package_TO_SOT_SMD:SOT-23-6` | |
 | | FS8205A | `lcsc:SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR` | C2830320 |
@@ -152,8 +152,9 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
   gives 5.1 if it's too quiet), Bypass 1 µF, supply 10 µF + 1 µF (the
   datasheet's 1 µF instead of 100 nF), R421 100 kΩ pull-down on AMP_EN so
   the amps stay off while booting.
-- Headphones: HPOUTL/R through 47 µF (0805; the codec's outputs sit at
-  VREF), −3 dB around 100 Hz into 32 Ω.
+- No headphone output (owner, 2026-10-30): the module's HPOUTL/R are left
+  open; GPIO39 (the Audio Kit's headphone detect) keeps its 10 kΩ pull-up
+  and is spare.
 - Front panel: no parts besides buttons and headers. ST7789 RST tied to
   3.3 V (the driver sends a software reset), backlight always on; J604
   takes a status LED directly.
@@ -170,13 +171,10 @@ the needed voltage (check 22 µF for ≥ 10 V rating and DC-bias derating).
 
 ## Open checks
 
-- **PJ-320D pinout**: wired as 1 sleeve (GND), 4 tip (L), 3 ring (R),
-  2 detect, after a third-party listing — the LCSC datasheet wasn't
-  readable. Check against the datasheet or measure a jack before layout.
 - **NS4150B values**: Rin/Cin from the gain formula; the typical
   application page of the datasheet wasn't readable either — compare.
-- **ES8388 headphone coupling**: whether the A1S module already has coupling
-  caps on HPOUTL/R isn't documented; with them the 47 µF are harmless.
+- **Part rotations** in JLC's placement preview: KiCad and JLC disagree on
+  some footprints' zero orientation (SOT-23, SOIC, USB-C).
 
 ## Pin plan
 
@@ -190,7 +188,7 @@ inside the module; they are not on its pads. The free pads are GPIO 0, 2,
 | Display SCK/SCL, MOSI/SDA, CS, DC | 14, 13, 15, 22 | yes (the ST7789's pins; its reset on 12 is dropped) |
 | Amp enable | 21 | yes |
 | Buttons 1 play/pause, 3 prev, 4 next, 5 vol −, 6 vol + | 36, 19, 23, 18, 5 | yes; 36 needs an external 10 kΩ pull-up |
-| Headphone detect | 39 | yes; external 10 kΩ pull-up (input-only pin) |
+| Spare (was headphone detect) | 39 | 10 kΩ pull-up kept; input only |
 | Status LED | 12 | new; 10 kΩ pull-down keeps the strap low at boot |
 | CHRG / STDBY | 4 / 2 | new; through BAT54W, internal pull-ups |
 | Battery ADC | 34 | new |
@@ -236,7 +234,7 @@ main/sendspin-speaker-main.kicad_*   main board; the top sheet is the block diag
 main/usb.kicad_sch                   USB-C, ESD, CH340C, auto-reset
 main/power.kicad_sch                 charger, protection, load sharing, switch, 3V3, battery sense
 main/mcu.kicad_sch                   ESP32-A1S, Boot/Reset, status LED, pull-ups
-main/audio.kicad_sch                 2x NS4150B, speaker connectors, headphone jack
+main/audio.kicad_sch                 2x NS4150B, speaker connectors
 main/connectors.kicad_sch            J_UI (front panel), J_LED
 ui/sendspin-speaker-ui.kicad_*       front panel
 usb/sendspin-speaker-usb.kicad_*     USB-C board
@@ -262,7 +260,7 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
 
 | | Main | Front panel | USB-C |
 |---|---|---|---|
-| Size | 100 × 58 mm | 75 × 45 mm | 32 × 22 mm |
+| Size | 70 × 60 mm | 75 × 45 mm | 32 × 22 mm |
 | Corners | rounded, r = 3 mm | r = 3 mm | r = 2 mm |
 | Holes | 4 × M3, 4.5 mm in from both edges (screw heads stay on the board) | 4 × M3, same | 2 × M2, 3 mm in |
 | Layers | 2, GND pour on both | 2 | 2 |
@@ -273,10 +271,10 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
   *Speaker* 0.6 mm, *Supply3V3* 0.4 mm.
 - **Assembly**: JLC places all SMD parts on the top side; the ESP32-A1S is
   hand-soldered, as are the THT connectors and panel buttons.
-- **Main board**: the A1S antenna hangs over the top edge (its keepout stays
-  off the board). USB-C, headphone jack and slide switch open to the left
-  and right edges; J_USB, J_UI, J_LED along the bottom; battery, J_SW,
-  J_CHG on the right edge.
+- **Main board, 70 × 60 mm**: the A1S antenna hangs over the top edge (its
+  keepout stays off the board), the speaker connectors sit on the top edge
+  next to it. Left edge: Boot, Reset, USB-C, J_LED. Bottom: J_USB, J_UI.
+  Right edge: battery, slide switch, J_SW, J_CHG.
   - The amps sit right of the module by its speaker outputs (pads 23–26),
     with the speaker connectors above them on the top edge and the 470 µF
     bulk cap beside them; DW01A/FS8205A next to J_BAT.
@@ -286,10 +284,13 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
     `place_main.py` lists each part's pin; it finds the nearest free spot.
   - Boot and Reset on the top edge left; CH340C block bottom left, power
     block bottom middle. Room is kept free next to every connector for its
-    labels; that took the board from 90 to 100 mm wide.
+    labels. Decoupling and supply filters are placed first so they get the
+    spots next to their pins; on this dense board the charge LEDs, gate
+    pull-down and amp input networks end up 9–18 mm from theirs, which
+    doesn't matter for them.
   - Silkscreen: pin names at every connector (3V3/GND/SCK… at J_UI,
     5V/D−/D+/CC1/CC2/GND at J_USB, +/− at battery and speakers), function
-    labels (PHONES, USB-C, BOOT, RESET, STATUS, BAT, SPK L/R, ON/OFF,
+    labels (USB-C, BOOT, RESET, STATUS, BAT, SPK L/R, ON/OFF,
     SWITCH, CHARGE, CHG/FULL, BYPASS, PANEL, USB, LED), board name, revision
     and licence on the back. Reference designators are on the fab layer only.
   - Routed by Freerouting with the net classes *Power* 0.8 mm (cell,

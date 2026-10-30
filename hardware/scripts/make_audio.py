@@ -10,8 +10,7 @@ TITLE = "ESP32 Sendspin Speaker — main board — Audio"
 
 R0805, C0805 = "Resistor_SMD:R_0805_2012Metric", "Capacitor_SMD:C_0805_2012Metric"
 XH2 = "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
-HIER = {n: "input" for n in ("HPOUTL", "HPOUTR", "SPOLP", "SPOLN", "SPORP", "SPORN", "AMP_EN")}
-HIER["HP_DET"] = "output"
+HIER = {n: "input" for n in ("SPOLP", "SPOLN", "SPORP", "SPORN", "AMP_EN")}
 
 s = Sheet("sendspin-speaker-main", f"/{ROOT}/{SHEET}", pwr_base=400)
 
@@ -67,27 +66,13 @@ two("Device", "R", "R421", "100k", 132.08, 101.6, "AMP_EN", "GND", R0805)   # am
 two("Device", "C_Polarized", "C421", "470u", 241.3, 101.6, "VBAT_SW", "GND",
     "Capacitor_SMD:CP_Elec_8x10")
 
-# --- headphones: PJ-320D on HPOUTL/HPOUTR through 47 uF (the codec's outputs sit at VREF) ---
-hpart("C422", "47u", 63.5, 185.42, "HPOUTL", "HPL", C0805)
-hpart("C423", "47u", 63.5, 205.74, "HPOUTR", "HPR", C0805)
-jk = s.part("lcsc", "PJ-320D", "J403", "PJ-320D", 165.1, 195.58,
-            footprint="lcsc:AUDIO-SMD_PJ-320D-1", lcsc="C431535",
-            texts={"Reference": (0, -8.89, ""), "Value": (0, 10.16, "")})
-net(jk["1"], "GND", stub=12.7)       # sleeve
-net(jk["4"], "HPL", stub=5.08)       # tip      } pinout from a third-party page:
-net(jk["3"], "HPR", stub=5.08)       # ring     } verify against the datasheet/part
-net(jk["2"], "HP_DET", stub=5.08)    # detect   }
-
 s.text("Audio\n"
        "NS4150B x2 from VBAT_SW, outputs bridged (BTL): no speaker wire to GND, no shared return.\n"
        "Inputs: the module's differential speaker outputs (SPOL/SPOR) through 100n + 100k per leg;\n"
        "  gain = 240k / Rin = 2.4 (raise it in the codec, or lower Rin to 47k for 5.1).\n"
        "CTRL = AMP_EN (GPIO21, high = on); R421 keeps the amps off while the ESP32 boots.\n"
        "Supply: 10u + 1u at each amp, C421 470u bulk next to them.\n"
-       "Headphones: HPOUTL/R through 47u (the codec's outputs sit at VREF), -3 dB ~ 100 Hz at 32 R.\n"
-       "PJ-320D pinout (1 sleeve, 4 tip, 3 ring, 2 detect) is from a third-party listing:\n"
-       "  CHECK it against the part before ordering. HP_DET pull-up is on the MCU sheet (R103).",
-       38.1, 228.6)
+       "No headphone output: the module's HPOUTL/R are left open.", 38.1, 228.6)
 
 s.write(OUT, FILE_UUID, TITLE, paper="A3")
 print("ok")

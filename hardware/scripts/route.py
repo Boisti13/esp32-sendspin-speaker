@@ -14,7 +14,7 @@ import pcbnew
 from pcbplace import Board
 
 HW = "D:/dev/esp32-sendspin-speaker/hardware"
-BOARDS = {"main": (f"{HW}/main/sendspin-speaker-main.kicad_pcb", 100.0, 100.0, 100.0, 58.0),
+BOARDS = {"main": (f"{HW}/main/sendspin-speaker-main.kicad_pcb", 120.0, 100.0, 70.0, 60.0),
           "ui": (f"{HW}/ui/sendspin-speaker-ui.kicad_pcb", 100.0, 100.0, 75.0, 45.0),
           "usb": (f"{HW}/usb/sendspin-speaker-usb.kicad_pcb", 100.0, 100.0, 32.0, 22.0)}
 JAVA = os.path.expanduser("~/.local/java/jdk-25.0.5+8-jre/bin/java.exe")
@@ -59,6 +59,30 @@ for v in [t for t in B.b.GetTracks() if t.GetClass() == "PCB_VIA"]:
     if len(layers) < 2 and not on_pad:    # reaches one layer only: the via does nothing
         B.trash.append(v); B.b.Remove(v); gone += 1
 print("dangling vias removed:", gone)
+
+# Freerouting treats *_P/*_N nets as differential pairs and leaves 0.125 mm stubs: widen
+thin = 0
+for t in B.b.GetTracks():
+    if t.GetClass() == "PCB_TRACK" and t.GetWidth() < pcbnew.FromMM(0.15):   # below the JLC minimum only
+        t.SetWidth(pcbnew.FromMM(0.15)); thin += 1
+print("thin tracks widened:", thin)
+
+# short track ends that reach nothing (left over from the session import): remove
+def ends_touching(t, items):
+    hit = 0
+    for e in (t.GetStart(), t.GetEnd()):
+        if any(o is not t and o.GetNetCode() == t.GetNetCode() and o.HitTest(e) for o in items):
+            hit += 1
+    return hit
+cut = 0
+while True:
+    items = list(B.b.GetTracks()) + [p for f in B.b.GetFootprints() for p in f.Pads()]
+    stubs = [t for t in B.b.GetTracks() if t.GetClass() == "PCB_TRACK" and ends_touching(t, items) < 2]
+    if not stubs:
+        break
+    for t in stubs:
+        B.trash.append(t); B.b.Remove(t); cut += 1
+print("dangling track pieces removed:", cut)
 B.gnd_pour()
 B.save()
 print("routed and saved", path)
