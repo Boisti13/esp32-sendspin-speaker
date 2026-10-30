@@ -1,7 +1,7 @@
 (kicad_sch
-	(version 20250114)
+	(version 20260306)
 	(generator "eeschema")
-	(generator_version "9.0")
+	(generator_version "10.0")
 	(uuid "1294b3cd-656f-456e-a4e5-c0aee204737d")
 	(paper "A3")
 	(title_block
@@ -15,5 +15,4 @@
 			(page "1")
 		)
 	)
-	(embedded_fonts no)
 )
