@@ -58,6 +58,10 @@
   module's speaker outputs, every passive at the pin it serves (`pcbplace.py`
   finds the nearest free spot), connection length −23 %. PJ-320D footprint
   got a courtyard and its 3D model moved onto its pads.
+- Main board routed with Freerouting (net classes Power 0.8 mm, Supply 0.4 mm),
+  labelled (pin names at every connector, function labels, board name on
+  the back), 100 × 58 mm to leave room for the labels. LCSC numbers on all
+  SMD parts; `jlc.py` writes JLC's Gerber ZIP, BOM and CPL.
 
 ## v0.7.0 — 2026-10-29
 

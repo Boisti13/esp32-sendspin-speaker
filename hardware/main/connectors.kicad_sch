@@ -1722,6 +1722,15 @@
 				)
 			)
 		)
+		(property "LCSC" "C17630"
+			(at 0 0 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(property "Description" ""
 			(at 76.2 152.4 0)
 			(show_name no)

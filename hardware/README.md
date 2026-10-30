@@ -7,12 +7,12 @@ screen even stays on the same pins — so the firmware carries over as
 KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: all schematics drawn (ERC clean) and a **first placement** on all
-> three boards: outlines, mounting holes, parts by function, GND pour on both
-> layers. Not routed yet. Before routing: check the PJ-320D pinout (see
-> *Open checks*). Nothing built or tested.
+> Status: all schematics drawn (ERC clean). **Main board placed, routed
+> (Freerouting) and labelled**, DRC without errors, JLC files can be made.
+> Front panel and USB-C board placed, not routed yet. Before ordering: check
+> the PJ-320D pinout (see *Open checks*). Nothing built or tested.
 
-| Main board, 90 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 22 mm |
+| Main board, 100 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 22 mm |
 |---|---|---|
 | ![main board](docs/main-top.png) | ![front panel](docs/ui-top.png) | ![USB-C board](docs/usb-top.png) |
 
@@ -244,7 +244,10 @@ usb/sendspin-speaker-usb.kicad_*     USB-C board
 lib/lcsc.kicad_sym, .pretty/, .3dshapes/   parts imported from LCSC
 lib/sendspin-speaker.kicad_sym, .pretty/   parts we draw ourselves
 scripts/schgen.py, make_*.py         draft generator for a sheet's first version
-scripts/pcbplace.py, place_*.py      first board placement (KiCad's Python)
+scripts/pcbplace.py, place_*.py      board placement (KiCad's Python)
+scripts/route.py                     autorouting with Freerouting
+scripts/silk_main.py                 silkscreen labels
+scripts/lcsc_fields.py, jlc.py       LCSC numbers; JLC Gerbers, BOM, CPL
 docs/*.png                           3D renders of the boards
 ```
 
@@ -259,7 +262,7 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
 
 | | Main | Front panel | USB-C |
 |---|---|---|---|
-| Size | 90 × 58 mm | 75 × 45 mm | 32 × 22 mm |
+| Size | 100 × 58 mm | 75 × 45 mm | 32 × 22 mm |
 | Corners | rounded, r = 3 mm | r = 3 mm | r = 2 mm |
 | Holes | 4 × M3, 4.5 mm in from both edges (screw heads stay on the board) | 4 × M3, same | 2 × M2, 3 mm in |
 | Layers | 2, GND pour on both | 2 | 2 |
@@ -282,13 +285,35 @@ sheet + reference, so a regenerated sheet stays linked to its footprints.
     pads, input networks at the amps, CC resistors at the USB-C, …).
     `place_main.py` lists each part's pin; it finds the nearest free spot.
   - Boot and Reset on the top edge left; CH340C block bottom left, power
-    block bottom middle. Total connection length (GND excluded) went from
-    2472 mm to 1906 mm with this.
+    block bottom middle. Room is kept free next to every connector for its
+    labels; that took the board from 90 to 100 mm wide.
+  - Silkscreen: pin names at every connector (3V3/GND/SCK… at J_UI,
+    5V/D−/D+/CC1/CC2/GND at J_USB, +/− at battery and speakers), function
+    labels (PHONES, USB-C, BOOT, RESET, STATUS, BAT, SPK L/R, ON/OFF,
+    SWITCH, CHARGE, CHG/FULL, BYPASS, PANEL, USB, LED), board name, revision
+    and licence on the back. Reference designators are on the fab layer only.
+  - Routed by Freerouting with the net classes *Power* 0.8 mm (cell,
+    protection, load sharing), *Supply* 0.4 mm (VBAT_SW, VBUS, 3V3, speaker
+    outputs: they end on fine-pitch pins Freerouting can't neck down to) and
+    0.25 mm signals; GND pours on both layers, SMD GND pads solid to the
+    pour. Widen the 0.4 mm supply runs by hand where there's room.
 - **Front panel**: display headers at the top, buttons at 12 mm pitch,
   LED header J604, J_UI on the back.
 - **USB-C board**: receptacle on the left edge, J_USB (XH 6) on the right.
 
 ## Manufacturing
+
+`python -I hardware/scripts/jlc.py main` writes `hardware/production/main/`:
+the Gerber/drill ZIP (PCB order), and the BOM and CPL in JLC's formats
+(assembly). BOM and CPL hold only the parts with an LCSC number; the
+ESP32-A1S and the JST connectors are hand-soldered. Check the part
+rotations in JLC's placement preview before paying: KiCad and JLC disagree
+on some footprints' zero orientation.
+
+Routing workflow (KiCad closed): `place_main.py` (clears tracks) →
+`route.py main 80` → `silk_main.py` → move reference designators to fab →
+DRC → `jlc.py main`. Freerouting runs from its jar with a portable Java 25 in
+`~/.local` (the 2.5.0 native CLI crashes while routing).
 
 Gerbers, BOM and pick-and-place files are generated per board revision and
 attached to that revision's GitHub release (tag `hw-rev-a`, …), not

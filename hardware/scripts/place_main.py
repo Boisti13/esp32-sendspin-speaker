@@ -12,9 +12,10 @@ from pcbplace import Board, mm, preload
 
 preload("MountingHole", "MountingHole_3.2mm_M3")
 
-X0, Y0, W, H = 100.0, 100.0, 90.0, 58.0
+X0, Y0, W, H = 100.0, 100.0, 100.0, 58.0
 B = Board("D:/dev/esp32-sendspin-speaker/hardware/main/sendspin-speaker-main.kicad_pcb", X0, Y0, W, H)
 HOLES = B.corners(4.5)
+B.clear_tracks()                                          # placement starts unrouted
 
 # --- fixed parts ---------------------------------------------------------------------
 # module: antenna hangs over the top edge; the footprint's antenna starts 12.32 mm above its origin
@@ -41,6 +42,18 @@ B.taken(FIXED)
 for hx, hy in HOLES:                                      # M3 heads: 6 mm plus margin
     B.keepout(hx - 3.6, hy - 3.6, hx + 3.6, hy + 3.6)
 
+# room for the silkscreen labels (pin names and what each connector is for)
+for ref in ("J301", "J501", "J502"):                       # bottom edge: names above
+    x, y, w, h = B.bbox(ref); B.keepout(x, y - 6.5, x + w, y)
+for ref in ("J201", "SW201", "J202", "J203"):             # right edge: names to the left
+    x, y, w, h = B.bbox(ref); B.keepout(x - 6.0, y - 1.5, x, y + h)
+for ref in ("J401", "J402"):                              # speakers: names below
+    x, y, w, h = B.bbox(ref); B.keepout(x, y + h, x + w, y + h + 4.5)
+for ref in ("J403", "USB301"):                            # left edge: label to the right
+    x, y, w, h = B.bbox(ref); B.keepout(x + w, y + h / 2 - 1.2, x + w + 9.0, y + h / 2 + 1.2)
+for ref in ("SW101", "SW102"):                            # buttons: label below
+    x, y, w, h = B.bbox(ref); B.keepout(x, y + h, x + w, y + h + 2.0)
+
 # --- ICs near what they talk to --------------------------------------------------------
 px, py = B.pad("U101", "25")
 B.near("U401", px + 9.0, py - 1.5)                        # amps by the module's SPOL/SPOR pads
@@ -52,8 +65,8 @@ B.near("U301", 113.5, 135.0)                              # ESD by the receptacl
 B.near("U303", 130.0, 134.0)                              # CH340C's 3.3 V
 B.near("Q301", 130.0, 141.0)                              # auto-reset
 B.near("U201", 146.0, 136.0)                              # TP4056
-B.near("U202", 175.0, 112.0, rot=90)                      # DW01A by J_BAT
-B.near("Q201", 175.0, 117.0)                              # FS8205A
+B.near("U202", 170.0, 112.0, rot=90)                      # DW01A by J_BAT
+B.near("Q201", 170.0, 117.0)                              # FS8205A
 B.near("D205", 160.0, 136.0)                              # load sharing
 B.near("Q202", 167.0, 136.0)
 B.near("U203", 152.0, 143.0)                              # AP2112K
@@ -64,8 +77,7 @@ AT = [  # part, anchor, pad, offset from the pad (mm)
     ("C102", "U101", "2", (-4, 0)), ("C101", "U101", "2", (-4, -2)),           # 3V3 decoupling
     ("R101", "U101", "35", (4, 0)), ("C103", "U101", "35", (4, 2)),            # EN RC
     ("R102", "U101", "4", (-4, 0)), ("R103", "U101", "3", (-4, 0)),            # input pull-ups
-    ("R207", "U101", "5", (-4, 0)), ("R208", "U101", "5", (-4, 2)),            # battery divider
-    ("C207", "U101", "5", (-4, 4)),
+    ("R208", "U101", "5", (-4, 0)), ("C207", "U101", "5", (-4, 2)),            # divider foot at the ADC
     ("R105", "U101", "7", (-4, 0)), ("R106", "U101", "9", (-4, 0)),            # I2C option
     ("R104", "U101", "10", (-4, 0)), ("R107", "U101", "8", (-4, 0)),           # CS pull-up, strap
     ("R108", "U101", "8", (-8, 0)), ("D101", "U101", "8", (-12, 0)),           # status LED
@@ -81,6 +93,7 @@ AT = [  # part, anchor, pad, offset from the pad (mm)
     ("C303", "U302", "16", (0, -3)), ("R303", "U302", "2", (4, 0)), ("R304", "U302", "3", (4, 0)),
     ("C301", "U303", "3", (-3, 0)), ("C302", "U303", "2", (3, 0)),
     ("C201", "U201", "4", (0, -3)), ("C202", "U201", "5", (3, 0)), ("R201", "U201", "2", (3, 0)),
+    ("R207", "U201", "5", (6, 0)),                                             # divider top at VBAT
     ("D203", "U201", "7", (-3, 0)), ("R202", "U201", "7", (-3, 3)),
     ("D204", "U201", "6", (-3, 0)), ("R203", "U201", "6", (-3, 3)),
     ("D201", "U201", "7", (-6, 6)), ("D202", "U201", "6", (-3, 7)),

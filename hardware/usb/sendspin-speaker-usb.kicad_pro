@@ -559,7 +559,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.0,
+        "track_width": 0.8,
         "tuning_profile": "",
         "via_diameter": 0.8,
         "via_drill": 0.4,
@@ -574,28 +574,9 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Speaker",
+        "name": "Supply",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.6,
-        "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
-        "wire_width": 6
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.2,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Supply3V3",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.4,
         "tuning_profile": "",
@@ -612,19 +593,7 @@
     "netclass_patterns": [
       {
         "netclass": "Power",
-        "pattern": "VBUS"
-      },
-      {
-        "netclass": "Power",
-        "pattern": "/VBUS"
-      },
-      {
-        "netclass": "Power",
         "pattern": "VBAT"
-      },
-      {
-        "netclass": "Power",
-        "pattern": "VBAT_SW"
       },
       {
         "netclass": "Power",
@@ -639,24 +608,28 @@
         "pattern": "/Power/FET_D"
       },
       {
-        "netclass": "Power",
-        "pattern": "GND"
+        "netclass": "Supply",
+        "pattern": "VBAT_SW"
       },
       {
-        "netclass": "Power",
-        "pattern": "/USB/VBUS"
+        "netclass": "Supply",
+        "pattern": "/VBUS"
       },
       {
-        "netclass": "Speaker",
-        "pattern": "/Audio/SPK*"
+        "netclass": "Supply",
+        "pattern": "VBUS"
       },
       {
-        "netclass": "Supply3V3",
+        "netclass": "Supply",
         "pattern": "+3V3"
       },
       {
-        "netclass": "Supply3V3",
+        "netclass": "Supply",
         "pattern": "+3V3_USB"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "/Audio/SPK*"
       }
     ]
   },

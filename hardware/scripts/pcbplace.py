@@ -57,6 +57,11 @@ class Board:
             row_h = max(row_h, h)
         return left
 
+    def clear_tracks(self):
+        """Remove all tracks and vias: a new placement makes the old routing meaningless."""
+        for t in list(self.b.GetTracks()):
+            self.trash.append(t); self.b.Remove(t)
+
     # --- placing next to a pin -------------------------------------------------------
     def pad(self, ref, num):
         p = next(p for p in self.fp[ref].Pads() if p.GetNumber() == num).GetPosition()
@@ -75,7 +80,7 @@ class Board:
     def keepout(self, x0, y0, x1, y1):
         self.occupied.append((x0, y0, x1, y1))
 
-    def near(self, ref, tx, ty, rot=0, reach=14.0, step=0.5, edge=0.6):
+    def near(self, ref, tx, ty, rot=0, reach=25.0, step=0.5, edge=0.6):
         """Put a part as close to (tx, ty) as possible without overlapping anything placed
         so far or leaving the board. Returns the distance it ended up from the target."""
         self.fp[ref].SetOrientationDegrees(rot)
@@ -161,6 +166,12 @@ class Board:
             z.SetLocalClearance(mm(0.3)); z.SetMinThickness(mm(0.25))
             z.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
             self.b.Add(z)
+        # SMD pads are reflowed: solid to the pour (thermal spokes starve small pads);
+        # through-hole pads keep their reliefs for hand soldering
+        for f in self.b.GetFootprints():
+            for p in f.Pads():
+                if p.GetNetCode() == gnd.GetNetCode() and p.GetAttribute() == pcbnew.PAD_ATTRIB_SMD:
+                    p.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
         pcbnew.ZONE_FILLER(self.b).Fill(self.b.Zones())
 
     def save(self):
