@@ -8,7 +8,7 @@
 	)
 	(paper "A4")
 	(title_block
-		(title "ESP32 Sendspin Speaker")
+		(title "ESP32 Sendspin Speaker — front panel (display + buttons)")
 		(date "2026-10-30")
 		(rev "A")
 	)

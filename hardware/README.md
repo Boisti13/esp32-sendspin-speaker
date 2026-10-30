@@ -1,16 +1,23 @@
 # Custom PCB — Rev A (in design)
 
-A battery-powered board for the Sendspin speaker, replacing the
+A battery-powered board set for the Sendspin speaker, replacing the
 ESP32-Audio-Kit. It keeps the Audio Kit's pins wherever it can, so the
 firmware carries over as `speaker-diy.yaml` with only the display, battery
-and LED parts changed. KiCad 10 project; the hardware is licensed under
+and LED parts changed. KiCad 10 projects; the hardware is licensed under
 CERN-OHL-P-2.0 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: project created, schematic not started. Nothing here has been
+> Status: projects created, schematics not started. Nothing here has been
 > built or tested yet.
 
 ## Highlights
 
+- **Three boards**: the main board with module, audio and power; a front
+  panel with the OLED and the five buttons; a small USB-C board. Everything
+  that sits in the enclosure wall — panel, USB-C, battery, speakers,
+  status LED — connects by JST cable, so the main board can go anywhere in
+  the case.
+- **USB-C either way**: on the main board directly, or on the USB-C board
+  through a cable. Both footprints are on the main board; fit one.
 - **ESP32-A1S (Ai-Thinker, ES8388 version)**, the same module as the Audio
   Kit, hand-soldered (JLC doesn't stock it). Antenna over the board edge or
   a cutout, no copper under it.
@@ -22,8 +29,50 @@ CERN-OHL-P-2.0 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 - **One USB-C port** for charging and flashing (CH340C with auto-reset).
 - **On/off slide switch after the charger**: the battery still charges
   while the speaker is off.
-- **I²C OLED** (SSD1306/SH1106 128 × 64) on the codec's bus, battery voltage
-  on an ADC pin, a status LED, five buttons plus Boot and Reset.
+- **0805 wherever possible** for resistors, capacitors and LEDs, so
+  everything can be hand-soldered and reworked.
+
+## Boards
+
+| Board | KiCad project | Carries |
+|---|---|---|
+| Main | [`main/`](main/) | ESP32-A1S, amps, charger and protection, regulators, CH340C, Boot/Reset, on/off switch, headphone jack, all connectors below |
+| Front panel | [`ui/`](ui/) | OLED header (SSD1306/SH1106), buttons 1, 3, 4, 5, 6 |
+| USB-C | [`usb/`](usb/) | USB-C receptacle, CC resistors, USBLC6-2SC6 |
+
+## Connectors (main board)
+
+JST XH (2.5 mm) unless noted. Pin 1 first.
+
+| Ref | To | Pins | Signals |
+|---|---|---|---|
+| J_UI | front panel | XH 10 | 3V3, GND, SDA (33), SCL (32), BTN1 (36), BTN3 (19), BTN4 (23), BTN5 (18), BTN6 (5), LED (22) |
+| J_USB | USB-C board | XH 4 | VBUS, D−, D+, GND |
+| USB1 | — | USB-C 16-pin | the on-board option, in parallel with J_USB |
+| J_BAT | LiPo cell | **PH 2.0, 2** | BAT+, BAT− |
+| J_LED | status LED | XH 3 | VBAT_SW, LED (22), GND |
+| J_SPK_L | left speaker | XH 2 | OUTP, OUTN |
+| J_SPK_R | right speaker | XH 2 | OUTP, OUTN |
+
+- **Speakers are bridged (BTL)**: neither wire is ground. Never tie a
+  speaker wire to GND or share a return between the two speakers.
+- **Battery on JST PH**, since that is what most LiPo cells come with —
+  but cells differ in polarity: check before plugging in. Silkscreen
+  `+`/`−` at the connector.
+- **J_UI**: I²C pull-ups (4.7 kΩ) and GPIO36's 10 kΩ pull-up sit on the
+  main board, so the panel only has the display header, buttons to GND and
+  a 100 nF at the header. The codec shares the bus, so keep the cable short
+  (≤ 20 cm) and the bus at 100–400 kHz. Small series resistors (~100 Ω) on
+  the button lines are optional ESD protection. The LED pin is there so a
+  panel can carry the status LED instead of J_LED.
+- **J_USB / USB1**: the CC resistors and the USBLC6-2SC6 belong next to the
+  receptacle, so both the main board (for USB1) and the USB-C board carry
+  them. Fit either USB1 or J_USB, not both. The cable carries charge and
+  load current (amps on battery through load sharing), so XH's 3 A per pin
+  is plenty; keep it short (≤ 15 cm) for USB full speed.
+- **J_LED**: a plain LED with its resistor on the main board can be wired
+  straight to LED/GND; VBAT_SW is there for an SK6812-type LED (needs
+  > 3.7 V, hence not 3V3). The on-board LED footprint stays as an option.
 
 ## Parts
 
@@ -41,10 +90,15 @@ CERN-OHL-P-2.0 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 | ESD | USBLC6-2SC6 | on D+/D− |
 | USB-UART | CH340C | own ME6211/XC6206 3.3 V from VBUS (no battery drain); V3 tied to VCC; TX/RX through 470 Ω |
 | Auto-reset | 2 × S8050 or UMH3N | DTR/RTS → EN/GPIO0; EN 10 kΩ pull-up + 1 µF |
-| Display | 4-pin header | SSD1306/SH1106 at 0x3C, codec at 0x10 |
+| Display | 4-pin header on the panel | SSD1306/SH1106 at 0x3C, codec at 0x10 |
 | Battery sense | 2 × 100 kΩ + 100 nF | switched VBAT → GPIO34 |
 
 Flashing over USB needs the slide switch on.
+
+**Footprints**: resistors, capacitors and LEDs in **0805** wherever the part
+exists in it. Exceptions: the 220–470 µF bulk capacitor (electrolytic or
+polymer), and values that don't come in 0805 at the needed voltage (check
+22 µF for ≥ 10 V rating and DC-bias derating).
 
 ## Pin plan
 
@@ -72,19 +126,23 @@ Flashing over USB needs the slide switch on.
 ## Layout
 
 ```
-sendspin-speaker.kicad_pro / .kicad_sch / .kicad_pcb   the KiCad 10 project
-sym-lib-table, fp-lib-table                            point at lib/ only
-lib/sendspin-speaker.kicad_sym                         project symbols
-lib/sendspin-speaker.pretty/                           project footprints
-lib/3dmodels/                                          STEP models
+main/sendspin-speaker-main.kicad_*   main board
+ui/sendspin-speaker-ui.kicad_*       front panel
+usb/sendspin-speaker-usb.kicad_*     USB-C board
+*/sym-lib-table, */fp-lib-table      each project points at ../lib/ only
+lib/sendspin-speaker.kicad_sym       shared project symbols
+lib/sendspin-speaker.pretty/         shared project footprints
+lib/3dmodels/                        STEP models
 ```
 
-Libraries are project-local, so the project opens on any PC with KiCad 10.
-Only parts we draw ourselves or that come with a compatible licence go in
-`lib/` (the repo is public).
+Libraries are shared by the three projects and kept in the repo, so they
+open on any PC with KiCad 10. Only parts we draw ourselves or that come
+with a compatible licence go in `lib/` (the repo is public).
 
 ## Manufacturing
 
 Gerbers, BOM and pick-and-place files are generated per board revision and
 attached to that revision's GitHub release (tag `hw-rev-a`, …), not
-committed. The revision is also printed on the silkscreen.
+committed. The revision is also printed on the silkscreen. Connector pin
+orders above are the contract between the boards: a change goes into both
+schematics and this table in the same commit.

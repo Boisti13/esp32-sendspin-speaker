@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "96d16dac-4b7a-4a9a-9844-1abd0c616560")
+	(paper "A4")
+	(title_block
+		(title "ESP32 Sendspin Speaker — USB-C board")
+		(date "2026-10-30")
+		(rev "A")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

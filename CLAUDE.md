@@ -46,9 +46,19 @@ files match.
 
 ## Hardware (`hardware/`)
 
-KiCad 10 project for the custom PCB (`sendspin-speaker.kicad_*`); parts
-and pin plan in [hardware/README.md](hardware/README.md), kept current
-with every change.
+Three KiCad 10 projects for the custom PCB: `main/` (module, audio,
+power), `ui/` (front panel: OLED + buttons) and `usb/` (USB-C board),
+sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
+[hardware/README.md](hardware/README.md), kept current with every change.
+
+- **Off-board parts connect by JST** (owner, 2026-10-30): front panel,
+  USB-C board, LiPo, speakers and status LED. USB-C can also sit on the
+  main board (both footprints, fit one). The connector table in
+  `hardware/README.md` is the contract: a pin-order change goes into both
+  schematics and the table in the same commit.
+- **0805 wherever possible** for SMD resistors, capacitors and LEDs
+  (owner, 2026-10-30); exceptions only where the part doesn't exist in
+  0805, noted in the README.
 
 - **KiCad runs on HX99G-BKG only** (KiCad 10 and the `kicad` MCP are
   there), not on the dev box. Push a `wip/` branch before switching PCs.

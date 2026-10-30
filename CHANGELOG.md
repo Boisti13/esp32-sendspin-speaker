@@ -7,6 +7,10 @@
 - `hardware/`: empty KiCad 10 project for a custom battery-powered PCB
   (Rev A), with project-local libraries, the parts list and pin plan in
   `hardware/README.md`, and CERN-OHL-P-2.0 for the hardware.
+- `hardware/` split into three boards — main (`main/`), front panel with
+  OLED and buttons (`ui/`), USB-C (`usb/`) — with a JST connector plan for
+  the panel, USB-C (or USB-C on the main board), LiPo, speakers and
+  status LED. SMD passives and LEDs in 0805 wherever possible.
 
 ## v0.7.0 — 2026-10-29
 
