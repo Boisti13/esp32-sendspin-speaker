@@ -89,6 +89,14 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
   After any file change, close and reopen KiCad (it doesn't reload).
   Check: ERC, the netlist (`kicad-cli sch export netlist`) for the nets you
   meant, and a look at the sheet.
+- **Board edits**: the `kicad` MCP can't write boards without KiCad's IPC
+  server, so first placements come from `hardware/scripts/place_*.py`
+  (KiCad's own `python.exe`, KiCad closed). Its SWIG bindings are fragile:
+  load library footprints before `LoadBoard()` (`preload()`), keep removed
+  items referenced until saved, run with `-u -X faulthandler`. Schematic →
+  board goes through *Update PCB from Schematic* (F8) in KiCad.
+  Check after every change: `kicad-cli pcb drc`, and look at
+  `kicad-cli pcb render` output.
 - **Don't use the MCP's `vcs_commit_checkpoint`**: commits are made by
   hand, one per change, like the firmware.
 - Check before committing: `kicad-cli sch erc` and `kicad-cli pcb drc`

@@ -7,10 +7,14 @@ screen even stays on the same pins — so the firmware carries over as
 KiCad 10 projects; the hardware is licensed under CERN-OHL-P-2.0
 ([LICENSE](LICENSE)), the firmware in the repo root under MIT.
 
-> Status: **all schematics drawn** — main board (MCU, Power, USB, Audio,
-> Connectors), front panel and USB-C board. ERC is clean on all three, every
-> part has its footprint. Before layout: check the PJ-320D pinout (see
-> *Open checks*). No PCB layout yet; nothing built or tested.
+> Status: all schematics drawn (ERC clean) and a **first placement** on all
+> three boards: outlines, mounting holes, parts by function, GND pour on both
+> layers. Not routed yet. Before routing: check the PJ-320D pinout (see
+> *Open checks*). Nothing built or tested.
+
+| Main board, 90 × 58 mm | Front panel, 75 × 45 mm | USB-C board, 32 × 20 mm |
+|---|---|---|
+| ![main board](docs/main-top.png) | ![front panel](docs/ui-top.png) | ![USB-C board](docs/usb-top.png) |
 
 Reference designators are numbered per sheet: MCU 1xx, Power 2xx, USB 3xx,
 Audio 4xx, Connectors 5xx (front panel and USB-C board: 6xx, 7xx).
@@ -236,11 +240,37 @@ usb/sendspin-speaker-usb.kicad_*     USB-C board
 lib/lcsc.kicad_sym, .pretty/, .3dshapes/   parts imported from LCSC
 lib/sendspin-speaker.kicad_sym, .pretty/   parts we draw ourselves
 scripts/schgen.py, make_*.py         draft generator for a sheet's first version
+scripts/pcbplace.py, place_*.py      first board placement (KiCad's Python)
+docs/*.png                           3D renders of the boards
 ```
 
 `scripts/` writes the first draft of a sheet (symbols copied from the
-libraries, footprints set, pins wired to labels on the 1.27 mm grid). Once
-a sheet has been edited in KiCad it is never regenerated.
+libraries, footprints set, pins wired to labels on the 1.27 mm grid) and the
+first placement of a board (`D:/Programs/KiCad/10.0/bin/python.exe
+hardware/scripts/place_main.py`, KiCad closed). Once a sheet or board has
+been edited in KiCad, it is never regenerated. Symbol UUIDs are derived from
+sheet + reference, so a regenerated sheet stays linked to its footprints.
+
+## PCB
+
+| | Main | Front panel | USB-C |
+|---|---|---|---|
+| Size | 90 × 58 mm | 75 × 45 mm | 32 × 20 mm |
+| Holes | 4 × M3, 3 mm from the corners | 4 × M3 | 2 × M2 |
+| Layers | 2, GND pour on both | 2 | 2 |
+
+- **JLCPCB** 2-layer rules: 0.15 mm track and clearance, 0.3 mm drill,
+  0.6 mm vias, 0.3 mm copper to edge. Net classes: *Power* 1.0 mm (VBUS,
+  VBAT, VBAT_SW, VBAT_LS, BAT_N, GND — each amp can pull ~1.5 A peaks),
+  *Speaker* 0.6 mm, *Supply3V3* 0.4 mm.
+- **Assembly**: JLC places all SMD parts on the top side; the ESP32-A1S is
+  hand-soldered, as are the THT connectors and panel buttons.
+- **Main board**: the A1S antenna hangs over the top edge (its keepout stays
+  off the board). USB-C, headphone jack and slide switch open to the left
+  and right edges; speakers on top; J_USB, J_UI, J_LED along the bottom;
+  battery, J_SW, J_CHG on the right edge.
+- **Front panel**: display headers at the top, buttons at 12 mm pitch,
+  J_UI on the back.
 
 ## Manufacturing
 

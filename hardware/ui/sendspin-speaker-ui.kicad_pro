@@ -647,10 +647,6 @@
         "pattern": "/USB/VBUS"
       },
       {
-        "netclass": "Power",
-        "pattern": "/VBUS"
-      },
-      {
         "netclass": "Speaker",
         "pattern": "/Audio/SPK*"
       },

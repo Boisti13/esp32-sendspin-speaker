@@ -40,6 +40,12 @@
 - Connectors sheet: J_UI (XH 12) and J_LED (through 330 Ω).
 - Front panel and USB-C board schematics. ERC clean on all three projects.
 - KiCad 10's local history folder (`.history/`) is ignored.
+- Footprints and nets in all three boards (Update PCB from Schematic), JLC
+  2-layer design rules and net classes (Power 1.0 mm, Speaker 0.6 mm).
+- First placement: main board 90 × 58 mm, front panel 75 × 45 mm, USB-C
+  board 32 × 20 mm, mounting holes, edge connectors, GND pours; renders in
+  `hardware/docs/`. TP4056 footprint without 0.2 mm thermal vias; switch
+  shell to GND.
 
 ## v0.7.0 — 2026-10-29
 
