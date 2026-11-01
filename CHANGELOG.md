@@ -68,6 +68,16 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.2 — 2026-11-01
+
+### Fixed
+
+- The Sendspin buffer is back to its default 1 MB (was 2.5 MB). On
+  v0.7.1, decrypting a full 2.5 MB refill after a reconnect still held
+  up the main loop for 4.1–4.3 s, close to the 5 s watchdog, and Music
+  Assistant's connection dropped and came back during refills. A refill
+  is now 2.5 times shorter. Wi-Fi gaps of about 6–8 s are still bridged.
+
 ## v0.7.1 — 2026-11-01
 
 ### Fixed

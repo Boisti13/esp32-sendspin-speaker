@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.7.1"
+    version: "0.7.2"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -220,9 +220,10 @@ sendspin:
 media_source:
   - platform: sendspin
     id: sendspin_source
-    # Audio buffered ahead, in bytes (default 1 MB, a few seconds). 2.5 MB
-    # in PSRAM rides out Wi-Fi gaps of roughly 15-20 s.
-    buffer_size: 2500000
+    # Audio buffered ahead, in bytes: Sendspin's default, 1 MB (about 6-8 s).
+    # 2.5 MB (v0.5.0-v0.7.1) made every refill so long that decrypting it
+    # held up the main loop for over 4 s, close to the watchdog.
+    buffer_size: 1000000
   - platform: audio_file
     id: boot_chime_source
 
