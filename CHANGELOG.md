@@ -68,6 +68,15 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.3 — 2026-11-01
+
+### Fixed
+
+- Buffer back to 2.5 MB: v0.7.2's 1 MB made dropouts worse. The speaker
+  sometimes takes no data for 4–50 s (with or without big refills), and
+  1 MB (about 5 s) ran dry on every stall longer than that. v0.7.1's fixes
+  (stacks in internal RAM, 240 MHz) stay.
+
 ## v0.7.2 — 2026-11-01
 
 ### Fixed
