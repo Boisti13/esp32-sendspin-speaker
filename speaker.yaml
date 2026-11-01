@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.7.0"
+    version: "0.7.1"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -21,6 +21,8 @@ esphome:
 
 esp32:
   board: esp-wrover-kit
+  # Full speed: Sendspin decrypts every audio message in software
+  cpu_frequency: 240MHz
   framework:
     type: esp-idf
 
@@ -210,7 +212,10 @@ audio_file:
 
 sendspin:
   id: sendspin_hub
-  task_stack_in_psram: true
+  # Stacks in internal RAM (~12 kB of the ~190 kB free): with them in PSRAM
+  # the decryption of a buffer refill ran so slowly that it starved the
+  # main loop and the task watchdog restarted the speaker
+  task_stack_in_psram: false
 
 media_source:
   - platform: sendspin

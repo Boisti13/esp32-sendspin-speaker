@@ -68,6 +68,17 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.1 — 2026-11-01
+
+### Fixed
+
+- The speaker restarted every half hour or so while playing (task
+  watchdog, crash in Sendspin's decryption of incoming audio). Refilling
+  the 2.5 MB buffer — at every track start and after a Wi-Fi gap — kept
+  Sendspin's task busy on the main loop's core long enough to starve it.
+  Sendspin's task stacks now live in internal RAM instead of PSRAM, and
+  the CPU runs at 240 MHz instead of 160 MHz, so the decryption keeps up.
+
 ## v0.7.0 — 2026-10-29
 
 ### Changed
