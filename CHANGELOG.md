@@ -68,6 +68,16 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.4 — 2026-11-02
+
+### Added
+
+- *Reset Reason* diagnostic sensor: why the chip last restarted
+  (brownout, watchdog, power-on …). Since v0.7.3 the speaker still
+  restarted once without a crash record and froze twice until it was
+  power-cycled, which points at the power supply rather than the
+  firmware; this sensor tells the cases apart.
+
 ## v0.7.3 — 2026-11-01
 
 ### Fixed

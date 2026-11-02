@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.7.3"
+    version: "0.7.4"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -280,6 +280,12 @@ sensor:
       name: "Free Heap"
 
 text_sensor:
+  # Why the chip last restarted (brownout, watchdog, power-on …), kept in
+  # Home Assistant's history
+  - platform: debug
+    reset_reason:
+      name: "Reset Reason"
+
   - platform: wifi_info
     ip_address:
       id: wifi_ip

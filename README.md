@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/Boisti13/esp32-sendspin-speaker?include_prereleases)](https://github.com/Boisti13/esp32-sendspin-speaker/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.7.3-orange)
+![Version](https://img.shields.io/badge/version-0.7.4-orange)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.10.0-black)
 
 A network speaker for Home Assistant and Music Assistant on an ESP32-A1S
@@ -29,7 +29,7 @@ tracks. Built with ESPHome.
 - **Rides out Wi-Fi gaps**: 2.5 MB of audio buffered ahead in PSRAM
   (Sendspin's default is 1 MB, about 5 s).
 - **Diagnostics in Home Assistant**: Wi-Fi signal, uptime, free PSRAM and
-  heap. A signal worse than about −70 dBm means dropouts: move the speaker
+  heap, and the reason for the last restart. A signal worse than about −70 dBm means dropouts: move the speaker
   or the access point, or use a board with an external antenna.
 - **Five buttons that work without Home Assistant**: play/pause, previous,
   next, volume down/up go straight to the player and on to Music Assistant
