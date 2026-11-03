@@ -68,6 +68,21 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.5 — 2026-11-03
+
+### Fixed
+
+- The speaker still restarted (task watchdog) after long Wi-Fi stalls:
+  once the audio came back, Sendspin's sync task worked off the backlog
+  without pausing and, together with the decryption of the refill, kept
+  the main loop from running for over 5 s. The firmware now builds
+  against a fork of sendspin-cpp 0.9.3 with a fix
+  ([Boisti13/sendspin-cpp](https://github.com/Boisti13/sendspin-cpp),
+  tag `v0.9.3-busy-yield.1`): the sync task sleeps 2 ms after 50 ms
+  without waiting. Reported as
+  [Sendspin/sendspin-cpp#223](https://github.com/Sendspin/sendspin-cpp/issues/223);
+  the override goes once ESPHome ships a sendspin-cpp with the fix.
+
 ## v0.7.4 — 2026-11-02
 
 ### Added

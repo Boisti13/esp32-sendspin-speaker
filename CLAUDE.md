@@ -37,7 +37,7 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
 `speaker-1`), with the fonts from `/homeassistant/esphome/fonts/` and
 the boot chime from `/homeassistant/esphome/sounds/boot.wav` (v0.6.0 on): a plain
-copy of `speaker.yaml` (v0.7.0 since 2026-10-29). The shared `secrets.yaml`
+copy of `speaker.yaml` (v0.7.5 since 2026-11-03). The shared `secrets.yaml`
 there has `speaker_1_key` and `speaker_1_ota_password`. Copy every new version
 whose compile check passed (no need to ask): back up the old file to
 `/config/project-backups/esphome/esp32-sendspin-speaker/` first, copy with
@@ -129,3 +129,13 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
   `playback_stopped` scripts, never straight into `on_state`.
 - Keys call the device's own player (`media_player.next` etc.), not Home
   Assistant: the speaker must keep working without HA.
+
+## sendspin-cpp fork
+
+`speaker.yaml` overrides ESPHome's sendspin-cpp with the fork
+`Boisti13/sendspin-cpp` (`esp32: framework: components:`, tag
+`v0.9.3-busy-yield.1`, branch `esphome-2026.10/busy-yield`): 0.9.3 plus the
+sync-task busy yield (Sendspin/sendspin-cpp#223; upstream branch
+`fix/sync-task-busy-yield`). When ESPHome moves to a newer sendspin-cpp,
+check whether it has the fix, then drop the override — an old fork tag
+against a newer ESPHome component may not compile.
