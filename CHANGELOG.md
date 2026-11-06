@@ -68,6 +68,20 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.6 — 2026-11-06
+
+### Changed
+
+- **Test build**: sendspin-cpp is now plain upstream
+  [v0.9.4](https://github.com/Sendspin/sendspin-cpp/releases/tag/v0.9.4)
+  instead of our 0.9.3 fork with the sync-task busy yield. The maintainer
+  asked on [#223](https://github.com/Sendspin/sendspin-cpp/issues/223)
+  whether 0.9.4's hard-sync fix
+  ([#198](https://github.com/Sendspin/sendspin-cpp/pull/198): after the
+  speaker runs dry, the next sync is measured from now, not from the end
+  of the last audio) already ends the task-watchdog restarts after Wi-Fi
+  stalls. If the restarts come back, v0.7.5's fork goes back in.
+
 ## v0.7.5 — 2026-11-03
 
 ### Fixed

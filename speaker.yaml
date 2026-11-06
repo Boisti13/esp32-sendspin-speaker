@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.7.5"
+    version: "0.7.6"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -26,14 +26,15 @@ esp32:
   framework:
     type: esp-idf
     components:
-      # sendspin-cpp 0.9.3 (what ESPHome 2026.10 uses) plus a fix: after a
-      # Wi-Fi stall its sync task worked off the backlog without pausing and
-      # starved the main loop until the task watchdog restarted the speaker.
-      # Reported as Sendspin/sendspin-cpp#223; drop this once ESPHome ships a
-      # sendspin-cpp with the fix.
+      # Test (v0.7.6): plain upstream sendspin-cpp 0.9.4 instead of
+      # ESPHome 2026.10's 0.9.3 and instead of our busy-yield fork. The
+      # maintainer asked whether 0.9.4's hard-sync fix (Sendspin/sendspin-cpp#198)
+      # already ends the task-watchdog restarts after Wi-Fi stalls
+      # (Sendspin/sendspin-cpp#223). If they come back, return to the fork
+      # (Boisti13/sendspin-cpp, tag v0.9.3-busy-yield.1).
       - name: sendspin/sendspin-cpp
-        source: https://github.com/Boisti13/sendspin-cpp.git
-        ref: v0.9.3-busy-yield.1
+        source: https://github.com/Sendspin/sendspin-cpp.git
+        ref: v0.9.4
 
 psram:
   mode: quad
