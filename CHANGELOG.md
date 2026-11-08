@@ -68,6 +68,18 @@
   edge, J_USB and J_UI at the bottom. Routing clean-up: dangling vias and
   sub-minimum tracks fixed automatically after Freerouting.
 
+## v0.7.7 — 2026-11-08
+
+### Fixed
+
+- Back on our sendspin-cpp 0.9.3 fork with the sync-task busy yield
+  (tag `v0.9.3-busy-yield.1`, as in v0.7.5). The v0.7.6 test with plain
+  upstream 0.9.4 restarted on 2026-11-08 (task watchdog, core 1): right
+  after a reconnect, the sync task starved the main loop while priming
+  silence at the stream start (`handle_initial_sync` →
+  `send_pending_silence`). The busy yield covers that loop too. Reported on
+  [#223](https://github.com/Sendspin/sendspin-cpp/issues/223).
+
 ## v0.7.6 — 2026-11-06
 
 ### Changed

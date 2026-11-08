@@ -37,7 +37,7 @@ bash ../claude-setup/scripts/esphome-check.sh speaker.yaml           # + compile
 The ESPHome app builds `/homeassistant/esphome/speaker-test.yaml` (device
 `speaker-1`), with the fonts from `/homeassistant/esphome/fonts/` and
 the boot chime from `/homeassistant/esphome/sounds/boot.wav` (v0.6.0 on): a plain
-copy of `speaker.yaml` (v0.7.6 since 2026-11-06). The shared `secrets.yaml`
+copy of `speaker.yaml` (v0.7.7 since 2026-11-08). The shared `secrets.yaml`
 there has `speaker_1_key` and `speaker_1_ota_password`. Copy every new version
 whose compile check passed (no need to ask): back up the old file to
 `/config/project-backups/esphome/esp32-sendspin-speaker/` first, copy with
@@ -132,14 +132,12 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
 
 ## sendspin-cpp fork
 
-`speaker.yaml` overrides ESPHome's sendspin-cpp (`esp32: framework:
-components:`). **v0.7.6 (test, 2026-11-06)**: plain upstream `v0.9.4`
-from `Sendspin/sendspin-cpp`, because the maintainer asked on #223 whether
-its hard-sync fix (#198) already ends the watchdog restarts. If they come
-back (crash record in the speaker log), go back to v0.7.5's fork
-`Boisti13/sendspin-cpp` (tag `v0.9.3-busy-yield.1`, branch
-`esphome-2026.10/busy-yield`: 0.9.3 plus the sync-task busy yield; upstream
-PR #224, branch `fix/sync-task-busy-yield`) and report on #223. When
-ESPHome moves to a newer sendspin-cpp, check whether it has the fix, then
-drop the override — an old tag against a newer ESPHome component may not
-compile.
+`speaker.yaml` overrides ESPHome's sendspin-cpp with the fork
+`Boisti13/sendspin-cpp` (`esp32: framework: components:`, tag
+`v0.9.3-busy-yield.1`, branch `esphome-2026.10/busy-yield`): 0.9.3 plus the
+sync-task busy yield (Sendspin/sendspin-cpp#223; upstream PR #224, branch
+`fix/sync-task-busy-yield`). Plain upstream 0.9.4 was tested in v0.7.6
+(maintainer's request) and still hit the task watchdog on 2026-11-08, in
+the initial-sync silence priming after a reconnect. When ESPHome moves to
+a newer sendspin-cpp, check whether it has the fix, then drop the override
+— an old fork tag against a newer ESPHome component may not compile.
