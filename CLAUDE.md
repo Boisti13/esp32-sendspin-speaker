@@ -141,3 +141,16 @@ sync-task busy yield (Sendspin/sendspin-cpp#223; upstream PR #224, branch
 the initial-sync silence priming after a reconnect. When ESPHome moves to
 a newer sendspin-cpp, check whether it has the fix, then drop the override
 — an old fork tag against a newer ESPHome component may not compile.
+
+**Upstream fix** (2026-11-16): #224 was closed unmerged and #223 closed by
+PR Sendspin/sendspin-cpp#265 (merged to `main`, not in a release yet;
+v0.9.5 is the latest). It replaces the per-task yield with a shared
+`YieldPacer`: after 50 ms busy, the httpd receive, client transport and
+protocol task stay out of a 25 ms window every 100 ms, phase-aligned so
+all leave the CPU together (the sync task is not paced). That also covers
+the httpd/protocol-task starvation ishai-levy reported on #223, which our
+fork does not. The maintainer also advises 240 MHz (we have it) and a
+smaller audio buffer to shrink stream-start bursts (our 1 MB try in
+v0.7.2 gave worse dropouts). Once a release with #265 reaches ESPHome,
+drop the fork; until then a backport of #265 onto the fork's 0.9.3
+branch is an option.
