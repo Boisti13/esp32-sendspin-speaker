@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Fixed
+
+- v0.7.8: task-watchdog restarts in Sendspin's protocol task while it
+  decrypts a backlog of audio (twice on 2026-11-14 with v0.7.7). The
+  sendspin-cpp override now also carries upstream's YieldPacer
+  (Sendspin/sendspin-cpp#265, backported onto 0.9.3 as tag
+  `v0.9.3-yield-pacer.1`): receive and protocol work pause in short,
+  shared windows once busy, so ESPHome's main loop gets the CPU.
+
 ### Under the hood
 
 - `hardware/`: empty KiCad 10 project for a custom battery-powered PCB

@@ -8,7 +8,7 @@ esphome:
   friendly_name: Speaker_1
   project:
     name: boisti13.esp32-sendspin-speaker
-    version: "0.7.7"
+    version: "0.7.8"
   on_boot:
     # After the ES8388 is set up: send the DAC to both outputs (speaker
     # and headphone). Set on the device, so it doesn't wait for Home
@@ -31,11 +31,14 @@ esp32:
       # starved the main loop until the task watchdog restarted the speaker:
       # after Wi-Fi stalls while working off the backlog (0.9.3), and while
       # priming silence at a stream start after a reconnect (upstream 0.9.4,
-      # tested in v0.7.6). Reported as Sendspin/sendspin-cpp#223; drop this
-      # once ESPHome ships a sendspin-cpp with the fix.
+      # tested in v0.7.6). Since v0.7.8 also upstream's YieldPacer
+      # (Sendspin/sendspin-cpp#265, backported): httpd receive, transport and
+      # protocol task keep out of a 25 ms window every 100 ms once busy 50 ms
+      # (v0.7.7 still crashed in the protocol task's decrypt on 2026-11-14).
+      # Drop this once ESPHome ships a sendspin-cpp with #265.
       - name: sendspin/sendspin-cpp
         source: https://github.com/Boisti13/sendspin-cpp.git
-        ref: v0.9.3-busy-yield.1
+        ref: v0.9.3-yield-pacer.1
 
 psram:
   mode: quad

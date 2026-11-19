@@ -134,7 +134,9 @@ sharing `hardware/lib/`. Boards, connectors, parts and pin plan in
 
 `speaker.yaml` overrides ESPHome's sendspin-cpp with the fork
 `Boisti13/sendspin-cpp` (`esp32: framework: components:`, tag
-`v0.9.3-busy-yield.1`, branch `esphome-2026.10/busy-yield`): 0.9.3 plus the
+`v0.9.3-yield-pacer.1`, branch `esphome-2026.10/yield-pacer`, since v0.7.8;
+before `v0.9.3-busy-yield.1` on `esphome-2026.10/busy-yield`): 0.9.3 plus
+upstream's #265 YieldPacer (backported 2026-11-19) plus the
 sync-task busy yield (Sendspin/sendspin-cpp#223; upstream PR #224, branch
 `fix/sync-task-busy-yield`). Plain upstream 0.9.4 was tested in v0.7.6
 (maintainer's request) and still hit the task watchdog on 2026-11-08, in
@@ -152,8 +154,9 @@ the httpd/protocol-task starvation ishai-levy reported on #223, which our
 fork does not. The maintainer also advises 240 MHz (we have it) and a
 smaller audio buffer to shrink stream-start bursts (our 1 MB try in
 v0.7.2 gave worse dropouts). Once a release with #265 reaches ESPHome,
-drop the fork; until then a backport of #265 onto the fork's 0.9.3
-branch is an option.
+drop the fork. The backport of #265 is in since v0.7.8 (2026-11-19;
+conflicts only in `sync_task.cpp`, which keeps our busy yield, and the
+test list; host tests 704/704).
 
 **2026-11-19**: v0.7.7 still hit the task watchdog twice on 2026-11-14
 (20:27, 21:48), in the protocol task (`NoiseSession::decrypt` →
