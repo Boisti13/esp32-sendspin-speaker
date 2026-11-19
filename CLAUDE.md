@@ -154,3 +154,12 @@ smaller audio buffer to shrink stream-start bursts (our 1 MB try in
 v0.7.2 gave worse dropouts). Once a release with #265 reaches ESPHome,
 drop the fork; until then a backport of #265 onto the fork's 0.9.3
 branch is an option.
+
+**2026-11-19**: v0.7.7 still hit the task watchdog twice on 2026-11-14
+(20:27, 21:48), in the protocol task (`NoiseSession::decrypt` →
+poly1305; decoded with the check build's ELF on CT 117) — the case the
+fork's sync-task yield does not cover and #265 does. Separately the
+*Reset Reason* sensor shows power trouble since 2026-11-15: eight
+1–2 s *power-on* restarts that day and a **brownout** while playing on
+2026-11-19 18:31 — check the supply (adapter, cable, connector) before
+blaming firmware.
