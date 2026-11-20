@@ -157,6 +157,12 @@ v0.7.2 gave worse dropouts). Once a release with #265 reaches ESPHome,
 drop the fork. The backport of #265 is in since v0.7.8 (2026-11-19;
 conflicts only in `sync_task.cpp`, which keeps our busy yield, and the
 test list; host tests 704/704).
+**Flashed 2026-11-20 07:52** (OTA from HA's app, which built it with
+ESPHome **2026.11.0**; that still pins sendspin-cpp 0.9.3, and the build's
+`dependencies.lock` shows the fork at `622f889`, so the override applies).
+The night before, the speaker dropped off the network at 22:35 while
+playing (unreachable, *Errno 113*) and stayed off until the morning;
+cause unknown, since the OTA reboot overwrote *Reset Reason*.
 
 **2026-11-19**: v0.7.7 still hit the task watchdog twice on 2026-11-14
 (20:27, 21:48), in the protocol task (`NoiseSession::decrypt` →
