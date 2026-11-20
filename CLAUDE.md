@@ -160,9 +160,9 @@ test list; host tests 704/704).
 **Flashed 2026-11-20 07:52** (OTA from HA's app, which built it with
 ESPHome **2026.11.0**; that still pins sendspin-cpp 0.9.3, and the build's
 `dependencies.lock` shows the fork at `622f889`, so the override applies).
-The night before, the speaker dropped off the network at 22:35 while
-playing (unreachable, *Errno 113*) and stayed off until the morning;
-cause unknown, since the OTA reboot overwrote *Reset Reason*.
+The gap the night before (22:35 to the morning) was the owner switching
+it off: a power cut shows in MA as *No PONG received after 15 s*, the
+same as a hang, so check with the owner before counting one as a fault.
 
 **2026-11-19**: v0.7.7 still hit the task watchdog twice on 2026-11-14
 (20:27, 21:48), in the protocol task (`NoiseSession::decrypt` →
