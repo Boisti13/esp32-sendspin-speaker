@@ -163,6 +163,12 @@ ESPHome **2026.11.0**; that still pins sendspin-cpp 0.9.3, and the build's
 The gap the night before (22:35 to the morning) was the owner switching
 it off: a power cut shows in MA as *No PONG received after 15 s*, the
 same as a hang, so check with the owner before counting one as a fault.
+**Drops on the hour, 2026-11-20**: 08:00:14 an 11 s send stall (close
+1006 at 08:00:59, no restart), right after the Dash XS's 08:00 wake. It
+ran ESPHome 2026.10.2, which entered deep sleep still associated, so the
+ESP32 repeated its disassociation up to 32 times (WPA3/PMF,
+esp-idf#19443). Its firmware now leaves Wi-Fi first (Dash XS repo `dev`);
+once it is flashed, watch whether the :00 stalls stop.
 
 **2026-11-19**: v0.7.7 still hit the task watchdog twice on 2026-11-14
 (20:27, 21:48), in the protocol task (`NoiseSession::decrypt` →
